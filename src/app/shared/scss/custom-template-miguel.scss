@@ -1,0 +1,307 @@
+$sm-breakpoint: 576px;
+$md-breakpoint: 768px;
+$lg-breakpoint: 3000px;
+
+
+@media (max-width: ($sm-breakpoint - 1px)) {
+  .sm-flex-1 {
+    flex: 0 0 auto;
+    width: 8.3333%;
+    padding: 0.5rem;
+  }
+  .sm-flex-2 {
+    flex: 0 0 auto;
+    width: 16.6667%;
+    padding: 0.5rem;
+  }
+  .sm-flex-3 {
+    flex: 0 0 auto;
+    width: 25%;
+    padding: 0.5rem;
+  }
+  .sm-flex-4 {
+    flex: 0 0 auto;
+    width: 33.3333%;
+    padding: 0.5rem;
+  }
+  .sm-flex-5 {
+    flex: 0 0 auto;
+    width: 41.6667%;
+    padding: 0.5rem;
+  }
+  .sm-flex-6 {
+    flex: 0 0 auto;
+    width: 50%;
+    padding: 0.5rem;
+  }
+
+  .sm-flex-7 {
+    flex: 0 0 auto;
+    width: 58.3333%;
+    padding: 0.5rem;
+  }
+  .sm-flex-8 {
+    flex: 0 0 auto;
+    width: 66.6667%;
+    padding: 0.5rem;
+  }
+  .sm-flex-9 {
+    flex: 0 0 auto;
+    width: 75%;
+    padding: 0.5rem;
+  }
+  .sm-flex-10 {
+    flex: 0 0 auto;
+    width: 83.3333%;
+    padding: 0.5rem;
+  }
+  .sm-flex-11 {
+    flex: 0 0 auto;
+    width: 91.6667%;
+    padding: 0.5rem;
+  }
+  .sm-flex-12 {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .sm-flex-remain {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+}
+@media (min-width: $sm-breakpoint) and (max-width: ($md-breakpoint - 1px) ) {
+  .md-flex-1 {
+    flex: 0 0 auto;
+    width: 8.3333%;
+    padding: 0.5rem;
+  }
+  .md-flex-2 {
+    flex: 0 0 auto;
+    width: 16.6667%;
+    padding: 0.5rem;
+  }
+  .md-flex-3 {
+    flex: 0 0 auto;
+    width: 25%;
+    padding: 0.5rem;
+  }
+  .md-flex-4 {
+    flex: 0 0 auto;
+    width: 33.3333%;
+    padding: 0.5rem;
+  }
+  .md-flex-5 {
+    flex: 0 0 auto;
+    width: 41.6667%;
+    padding: 0.5rem;
+  }
+  .md-flex-6 {
+    flex: 0 0 auto;
+    width: 50%;
+    padding: 0.5rem;
+  }
+
+  .md-flex-7 {
+    flex: 0 0 auto;
+    width: 58.3333%;
+    padding: 0.5rem;
+  }
+  .md-flex-8 {
+    flex: 0 0 auto;
+    width: 66.6667%;
+    padding: 0.5rem;
+  }
+  .md-flex-9 {
+    flex: 0 0 auto;
+    width: 75%;
+    padding: 0.5rem;
+  }
+  .md-flex-10 {
+    flex: 0 0 auto;
+    width: 83.3333%;
+    padding: 0.5rem;
+  }
+  .md-flex-11 {
+    flex: 0 0 auto;
+    width: 91.6667%;
+    padding: 0.5rem;
+  }
+  .md-flex-12 {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .md-flex-remain {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+}
+@media (min-width: $md-breakpoint) and (max-width: ($lg-breakpoint - 1px)) {
+  .lg-flex-1 {
+    flex: 0 0 auto;
+    width: 8.3333%;
+    padding: 0.5rem;
+  }
+  .lg-flex-2 {
+    flex: 0 0 auto;
+    width: 16.6667%;
+    padding: 0.5rem;
+  }
+  .lg-flex-3 {
+    flex: 0 0 auto;
+    width: 25%;
+    padding: 0.5rem;
+  }
+  .lg-flex-4 {
+    flex: 0 0 auto;
+    width: 33.3333%;
+    padding: 0.5rem;
+  }
+  .lg-flex-5 {
+    flex: 0 0 auto;
+    width: 41.6667%;
+    padding: 0.5rem;
+  }
+  .lg-flex-6 {
+    flex: 0 0 auto;
+    width: 50%;
+    padding: 0.5rem;
+  }
+
+  .lg-flex-7 {
+    flex: 0 0 auto;
+    width: 58.3333%;
+    padding: 0.5rem;
+  }
+  .lg-flex-8 {
+    flex: 0 0 auto;
+    width: 66.6667%;
+    padding: 0.5rem;
+  }
+  .lg-flex-9 {
+    flex: 0 0 auto;
+    width: 75%;
+    padding: 0.5rem;
+  }
+  .lg-flex-10 {
+    flex: 0 0 auto;
+    width: 83.3333%;
+    padding: 0.5rem;
+  }
+  .lg-flex-11 {
+    flex: 0 0 auto;
+    width: 91.6667%;
+    padding: 0.5rem;
+  }
+  .lg-flex-12 {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .lg-flex-remain {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+  }
+}
+
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+  //margin-right: -0.5rem;
+  //margin-left: -0.5rem;
+ // margin-top: -0.5rem;
+}
+
+.flex-1 {
+  flex: 0 0 auto;
+  width: 8.3333%;
+  padding: 0.5rem;
+}
+.flex-2 {
+  flex: 0 0 auto;
+  width: 16.6667%;
+  padding: 0.5rem;
+}
+.flex-3 {
+  flex: 0 0 auto;
+  width: 25%;
+  padding: 0.5rem;
+}
+.flex-4 {
+  flex: 0 0 auto;
+  width: 33.3333%;
+  padding: 0.5rem;
+}
+.flex-5 {
+  flex: 0 0 auto;
+  width: 41.6667%;
+  padding: 0.5rem;
+}
+.flex-6 {
+  flex: 0 0 auto;
+  width: 50%;
+  padding: 0.5rem;
+}
+
+.flex-7 {
+  flex: 0 0 auto;
+  width: 58.3333%;
+  padding: 0.5rem;
+}
+.flex-8 {
+  flex: 0 0 auto;
+  width: 66.6667%;
+  padding: 0.5rem;
+}
+.flex-9 {
+  flex: 0 0 auto;
+  width: 75%;
+  padding: 0.5rem;
+}
+.flex-10 {
+  flex: 0 0 auto;
+  width: 83.3333%;
+  padding: 0.5rem;
+}
+.flex-11 {
+  flex: 0 0 auto;
+  width: 91.6667%;
+  padding: 0.5rem;
+}
+.flex-12 {
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.flex-remain {
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.align-items-center{
+  align-items: center;
+}
