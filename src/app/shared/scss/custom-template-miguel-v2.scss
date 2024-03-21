@@ -1,12 +1,13 @@
 .grid {
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  padding-right: -.5rem;
-  padding-left: -.5rem;
-  padding-top: -.5rem;
-  flex-direction: row;
+  box-sizing: border-box;
   align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  margin-top: -0.5rem;
+  padding: .5rem;
 }
 
 .grid-nogutter {
@@ -722,6 +723,29 @@
 }
 
 
-.text-align-center {
+.tac {
   text-align: center;
+}
+
+.padding-on {
+  padding: .5rem;
+}
+
+.padding-off {
+  padding-top: .5rem;
+  padding-right: 0;
+  padding-left: 0;
+  padding-bottom: .5rem;
+}
+
+::ng-deep html{
+  width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+.th{
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #0000008a;
 }

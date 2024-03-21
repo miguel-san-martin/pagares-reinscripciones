@@ -2,9 +2,13 @@
   <span>{{title}}</span>
   <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
 </mat-toolbar>
-<mat-nav-list>
-  @for (link of listModulos; track link) {
-    <a mat-list-item [href]="link.path" [activated]="link.isActive">{{ link.nombre }}</a>
-  }
-</mat-nav-list>
-<router-outlet></router-outlet>
+<div class="grid grid-nogutte" style="height: 92%;">
+  <mat-nav-list class="col-2">
+    @for (link of listModulos; track link) {
+      <a mat-list-item [href]="link.path" [activated]="link.isActive">{{ link.nombre }}</a>
+    }
+  </mat-nav-list>
+  <div class="col">
+    <router-outlet ></router-outlet>
+  </div>
+</div>
