@@ -25,6 +25,7 @@ export class GeneradorMasivoComponent {
     { label: 'Correo', namePropiedad: 'correo' },
     { label: 'Grado', namePropiedad: 'idGrado' },
     { label: 'Responsable', namePropiedad: 'nombreResponsable' },
+    { label: 'Todo', namePropiedad: 'active', checklist: 'true' },
   ];
 
   public data: Pagare[] = [
@@ -36,6 +37,7 @@ export class GeneradorMasivoComponent {
       correo: 'victor.saldierna@iest.edu.mx',
       idGrado: 2,
       nombreResponsable: 'VICTOR HUGO SALDIERNA RIOS',
+      active: true,
       direccion: {
         direccion: 'Fernandas 111 B	Fracc. Fernandas',
         colonia: 'Laguna de Champayan ',
@@ -52,6 +54,7 @@ export class GeneradorMasivoComponent {
       correo: 'victor.saldierna@iest.edu.mx',
       idGrado: 2,
       nombreResponsable: 'VICTOR HUGO SALDIERNA RIOS',
+      active: true,
       direccion: {
         direccion: 'Fernandas 111 B	Fracc. Fernandas',
         colonia: 'Laguna de Champayan ',
@@ -68,6 +71,7 @@ export class GeneradorMasivoComponent {
       correo: 'victor.saldierna@iest.edu.mx',
       idGrado: 2,
       nombreResponsable: 'VICTOR HUGO SALDIERNA RIOS',
+      active: true,
       direccion: {
         direccion: 'Fernandas 111 B	Fracc. Fernandas',
         colonia: 'Laguna de Champayan ',
@@ -84,6 +88,7 @@ export class GeneradorMasivoComponent {
       correo: 'victor.saldierna@iest.edu.mx',
       idGrado: 2,
       nombreResponsable: 'VICTOR HUGO SALDIERNA RIOS',
+      active: true,
       direccion: {
         direccion: 'Fernandas 111 B	Fracc. Fernandas',
         colonia: 'Laguna de Champayan ',
@@ -100,6 +105,7 @@ export class GeneradorMasivoComponent {
       correo: 'victor.saldierna@iest.edu.mx',
       idGrado: 2,
       nombreResponsable: 'VICTOR HUGO SALDIERNA RIOS',
+      active: true,
       direccion: {
         direccion: 'Fernandas 111 B	Fracc. Fernandas',
         colonia: 'Laguna de Champayan ',
@@ -116,6 +122,7 @@ export class GeneradorMasivoComponent {
       correo: 'victor.saldierna@iest.edu.mx',
       idGrado: 2,
       nombreResponsable: 'VICTOR HUGO SALDIERNA RIOS',
+      active: true,
       direccion: {
         direccion: 'Fernandas 111 B	Fracc. Fernandas',
         colonia: 'Laguna de Champayan ',
@@ -132,6 +139,7 @@ export class GeneradorMasivoComponent {
       correo: 'victor.saldierna@iest.edu.mx',
       idGrado: 2,
       nombreResponsable: 'VICTOR HUGO SALDIERNA RIOS',
+      active: true,
       direccion: {
         direccion: 'Fernandas 111 B	Fracc. Fernandas',
         colonia: 'Laguna de Champayan ',

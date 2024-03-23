@@ -1,6 +1,5 @@
 <div class="grid">
-  <h1 class="col">Generacion masiva</h1>
-
+  <h1 class="col-11">Generacion masiva</h1>
 
   <!-- Select Tipos de Pagare -->
   <mat-form-field class="col-12" style="padding: 0%">
@@ -13,11 +12,33 @@
   </mat-form-field>
   <!-- Select tipos de Pagare -->
 
-  <div class="col-12 padding-off animate__animated animate__fadeIn"
-  style="text-align-last: right">
-  <!-- Botones -->
-    <button mat-flat-button color="accent" (click)="simularBarra()" > Generar </button>
-    <button mat-flat-button color="accent" style="margin-left: 1rem">
+  <div
+    class="col-12 padding-off animate__animated animate__fadeIn"
+    style="
+      justify-content: space-evenly;
+      align-items: center;
+      align-content: center;
+      flex-direction: row-reverse;
+    "
+  >
+    <span
+      ><b>Costo:</b> $10000
+
+    </span>
+
+    <span>
+      <b>Promesas:</b> 6 Pagos
+    </span>
+
+    <span>
+      <b>Fechas: ____________ </b>
+    </span>
+    <!-- Botones -->
+    <button mat-flat-button color="primary" (click)="simularBarra()">
+      Generar
+    </button>
+
+    <button mat-flat-button color="primary" style="margin-left: 1rem">
       <mat-icon class="tac" style="margin: 0">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,19 +54,18 @@
         </svg>
       </mat-icon>
     </button>
-  <!-- Botones -->
-
-  <!-- Barra de progreso -->
-    <mat-progress-bar class="padding-off" mode="determinate" [value]="contador">
-    </mat-progress-bar>
-    <span class="col-12 tac" style="margin-left: 0.5rem"
-      >{{ contador }} / de 100</span
-    >
+    <!-- Botones -->
   </div>
+  <!-- Barra de progreso -->
+  <mat-progress-bar class="padding-off" mode="determinate" [value]="contador">
+  </mat-progress-bar>
+  <span class="col-12 tac" style="margin-left: 0.5rem"
+    >{{ contador }} / de 100</span
+  >
   <!-- Barra de progreso -->
 
   <!-- Tabla  -->
-<!--   <div class="col-12" style="padding: 0%; margin-top: 1rem">
+  <!--   <div class="col-12" style="padding: 0%; margin-top: 1rem">
     <table mat-table [dataSource]="dataSource">
       <tr mat-header-row *matHeaderRowDef="tableHeads"></tr>
       <tr mat-row *matRowDef="let row; columns: tableHeads"></tr>
@@ -67,9 +87,6 @@
   >
   </mat-paginator>
   </div> -->
- <shr-tabla [data]="data" [tableHead]="headTable" class="col" />
+  <shr-tabla [data]="data" [tableHead]="headTable" class="col-12 padding-off" />
   <!-- Tabla  -->
-
-
-
 </div>

@@ -15,3 +15,4 @@ export class PintarPagado implements PipeTransform {
   }
 
 }
+// 20291010|1910219|181019|1912910

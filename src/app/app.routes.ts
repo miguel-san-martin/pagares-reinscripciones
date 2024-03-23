@@ -10,4 +10,8 @@ export const routes: Routes = [
     path: 'especifica',
     loadComponent: () => import('./pages/generador-especifico/generador-especifico.component').then(c => c.GeneradorEspecificoComponent)
   },
+  {
+    path: 'config',
+    loadComponent: () => import('./pages/configuracion-generacion/configuracion-generacion.component').then(c => c.ConfiguracionGeneracionComponent)
+  },
 ];

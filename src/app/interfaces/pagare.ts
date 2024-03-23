@@ -6,6 +6,7 @@ export interface Pagare {
   costoInsumo: number,
   correo: string,
   nombreResponsable: string,
+  active: boolean
   direccion: PagareDireccion
 }
 

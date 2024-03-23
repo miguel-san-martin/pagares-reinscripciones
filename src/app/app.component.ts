@@ -28,6 +28,11 @@ export class AppComponent implements OnInit {
       isActive: false,
       path: './especifica',
     },
+    {
+      nombre: 'Configuracion de Generacion',
+      isActive: false,
+      path: './config',
+    },
   ];
 
 }
