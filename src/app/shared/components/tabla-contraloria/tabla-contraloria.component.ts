@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -12,13 +12,18 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   templateUrl: './tabla-contraloria.component.html',
   styleUrl: './tabla-contraloria.component.scss',
 })
-export class TablaContraloriaComponent {
+export class TablaContraloriaComponent implements OnChanges{
   @Input() tableHead!: any[];
   @Input() data!: any[];
-  @Input() checkList?: boolean = false;
+  @Input() checkList: boolean = false;
+  @Input() requiereIndex: boolean = false;
+
+  public noData: boolean = false;
+
   dataSource!: MatTableDataSource<any>;
 
   markAll: boolean = true;
+  banderaNoHayElementos: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -31,14 +36,35 @@ export class TablaContraloriaComponent {
     this.dataSource = new MatTableDataSource(this.addIndex(this.data));
   }
 
-  ngAfterViewInit() {
-    this.dataSource = new MatTableDataSource(this.addIndex(this.data));
-    this.dataSource.paginator = this.paginator;
-    console.log(this.dataSource);
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['data']){
+      this.construirTabla();
+    }
   }
+
+  ngAfterViewInit() {
+    this.construirTabla();
+    //console.log(this.dataSource);
+  }
+
+  construirTabla(){
+
+    if(this.data.length>0){
+      this.dataSource = new MatTableDataSource(this.addIndex(this.data));
+      this.dataSource.paginator = this.paginator;
+      console.log('data',this.data.length);
+      this.banderaNoHayElementos = true;
+    }else{
+      this.banderaNoHayElementos = false
+    }
+
+  }
+
+
 
   /**
    * Metodo que extrae la lista con los nombres y lo devuelve para que el hr los interprete
+   * Si requiere Index no se envia este no metera la columna 'No.'
    *
    * @readonly
    * @type {string[]}
@@ -49,7 +75,9 @@ export class TablaContraloriaComponent {
     this.tableHead.map((row) => {
       sti.push(row.label);
     });
-    sti.unshift('No.');
+    if(this.requiereIndex){
+      sti.unshift('No.');
+    }
     return sti;
   }
 
@@ -71,11 +99,17 @@ export class TablaContraloriaComponent {
     console.log($event);
   }
 
+
   addIndex(data: any) {
-    if (!this.data) return;
+
+
+    if(!this.requiereIndex) return data;
+    console.log(this.data)
+    if (this.data.length === 0) return [];
+
     data = this.data.map((r, index) => {
       const salida = { posicion: index + 1, ...r };
-      console.log(salida);
+      //console.log(salida);
       return salida;
     });
 

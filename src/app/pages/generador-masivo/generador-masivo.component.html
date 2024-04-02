@@ -1,16 +1,40 @@
 <div class="grid">
   <h1 class="col-11">Generacion masiva</h1>
+  <!-- Iniciar Select Tipos de Pagare -->
+  <div class="col-12 grid">
+    <mat-form-field class="col" style="padding: 0%">
+      <mat-label>Pagares</mat-label>
+      <mat-select
+        (selectionChange)="actualizarTabla($event)"
+        [(value)]="selectedCatalog"
+        name="catalogo"
+      >
+        @for (pagare of listaPagare; track pagare) {
+          <mat-option [value]="pagare.id">{{ pagare.descripcion }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field >
+    <!-- Select de generacion que solo aplica en 2 casos-->
+    <div #generacion style="display: none;">
+      <mat-form-field class="col-6" style="padding: 0%; margin-left: 1rem;">
+        <mat-label>Generacion</mat-label>
+        <mat-select
+          (selectionChange)="actualizarTabla({value: selectedCatalog},$event.value)"
+          [(value)]="selectedGen"
+          name="catalogo"
+        >
+          @for (generacion of listaGeneraciones; track generacion) {
+            <mat-option [value]="generacion.id">{{ generacion.nombre }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <!-- Select Tipos de Pagare -->
-  <mat-form-field class="col-12" style="padding: 0%">
-    <mat-label>Pagares</mat-label>
-    <mat-select>
-      @for (pagare of listaPagare; track pagare) {
-        <mat-option [value]="pagare.value">{{ pagare.nombre }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-  <!-- Select tipos de Pagare -->
+     <!-- Select de generacion que solo aplica en 2 casos-->
+
+  </div>
+
+  <!-- Fin Select tipos de Pagare -->
 
   <div
     class="col-12 padding-off animate__animated animate__fadeIn"
@@ -21,18 +45,18 @@
       flex-direction: row-reverse;
     "
   >
-    <span
-      ><b>Costo:</b> $10000
+    <!--Inicio panel informativo verde-->
+    <div class="alert alert-success" role="alert">
+      <span><b>Costo:</b> $10000 </span>
 
-    </span>
+      <span> <b>Promesas:</b> 6 Pagos </span>
 
-    <span>
-      <b>Promesas:</b> 6 Pagos
-    </span>
+      <span>
+        <b>Fechas: ____________ </b>
+      </span>
+    </div>
 
-    <span>
-      <b>Fechas: ____________ </b>
-    </span>
+    <!--Fin panel informativo verde-->
     <!-- Botones -->
     <button mat-flat-button color="primary" (click)="simularBarra()">
       Generar
@@ -57,15 +81,15 @@
     <!-- Botones -->
   </div>
   <!-- Barra de progreso -->
-  <mat-progress-bar class="padding-off" mode="determinate" [value]="contador">
-  </mat-progress-bar>
+
+  <mat-progress-bar class="padding-off" mode="determinate" [value]="porcentajeAvance"/>
   <span class="col-12 tac" style="margin-left: 0.5rem"
-    >{{ contador }} / de 100</span
-  >
+    >{{ progreso }} / de {{data.length}}</span>
   <!-- Barra de progreso -->
 
   <!-- Tabla  -->
   <!--   <div class="col-12" style="padding: 0%; margin-top: 1rem">
+
     <table mat-table [dataSource]="dataSource">
       <tr mat-header-row *matHeaderRowDef="tableHeads"></tr>
       <tr mat-row *matRowDef="let row; columns: tableHeads"></tr>
@@ -87,6 +111,14 @@
   >
   </mat-paginator>
   </div> -->
-  <shr-tabla [data]="data" [tableHead]="headTable" class="col-12 padding-off" />
+  @if (data!) {
+    <shr-tabla
+      [data]="data"
+      [tableHead]="headTable"
+      [checkList]="true"
+      [requiereIndex]="true"
+      class="col-12 padding-off"
+    />
+  }
   <!-- Tabla  -->
 </div>
