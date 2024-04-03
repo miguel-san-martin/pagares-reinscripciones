@@ -1,3 +1,74 @@
 <div class="grid">
-  <h1 class="col">Configurar generacion</h1>
+  <h1 class="col-11">Configurar generacion</h1>
+
+  <!-- Iniciar Select Tipos de Pagare -->
+  <div class="col-12 grid">
+    <mat-form-field class="col" style="padding: 0%">
+      <mat-label>Pagares</mat-label>
+      <mat-select
+        (selectionChange)="cargarFormulario($event.value)"
+        [(value)]="selectedCatalog"
+        name="catalogo"
+      >
+        @for (pagare of listaPagare; track pagare) {
+          <mat-option [value]="pagare.id">{{ pagare.descripcion }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <!-- Select de generacion que solo aplica en 2 casos-->
+  </div>
+  <h2>Numero de promesas</h2>
+  <h3>{{ sliderValue }} Meses</h3>
+  <div class="col-11">
+    <mat-slider min="1" max="8" step="1" value="1" style="width: 100%">
+      <input matSliderThumb [(ngModel)]="sliderValue" (change)="cambio()" />
+    </mat-slider>
+  </div>
+
+  <form class="example-form" [formGroup]="myForm" (ngSubmit)="onSave()">
+    <mat-form-field class="col-11">
+      <mat-label>Monto</mat-label>
+      <input
+        type="number"
+        formControlName="monto"
+        matInput
+        placeholder="Ex. pat@example.com"
+      />
+    </mat-form-field>
+
+    <div formArrayName="fechasPromesas">
+      @for (promesa of promesasControl; let i = $index; track promesa) {
+        <mat-form-field class="col-6">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" [formControlName]="i"/>
+          <mat-hint>Dia/Mes/Año</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      }
+    </div>
+
+    <div class="col">
+      <button mat-flat-button type="submit" class="btn btn-primary float-end">
+        Guardar
+      </button>
+    </div>
+  </form>
 </div>
+
+
+
+    <!--     @for (i of createArray(value); let indx = $index; track i) {
+
+      <mat-form-field class="col-6">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fechaPromesa[{{indx}}]">
+        <mat-hint>Dia/Mes/Año</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    } -->

@@ -1,4 +1,6 @@
-export const HEADTABLE = [
+import { HeaderTable } from "../../shared/interfaces/header-tables";
+
+export const HEADTABLE:HeaderTable[] = [
   { label: 'ID', namePropiedad: 'idPerson' },
   { label: 'Nombre', namePropiedad: 'nombre' },
   { label: 'Carrera', namePropiedad: 'abrCarrera' },

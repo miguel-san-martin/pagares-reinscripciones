@@ -4,7 +4,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { HeaderTable } from '../../interfaces/header-tables';
 
+enum bandera {
+    Disponible,
+    Vacia,
+    SinRespuesta
+}
 @Component({
   selector: 'shr-tabla',
   standalone: true,
@@ -13,17 +19,17 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   styleUrl: './tabla-contraloria.component.scss',
 })
 export class TablaContraloriaComponent implements OnChanges{
-  @Input() tableHead!: any[];
+  @Input() tableHead!: HeaderTable[];
   @Input() data!: any[];
   @Input() checkList: boolean = false;
   @Input() requiereIndex: boolean = false;
-
-  public noData: boolean = false;
 
   dataSource!: MatTableDataSource<any>;
 
   markAll: boolean = true;
   banderaNoHayElementos: boolean = false;
+
+  protector = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -32,32 +38,32 @@ export class TablaContraloriaComponent implements OnChanges{
     data: this.data
   } */
 
-  constructor() {
-    this.dataSource = new MatTableDataSource(this.addIndex(this.data));
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('Onchange');
+
     if(changes['data']){
       this.construirTabla();
     }
   }
-
+/*
   ngAfterViewInit() {
+    console.log('Afterview');
+
     this.construirTabla();
-    //console.log(this.dataSource);
-  }
+
+  } */
 
   construirTabla(){
+    console.log('Log',this.data);
 
     if(this.data.length>0){
       this.dataSource = new MatTableDataSource(this.addIndex(this.data));
       this.dataSource.paginator = this.paginator;
-      console.log('data',this.data.length);
       this.banderaNoHayElementos = true;
+      this.protector = true  // La primera ves que tenga datos
     }else{
-      this.banderaNoHayElementos = false
+      this.banderaNoHayElementos = false;
     }
-
   }
 
 
@@ -95,24 +101,16 @@ export class TablaContraloriaComponent implements OnChanges{
     this.dataSource.data.forEach((t) => (t.active = completed));
   }
 
-  imprimir($event: any) {
-    console.log($event);
-  }
-
-
   addIndex(data: any) {
-
-
-    if(!this.requiereIndex) return data;
-    console.log(this.data)
+    if(!this.requiereIndex) return data; // Si no requiere indices devuelve
     if (this.data.length === 0) return [];
 
+    // Aqui se añade ala data sus indices
     data = this.data.map((r, index) => {
       const salida = { posicion: index + 1, ...r };
       //console.log(salida);
       return salida;
     });
-
     return data;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { MaterialModule } from '../../material-module/material.module';
-import { Subscription, map } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
 import { TablaContraloriaComponent } from '../../shared/components/tabla-contraloria/tabla-contraloria.component';
 import { Alumno } from '../../interfaces/Alumno';
@@ -26,10 +26,11 @@ export class GeneradorMasivoComponent implements OnInit {
   @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generacion el segundo select oculto.
 
   public progreso: number = 0; // Progreso de la barra
+
   public listaPagare!: Catalogo[]; //Lista de Catalogos
-  public listaGeneraciones: GeneracionesResponse[] = []; //Lista de Generaciones
   public selectedCatalog!:string;// Valor del Select de Catalogos
-  public selectedGen: string | undefined;  //Valor del Select de Generacion que esta oculto.
+  public listaGeneraciones: GeneracionesResponse[] = []; //Lista de Generaciones
+  public selectedGeneracion: string | undefined;  //Valor del Select de Generacion que esta oculto.
   public data: Alumno[] = []; // Valores de la tabla
   public valoresQueRequierenGeneration = ['708', '798']
 
@@ -62,11 +63,11 @@ export class GeneradorMasivoComponent implements OnInit {
   actualizarTabla(event:any, generacion:string = '0'){
     let gen = '0'
     if((event.value == '798' || event.value == '708' )) {
-      this.selectedGen = generacion
+      this.selectedGeneracion = generacion
       gen = generacion;
     }else{
       console.log('El valor se ha restablecido');
-      this.selectedGen = undefined;
+      this.selectedGeneracion = undefined;
     }
 
 /*     console.log(event.value);

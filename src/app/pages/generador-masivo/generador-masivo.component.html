@@ -20,7 +20,7 @@
         <mat-label>Generacion</mat-label>
         <mat-select
           (selectionChange)="actualizarTabla({value: selectedCatalog},$event.value)"
-          [(value)]="selectedGen"
+          [(value)]="selectedGeneracion"
           name="catalogo"
         >
           @for (generacion of listaGeneraciones; track generacion) {
@@ -112,7 +112,7 @@
   </mat-paginator>
   </div> -->
   @if (data!) {
-    <shr-tabla
+    <shr-tabla class="animate__animated animate__fadeIn"
       [data]="data"
       [tableHead]="headTable"
       [checkList]="true"

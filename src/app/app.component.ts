@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
       path: './especifica',
     },
     {
-      nombre: 'Configuracion de Generacion',
+      nombre: 'Configuracion de Plazos',
       isActive: false,
       path: './config',
     },
