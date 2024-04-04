@@ -10,7 +10,6 @@ import {
 } from '@angular/forms';
 import { MaterialModule } from '../../material-module/material.module';
 import { TablaContraloriaComponent } from '../../shared/components/tabla-contraloria/tabla-contraloria.component';
-import { MatSelectChange } from '@angular/material/select';
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
 import { Catalogo } from '../../interfaces/catalogo';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -32,17 +31,13 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   FB = inject(FormBuilder);
 
   Service = inject(PagareReinscripcionesService);
+
   selectedCatalog: any = 0;
   listaPagare: Catalogo[] = [];
   //fechasPromesas!: FormArray;
   sliderValue = 1;
 
-  public myForm: FormGroup = this.FB.group({
-    idOperacion: [this.selectedCatalog],
-    monto: [],
-    cantidadPromesas: [this.sliderValue],
-    fechasPromesas: this.FB.array([['']]),
-  });
+  public myForm!: FormGroup;
 
   get promesasControl() {
     return (this.myForm.get('fechasPromesas') as FormArray).controls;
@@ -53,7 +48,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.Service.GetPagaresCatalogosOperaciones().subscribe(
+/*     this.Service.GetPagaresCatalogosOperaciones().subscribe(
       (response: Catalogo[]) => {
         console.log('response', response);
         this.listaPagare = response;
@@ -61,27 +56,53 @@ export class ConfiguracionGeneracionComponent implements OnInit {
         // this.selectedCatalog = valorPorDefault;
         // this.cargarFormulario({value: valorPorDefault})
       },
-    );
+    ); */
+
+    this.myForm = this.FB.group({
+      idOperacion: [this.selectedCatalog],
+      monto: [10000,Validators.required],
+      cantidadPromesas: [this.sliderValue],
+      fechasPromesas: this.FB.array([]),
+    });
+    if(this.sliderValue == 1) this.addDate();
   }
 
+  addDate() {
+    const arreglo = this.myForm.get('fechasPromesas') as FormArray
+    const grupo = this.FB.group({
+      date: [null,Validators.required]
+    })
+    arreglo.push(grupo)
+    console.log('Añadido');
+    
+  }
+
+  removeDate(){
+    const arreglo = this.myForm.get('fechasPromesas') as FormArray
+    arreglo.removeAt(this.sliderValue)
+    console.log('Removido');
+  }
+
+
+  //Metodo que se ejecuta cuando detecta un cambio en la barra
   cambio() {
     const size = this.promesasControl.length;
     console.log('barra', this.sliderValue, 'forms', size);
 
     if (size < this.sliderValue) {
-      console.log('entra');
       while (this.promesasControl.length < this.sliderValue) {
-        this.promesasControl.push(this.FB.control(''));
+        this.addDate()
       }
     } else {
       while (this.promesasControl.length > this.sliderValue) {
-        this.promesasControl.pop();
+        this.removeDate()
       }
     }
-    this.myForm.updateValueAndValidity();
   }
 
+  // Funcion que se ejecuta tras seleccionar un elemento en el select
   cargarFormulario(id: string) {
+
     const catalogo = this.listaPagare.filter((obj) => {
       return obj.id === id;
     });
@@ -89,6 +110,9 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     //throw new Error('Method not implemented.');
   }
+
+
+  // Metodo que se ejecuta con el onsumit
   onSave() {
     this.myForm.patchValue({
       cantidadPromesas: this.sliderValue,
