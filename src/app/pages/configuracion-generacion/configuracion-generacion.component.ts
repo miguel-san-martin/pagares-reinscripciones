@@ -14,6 +14,7 @@ import { PagareReinscripcionesService } from '../../services/pagare-reinscripcio
 import { Catalogo } from '../../interfaces/catalogo';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RequestAltaPagare } from '../../interfaces/request/request-alta-pagare';
+import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.interface';
 
 @Component({
   standalone: true,
@@ -28,7 +29,6 @@ import { RequestAltaPagare } from '../../interfaces/request/request-alta-pagare'
   templateUrl: './configuracion-generacion.component.html',
   styleUrl: './configuracion-generacion.component.scss',
 })
-
 export class ConfiguracionGeneracionComponent implements OnInit {
   FB = inject(FormBuilder);
   Service = inject(PagareReinscripcionesService);
@@ -36,6 +36,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   selectedCatalog: any = 0;
   listaPagare: Catalogo[] = [];
   sliderValue = 1;
+
 
   public myForm!: FormGroup;
 
@@ -52,9 +53,6 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       (response: Catalogo[]) => {
         console.log('response', response);
         this.listaPagare = response;
-        //const valorPorDefault = this.listaPagare[1].id
-        // this.selectedCatalog = valorPorDefault;
-        // this.cargarFormulario({value: valorPorDefault})
       },
     );
 
@@ -104,14 +102,11 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       return obj.id === id;
     });
 
-    this.Service.ConsultaPagares({idOperacion: id}).subscribe(
-      (response) => {
-        console.log(response);
-
-      }
-    )
-
-
+    this.Service.ConsultarCostoPromesas({ idOperacion: id, idGeneracion: '0' }).subscribe(
+      (response:CostoPromesaResponse[]) => {
+        console.log('Consulta Precio',response[0].costo);
+      },
+    );
   }
 
   // Metodo que se ejecuta con el onsumit
@@ -123,20 +118,26 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       return this.Service.formatearFecha(row.date);
     });
 
+    fechasConcat = fechasConcat.slice(0, fechasConcat.length - 1);
+
+
+
     console.log(fechasConcat);
 
     this.myForm.patchValue({
       cantidadPromesas: this.sliderValue,
     });
-    //console.log(this.myForm.value);
+
+
     const monto = this.myForm.get('monto')?.value;
     const envio: RequestAltaPagare = {
       idOperacion: this.selectedCatalog,
-      cantidadPromesas: '' + this.sliderValue,
-      monto: '' + monto,
+      cantidadPromesas: this.sliderValue.toString(),
+      monto: monto,
       fechasPromesas: fechasConcat,
-      idGeneracion: '0'
+      idGeneracion: '0',
     };
+
     this.Service.PostAltaPagares(envio).subscribe((response) => {
       console.log(response);
     });

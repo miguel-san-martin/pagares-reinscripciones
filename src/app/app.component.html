@@ -2,7 +2,7 @@
   <span>{{title}}</span>
   <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
 </mat-toolbar>
-<div class="grid grid-nogutte" style="height: 92%;">
+<div class="grid grid-nogutte" style="height: 92%; ">
   <mat-nav-list class="col-2">
     @for (link of listModulos; track link) {
       <a mat-list-item [href]="link.path" [activated]="link.isActive">{{ link.nombre }}</a>

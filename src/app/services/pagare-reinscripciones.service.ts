@@ -14,6 +14,7 @@ import { ResponseAlumnoService } from './mappingServices/response-alumno.service
 import { AlumnoResponse } from '../interfaces/responses/AlumnoResponse';
 import { GeneracionesResponse } from '../interfaces/generaciones-response';
 import { RequestAltaPagare } from '../../../src/app/interfaces/request/request-alta-pagare';
+import { CostoPromesaResponse } from '../interfaces/responses/costo-promesas.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -154,10 +155,10 @@ export class PagareReinscripcionesService extends ServicioBase {
     );
   }
 
-  public ConsultaPagares(
-    extras: {idOperacion:string}, // envia un carcacter numero o nombre
+  public ConsultarCostoPromesas(
+    extras: {idOperacion:string, idGeneracion: string}, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
-  ): Observable<any> {
+  ): Observable<CostoPromesaResponse[]> {
     const parametros = {
       servicio: 'pagaresMasivo',
       accion: 'CON_GeneracionPagares_Administracion_Consulta',
@@ -168,4 +169,5 @@ export class PagareReinscripcionesService extends ServicioBase {
       '/api/contraloria/generaPagaresM.php',
     );
   }
+
 }

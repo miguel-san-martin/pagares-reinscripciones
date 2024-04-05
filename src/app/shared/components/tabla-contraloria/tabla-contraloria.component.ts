@@ -28,7 +28,6 @@ export class TablaContraloriaComponent implements OnChanges{
 
   markAll: boolean = true;
   banderaNoHayElementos: boolean = false;
-
   protector = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,8 +38,7 @@ export class TablaContraloriaComponent implements OnChanges{
   } */
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('Onchange');
-
+/*     console.log('Onchange'); */
     if(changes['data']){
       this.construirTabla();
     }
@@ -54,13 +52,13 @@ export class TablaContraloriaComponent implements OnChanges{
   } */
 
   construirTabla(){
-    console.log('Log',this.data);
-
+/*     console.log('Log',this.data); */
+    this.protector = true  // La primera ves que tenga datos
     if(this.data.length>0){
       this.dataSource = new MatTableDataSource(this.addIndex(this.data));
       this.dataSource.paginator = this.paginator;
       this.banderaNoHayElementos = true;
-      this.protector = true  // La primera ves que tenga datos
+
     }else{
       this.banderaNoHayElementos = false;
     }

@@ -1,50 +1,10 @@
 <div class="grid">
   <h1 class="col-11">Generacion masiva</h1>
-  <!-- Iniciar Select Tipos de Pagare -->
-  <div class="col-12 grid">
-    <mat-form-field class="col" style="padding: 0%">
-      <mat-label>Pagares</mat-label>
-      <mat-select
-        (selectionChange)="actualizarTabla($event)"
-        [(value)]="selectedCatalog"
-        name="catalogo"
-      >
-        @for (pagare of listaPagare; track pagare) {
-          <mat-option [value]="pagare.id">{{ pagare.descripcion }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field >
-    <!-- Select de generacion que solo aplica en 2 casos-->
-    <div #generacion style="display: none;">
-      <mat-form-field class="col-6" style="padding: 0%; margin-left: 1rem;">
-        <mat-label>Generacion</mat-label>
-        <mat-select
-          (selectionChange)="actualizarTabla({value: selectedCatalog},$event.value)"
-          [(value)]="selectedGeneracion"
-          name="catalogo"
-        >
-          @for (generacion of listaGeneraciones; track generacion) {
-            <mat-option [value]="generacion.id">{{ generacion.nombre }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
 
-     <!-- Select de generacion que solo aplica en 2 casos-->
+  <app-select-pagares class="col-12" (selectedCatalog)="actualizarTabla($event)"/>
 
-  </div>
-
-  <!-- Fin Select tipos de Pagare -->
-
-  <div
-    class="col-12 padding-off animate__animated animate__fadeIn"
-    style="
-      justify-content: space-evenly;
-      align-items: center;
-      align-content: center;
-      flex-direction: row-reverse;
-    "
-  >
+  <div class="col-12 padding-off animate__animated animate__fadeIn"
+  style="justify-content: space-evenly;align-items: center;align-content: center;flex-direction: row-reverse;">
     <!--Inicio panel informativo verde-->
     <div class="alert alert-success" role="alert">
       <span><b>Costo:</b> $10000 </span>
@@ -82,12 +42,65 @@
   </div>
   <!-- Barra de progreso -->
 
-  <mat-progress-bar class="padding-off" mode="determinate" [value]="porcentajeAvance"/>
+  <mat-progress-bar
+    class="padding-off"
+    mode="determinate"
+    [value]="porcentajeAvance"
+  />
   <span class="col-12 tac" style="margin-left: 0.5rem"
-    >{{ progreso }} / de {{data.length}}</span>
+    >{{ progreso }} / de {{ data?.length }}</span
+  >
   <!-- Barra de progreso -->
 
+
+  @if (data!) {
+    <shr-tabla
+      class="animate__animated animate__fadeIn"
+      [data]="data"
+      [tableHead]="headTable"
+      [checkList]="true"
+      [requiereIndex]="true"
+      class="col-12 padding-off"
+    />
+  }
   <!-- Tabla  -->
+</div>
+
+<!--
+  <div class="col-12 grid">
+    <mat-form-field class="col" style="padding: 0%">
+      <mat-label>Pagares</mat-label>
+      <mat-select
+        (selectionChange)="actualizarTabla($event)"
+        [(value)]="selectedCatalog"
+        name="catalogo"
+      >
+        @for (pagare of listaPagare; track pagare) {
+          <mat-option [value]="pagare.id">{{ pagare.descripcion }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field >
+
+
+    <div #generacion style="display: none;">
+      <mat-form-field class="col-6" style="padding: 0%; margin-left: 1rem;">
+        <mat-label>Generacion</mat-label>
+        <mat-select
+          (selectionChange)="actualizarTabla({value: selectedCatalog},$event.value)"
+          [(value)]="selectedGeneracion"
+          name="catalogo"
+        >
+          @for (generacion of listaGeneraciones; track generacion) {
+            <mat-option [value]="generacion.id">{{ generacion.nombre }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div> -->
+
+<!-- Fin Select tipos de Pagare -->
+
+<!-- Tabla  -->
   <!--   <div class="col-12" style="padding: 0%; margin-top: 1rem">
 
     <table mat-table [dataSource]="dataSource">
@@ -111,14 +124,3 @@
   >
   </mat-paginator>
   </div> -->
-  @if (data!) {
-    <shr-tabla class="animate__animated animate__fadeIn"
-      [data]="data"
-      [tableHead]="headTable"
-      [checkList]="true"
-      [requiereIndex]="true"
-      class="col-12 padding-off"
-    />
-  }
-  <!-- Tabla  -->
-</div>
