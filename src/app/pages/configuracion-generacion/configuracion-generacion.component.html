@@ -2,7 +2,7 @@
   <h1 class="col-12">Configurar generacion</h1>
 
   <!-- Iniciar Select Tipos de Pagare -->
-  <div class="col-12 grid">
+<!--   <div class="col-12 grid">
     <mat-form-field class="col" style="padding: 0%">
       <mat-label>Pagares</mat-label>
       <mat-select
@@ -15,15 +15,17 @@
         }
       </mat-select>
     </mat-form-field>
-    <!-- Select de generacion que solo aplica en 2 casos-->
-  </div>
+  </div> -->
+  <!-- Select de generacion que solo aplica en 2 casos-->
 
-  @if(selectedCatalog){
+  <app-select-pagares class="col-12" (selectedCatalog)="cargarFormulario($event)"/>
+
+  @if(idOperacion){
     <h2>Numero de promesas</h2>
     <h3>{{ sliderValue }} Meses</h3>
     <div class="col-11">
       <mat-slider min="1" max="8" step="1" value="1" style="width: 100%">
-        <input matSliderThumb [(ngModel)]="sliderValue" (change)="cambio()" />
+        <input matSliderThumb [(ngModel)]="sliderValue" (change)="detectSliderChange()" />
       </mat-slider>
     </div>
 

@@ -43,7 +43,7 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   ngOnInit(): void {
     this.Service.GetPagaresCatalogosOperaciones().subscribe(
       (response: Catalogo[]) => {
-        console.log('response', response);
+        //console.log('response', response);
         this.listaPagare = response;
         const valorPorDefault = this.listaPagare[1].id;
         this.selectedCatalog = valorPorDefault;
@@ -81,7 +81,7 @@ export class SelectPagaresGeneracionComponent implements OnInit {
       this.selectedGeneracion = generacion;
       gen = generacion;
     } else {
-      console.log('El valor se ha restablecido');
+      // console.log('El valor se ha restablecido');
       this.selectedGeneracion = undefined;
     }
     this.displaySubSelect(event.value);

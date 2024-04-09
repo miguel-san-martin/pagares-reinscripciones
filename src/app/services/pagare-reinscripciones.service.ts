@@ -15,6 +15,7 @@ import { AlumnoResponse } from '../interfaces/responses/AlumnoResponse';
 import { GeneracionesResponse } from '../interfaces/generaciones-response';
 import { RequestAltaPagare } from '../../../src/app/interfaces/request/request-alta-pagare';
 import { CostoPromesaResponse } from '../interfaces/responses/costo-promesas.interface';
+import { ConsultaFecha } from '../interfaces/responses/consulta-fecha';
 
 @Injectable({
   providedIn: 'root',
@@ -140,6 +141,11 @@ export class PagareReinscripcionesService extends ServicioBase {
     return `${dia}-${mes}-${año}`;
   }
 
+
+  public formatearStringAFecha(fechas:string[]){
+
+  }
+
   public PostAltaPagares(
     extras: RequestAltaPagare, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
@@ -170,4 +176,40 @@ export class PagareReinscripcionesService extends ServicioBase {
     );
   }
 
+  public ConsultarFechasPromesas(
+    extras: {idOperacion:string, idGeneracion: string}, // envia un carcacter numero o nombre
+    //PER_BuscadoresPersonas,
+  ): Observable<ConsultaFecha[]> {
+    const parametros = {
+      servicio: 'pagaresMasivo',
+      accion: 'CON_GeneracionPagares_Administracion_ConsultaFecha',
+      tipoRespuesta: 'json',
+    };
+    return this.consulta(
+      { ...parametros, ...extras },
+      '/api/contraloria/generaPagaresM.php',
+    );
+  }
+
+  /**
+   *  Indica si existen o no datos capturados sobre costos y plazo set
+   *
+   * @param {{idOperacion:string}} extras
+   * @return {Observable<ConsultaFecha[]>}
+   * @memberof PagareReinscripcionesService
+   */
+  public ConsultarValidacionPromesas(
+    extras: {idOperacion:string, idGeneracion: string}, // envia un carcacter numero o nombre
+    //PER_BuscadoresPersonas,
+  ): Observable<any[]> {
+    const parametros = {
+      servicio: 'pagaresMasivo',
+      accion: 'CON_GeneracionPagares_Administracion_Validacion',
+      tipoRespuesta: 'json',
+    };
+    return this.consulta(
+      { ...parametros, ...extras },
+      '/api/contraloria/generaPagaresM.php',
+    );
+  }
 }

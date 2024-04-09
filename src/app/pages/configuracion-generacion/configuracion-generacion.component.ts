@@ -15,11 +15,15 @@ import { Catalogo } from '../../interfaces/catalogo';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RequestAltaPagare } from '../../interfaces/request/request-alta-pagare';
 import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.interface';
+import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
+import { SelectedPagareGeneracion } from '../../interfaces/selected-pagare-generacion';
+import { ConsultaFecha } from '../../interfaces/responses/consulta-fecha';
 
 @Component({
   standalone: true,
   imports: [
     MaterialModule,
+    SelectPagaresGeneracionComponent,
     TablaContraloriaComponent,
     FormsModule,
     CommonModule,
@@ -29,14 +33,13 @@ import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.
   templateUrl: './configuracion-generacion.component.html',
   styleUrl: './configuracion-generacion.component.scss',
 })
+
 export class ConfiguracionGeneracionComponent implements OnInit {
   FB = inject(FormBuilder);
   Service = inject(PagareReinscripcionesService);
 
-  selectedCatalog: any = 0;
-  listaPagare: Catalogo[] = [];
-  sliderValue = 1;
-
+  idOperacion: any = 0;
+  sliderValue = 8;
 
   public myForm!: FormGroup;
 
@@ -49,42 +52,35 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.Service.GetPagaresCatalogosOperaciones().subscribe(
-      (response: Catalogo[]) => {
-        console.log('response', response);
-        this.listaPagare = response;
-      },
-    );
-
     this.myForm = this.FB.group({
-      idOperacion: [this.selectedCatalog],
+      idOperacion: [this.idOperacion],
       monto: [10000, Validators.required],
       cantidadPromesas: [this.sliderValue],
       fechasPromesas: this.FB.array([]),
     });
+
     if (this.sliderValue == 1) this.addDate();
   }
 
-  addDate() {
+  addDate(date: any | null = null) {
     const arreglo = this.myForm.get('fechasPromesas') as FormArray;
     const grupo = this.FB.group({
-      date: [null, Validators.required],
+      date: [date, Validators.required],
     });
     arreglo.push(grupo);
-    console.log('Añadido');
+    //console.log('Añadido');
   }
 
   removeDate() {
     const arreglo = this.myForm.get('fechasPromesas') as FormArray;
     arreglo.removeAt(this.sliderValue);
-    console.log('Removido');
+    //console.log('Removido');
   }
 
-  //Metodo que se ejecuta cuando detecta un cambio en la barra
-  cambio() {
+  //Metodo que se ejecuta cuando detecta un detectSliderChange en la barra
+  detectSliderChange() {
     const size = this.promesasControl.length;
-    console.log('barra', this.sliderValue, 'forms', size);
-
+    //console.log('barra', this.sliderValue, 'forms', size);
     if (size < this.sliderValue) {
       while (this.promesasControl.length < this.sliderValue) {
         this.addDate();
@@ -97,18 +93,55 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   }
 
   // Funcion que se ejecuta tras seleccionar un elemento en el select
-  cargarFormulario(id: string) {
-    const catalogo = this.listaPagare.filter((obj) => {
-      return obj.id === id;
+  cargarFormulario(selected: SelectedPagareGeneracion) {
+    this.myForm = this.FB.group({
+      idOperacion: [this.idOperacion],
+      monto: [10000, Validators.required],
+      cantidadPromesas: [1],
+      fechasPromesas: this.FB.array([]),
     });
 
-    this.Service.ConsultarCostoPromesas({ idOperacion: id, idGeneracion: '0' }).subscribe(
-      (response:CostoPromesaResponse[]) => {
-        console.log('Consulta Precio',response[0].costo);
-      },
-    );
-  }
+    //Set Promesas
+    this.idOperacion = selected.catalog;
+    this.myForm.get('cantidadPromesas')?.patchValue(selected.catalog)
 
+
+    //Set Monto
+    this.Service.ConsultarCostoPromesas({
+      idOperacion: selected.catalog,
+      idGeneracion: selected.generation.toString(),
+    }).subscribe((response: CostoPromesaResponse[]) => {
+      const promesas = response[0];
+      this.sliderValue = Number(promesas.promesas);
+      this.myForm.patchValue({
+        monto: Number(promesas.costo),
+      });
+    });
+
+    let fechasDate: Date[] = [];
+    this.Service.ConsultarFechasPromesas({
+      idOperacion: selected.catalog,
+      idGeneracion: selected.generation.toString(),
+    }).subscribe((response: ConsultaFecha[]) => {
+      const mapa = response;
+      mapa.map((m) => {
+        fechasDate.push(new Date(m.FechaVencimiento));
+      });
+
+      this.createDates(fechasDate);
+
+      console.log(this.myForm.value);
+
+      //this.setTime(fechasDate);
+    });
+  }
+  createDates(fechasDate: Date[]) {
+    const fechasPromesasArray = this.myForm.get('fechasPromesas') as FormArray;
+    fechasPromesasArray.setValue([]);
+    fechasDate.forEach((r) => {
+      this.addDate(r);
+    });
+  }
   // Metodo que se ejecuta con el onsumit
   onSave() {
     let fechasConcat: string = '';
@@ -120,18 +153,15 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     fechasConcat = fechasConcat.slice(0, fechasConcat.length - 1);
 
-
-
     console.log(fechasConcat);
 
     this.myForm.patchValue({
       cantidadPromesas: this.sliderValue,
     });
 
-
     const monto = this.myForm.get('monto')?.value;
     const envio: RequestAltaPagare = {
-      idOperacion: this.selectedCatalog,
+      idOperacion: this.idOperacion,
       cantidadPromesas: this.sliderValue.toString(),
       monto: monto,
       fechasPromesas: fechasConcat,
