@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'AMDtoDMA',
-  standalone: true
+  standalone: false
 })
 export class FormatoamdhhFormatodmaPipe implements PipeTransform {
 
@@ -12,7 +12,7 @@ export class FormatoamdhhFormatodmaPipe implements PipeTransform {
     salida = salida.trim();
     const fechas:string[] = salida.split("-")
 
-    return ``;
+    return `${fechas[2]}-${fechas[1]}-${fechas[0]}`;
   }
 
 }

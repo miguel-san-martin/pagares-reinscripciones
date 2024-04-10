@@ -22,6 +22,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {MatSliderModule} from '@angular/material/slider';
     MatTabsModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatTableModule
+    MatTableModule,
+    MatNativeDateModule
   ],
 })
 export class MaterialModule {}

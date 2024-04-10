@@ -8,26 +8,20 @@ import {
 import { MaterialModule } from '../../material-module/material.module';
 import { Subscription } from 'rxjs';
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
-import { TablaContraloriaComponent } from '../../shared/components/tabla-contraloria/tabla-contraloria.component';
 import { Alumno } from '../../interfaces/Alumno';
-import { FormsModule } from '@angular/forms';
 import { ResponseAlumnoService } from '../../services/mappingServices/response-alumno.service';
-import { Catalogo } from '../../interfaces/catalogo';
-import { CommonModule } from '@angular/common';
-import { GeneracionesResponse } from '../../interfaces/generaciones-response';
 import { HEADTABLE } from './headTable';
 import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
 import { SelectedPagareGeneracion } from '../../interfaces/selected-pagare-generacion';
 import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.interface';
 import { ConsultaFecha } from '../../interfaces/responses/consulta-fecha';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   standalone: true,
   imports: [
     MaterialModule,
-    TablaContraloriaComponent,
-    FormsModule,
-    CommonModule,
+    SharedModule,
     SelectPagaresGeneracionComponent,
   ],
   templateUrl: './generador-masivo.component.html',
@@ -43,19 +37,20 @@ export class GeneradorMasivoComponent implements OnInit {
   public data: Alumno[] | undefined = undefined; // Valores de la tabla
   public headTable = HEADTABLE; //Variable global
 
-  fechas: ConsultaFecha[] = [];
+  public fechas: ConsultaFecha[] = [];
 
-  infoBar = {
+  public infoBar = {
     costo: '',
     promesas: '',
     fechas: this.fechas,
-    msj: '',
+    msj: ''
   };
 
   ngOnInit(): void {}
 
   actualizarAlert(selected: SelectedPagareGeneracion) {
 
+    //Consulta Validacion Promesas
     this.Service.ConsultarValidacionPromesas({
       idOperacion: selected.catalog,
       idGeneracion: selected.generation.toString(),
@@ -63,11 +58,11 @@ export class GeneradorMasivoComponent implements OnInit {
       this.infoBar.msj = response[0].msj;
     });
 
+    //Consulta del Costo de las promesas y numero de promesas
     this.Service.ConsultarCostoPromesas({
       idOperacion: selected.catalog,
       idGeneracion: selected.generation.toString(),
     }).subscribe((response: CostoPromesaResponse[]) => {
-      //console.log('Datos pagare', response[0].costo);
       if (response.length > 0) {
         const { costo, promesas } = response[0];
         this.infoBar.costo = costo;
@@ -80,6 +75,7 @@ export class GeneradorMasivoComponent implements OnInit {
       }
     });
 
+    //Consulta de las fechas de la promesas
     this.Service.ConsultarFechasPromesas({
       idOperacion: selected.catalog,
       idGeneracion: selected.generation.toString(),
@@ -128,4 +124,5 @@ export class GeneradorMasivoComponent implements OnInit {
       });
     }
   }
+
 }

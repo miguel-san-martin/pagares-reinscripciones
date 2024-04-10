@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostBinding } from '@angular/core';
 
 @Directive({
   selector: '[pagoVerde]',
-  standalone: true
+  standalone: false
 })
 export class PagoVerdeDirective {
 

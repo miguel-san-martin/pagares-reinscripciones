@@ -13,8 +13,8 @@ enum bandera {
 }
 @Component({
   selector: 'shr-tabla',
-  standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, FormsModule],
+  standalone: false,
+  //imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, FormsModule],
   templateUrl: './tabla-contraloria.component.html',
   styleUrl: './tabla-contraloria.component.scss',
 })

@@ -16,23 +16,22 @@ export class AppComponent implements OnInit {
 
   activatedRoute = inject(ActivatedRoute);
 
-  title = 'pagares-reinscripciones';
+  title = 'Módulo de Impresión Pagares para Reinscripción';
   listModulos = [
     {
-      nombre: 'Generacion Masiva',
+      nombre: 'Generación Masiva',
       isActive: true,
       path: './masiva',
     },
     {
-      nombre: 'Generacion Especifica',
-      isActive: false,
-      path: './especifica',
-    },
-    {
-      nombre: 'Configuracion de Plazos',
+      nombre: 'Configuración de Plazos de Pago',
       isActive: false,
       path: './config',
     },
   ];
 
+click(){
+  console.log('0');
+
+}
 }

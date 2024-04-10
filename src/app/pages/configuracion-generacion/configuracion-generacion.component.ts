@@ -18,17 +18,14 @@ import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.
 import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
 import { SelectedPagareGeneracion } from '../../interfaces/selected-pagare-generacion';
 import { ConsultaFecha } from '../../interfaces/responses/consulta-fecha';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   standalone: true,
   imports: [
     MaterialModule,
     SelectPagaresGeneracionComponent,
-    TablaContraloriaComponent,
-    FormsModule,
-    CommonModule,
-    ReactiveFormsModule,
-    MatNativeDateModule,
+    SharedModule,
   ],
   templateUrl: './configuracion-generacion.component.html',
   styleUrl: './configuracion-generacion.component.scss',
@@ -39,6 +36,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   Service = inject(PagareReinscripcionesService);
 
   idOperacion: any = 0;
+  idGeneracion: any = 0
   sliderValue = 8;
 
   public myForm!: FormGroup;
@@ -94,6 +92,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
   // Funcion que se ejecuta tras seleccionar un elemento en el select
   cargarFormulario(selected: SelectedPagareGeneracion) {
+    // Limpiar formulario
     this.myForm = this.FB.group({
       idOperacion: [this.idOperacion],
       monto: [10000, Validators.required],
@@ -103,7 +102,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     //Set Promesas
     this.idOperacion = selected.catalog;
-    this.myForm.get('cantidadPromesas')?.patchValue(selected.catalog)
+    this.idGeneracion = selected.generation;
 
 
     //Set Monto
@@ -112,9 +111,12 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       idGeneracion: selected.generation.toString(),
     }).subscribe((response: CostoPromesaResponse[]) => {
       const promesas = response[0];
+      console.log('Promesas:', promesas);
+
       this.sliderValue = Number(promesas.promesas);
       this.myForm.patchValue({
         monto: Number(promesas.costo),
+        cantidadPromesas:   Number(promesas.promesas)
       });
     });
 
@@ -130,7 +132,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
       this.createDates(fechasDate);
 
-      console.log(this.myForm.value);
+      console.log('Formulario: ',this.myForm.value);
 
       //this.setTime(fechasDate);
     });
@@ -142,8 +144,10 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       this.addDate(r);
     });
   }
+
   // Metodo que se ejecuta con el onsumit
   onSave() {
+    // Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24
     let fechasConcat: string = '';
     let fechas = this.myForm.get('fechasPromesas')?.value;
     fechas = fechas.map((row: any) => {
@@ -160,16 +164,17 @@ export class ConfiguracionGeneracionComponent implements OnInit {
     });
 
     const monto = this.myForm.get('monto')?.value;
+
     const envio: RequestAltaPagare = {
       idOperacion: this.idOperacion,
       cantidadPromesas: this.sliderValue.toString(),
       monto: monto,
       fechasPromesas: fechasConcat,
-      idGeneracion: '0',
+      idGeneracion: this.idGeneracion,
     };
 
     this.Service.PostAltaPagares(envio).subscribe((response) => {
-      console.log(response);
+      console.log('Enviado response: ',response);
     });
   }
 }
