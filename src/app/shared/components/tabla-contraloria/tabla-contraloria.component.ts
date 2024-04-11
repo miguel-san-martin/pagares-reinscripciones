@@ -87,8 +87,7 @@ export class TablaContraloriaComponent implements OnChanges{
 
   seleccionarTodos() {
     this.markAll =
-      this.dataSource.data != null &&
-      this.dataSource.data.every((t) => t.active);
+      this.dataSource.data != null && this.dataSource.data.every((t) => t.active);
   }
 
   setAll(completed: boolean) {

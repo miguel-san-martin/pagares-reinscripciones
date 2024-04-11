@@ -1,18 +1,12 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
   FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { MaterialModule } from '../../material-module/material.module';
-import { TablaContraloriaComponent } from '../../shared/components/tabla-contraloria/tabla-contraloria.component';
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
-import { Catalogo } from '../../interfaces/catalogo';
-import { MatNativeDateModule } from '@angular/material/core';
 import { RequestAltaPagare } from '../../interfaces/request/request-alta-pagare';
 import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.interface';
 import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
@@ -167,10 +161,10 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     const envio: RequestAltaPagare = {
       idOperacion: this.idOperacion,
+      idGeneracion: this.idGeneracion,
       cantidadPromesas: this.sliderValue.toString(),
       monto: monto,
       fechasPromesas: fechasConcat,
-      idGeneracion: this.idGeneracion,
     };
 
     this.Service.PostAltaPagares(envio).subscribe((response) => {
