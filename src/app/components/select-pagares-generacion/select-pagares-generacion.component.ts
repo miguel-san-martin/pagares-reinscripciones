@@ -8,7 +8,6 @@ import {
   inject,
 } from '@angular/core';
 import { MaterialModule } from '../../material-module/material.module';
-import { MatSelectChange } from '@angular/material/select';
 import { Catalogo } from '../../interfaces/catalogo';
 import { GeneracionesResponse } from '../../interfaces/generaciones-response';
 import { ResponseAlumnoService } from '../../services/mappingServices/response-alumno.service';
@@ -37,17 +36,18 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   public selectedGeneracion: string | undefined; //Valor del Select de Generacion que esta oculto.
   public selectedCataloge: SelectedPagareGeneracion= {
     catalog: '',
-    generation: 0
+    generation: '0'
   };
+  public idConGenercion: string[] = ['798', '708']
+
 
   ngOnInit(): void {
-    this.Service.GetPagaresCatalogosOperaciones().subscribe(
+    this.Service.GetCatalogosOperaciones().subscribe(
       (response: Catalogo[]) => {
-        //console.log('response', response);
         this.listaPagare = response;
         const valorPorDefault = this.listaPagare[1].id;
         this.selectedCatalog = valorPorDefault;
-        this.actualizarTabla({ value: valorPorDefault }, '0');
+        this.updateTable({ value: valorPorDefault }, '0');
       },
     );
 
@@ -56,7 +56,7 @@ export class SelectPagaresGeneracionComponent implements OnInit {
     });
   }
 
-  emitSelectedCatalog() {
+  public emitSelectedCatalog() {
     this.selectedCataloge = {
       catalog: this.selectedCataloge.catalog,
       generation: this.selectedCataloge.generation,
@@ -66,24 +66,21 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   }
 
   // Si es un pagare tipo Impulsa - 798 o 708 Vertice se mostrara un select con #genereacion como referencia
-  displaySubSelect(id: string) {
-    if (id == '798' || id == '708') {
+   displaySubSelect(id: string) {
+    if (this.idConGenercion.includes(id)) {
       this.seleccionGeneracion.nativeElement.style.display = 'contents';
     } else {
       this.seleccionGeneracion.nativeElement.style.display = 'none';
-      this.selectedCataloge.generation = 0
+      this.selectedCataloge.generation = '0'
     }
   }
 
-  actualizarTabla(event: any, generacion: string = '0') {
-    let gen = '0';
-    if (event.value == '798' || event.value == '708') {
+  private updateTable({value}: any, generacion: string = '0') {
+    if (this.idConGenercion.includes(value)) {
       this.selectedGeneracion = generacion;
-      gen = generacion;
     } else {
-      // console.log('El valor se ha restablecido');
       this.selectedGeneracion = undefined;
     }
-    this.displaySubSelect(event.value);
+    this.displaySubSelect(value);
   }
 }

@@ -17,6 +17,7 @@ import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.
 import { ConsultaFecha } from '../../interfaces/responses/consulta-fecha';
 import { SharedModule } from '../../shared/shared.module';
 import { AlumnoResponse } from '../../interfaces/responses/AlumnoResponse';
+import { RequestOperationGen } from '../../interfaces/request/request-operation-gen';
 
 @Component({
   standalone: true,
@@ -56,21 +57,19 @@ export class GeneradorMasivoComponent implements OnInit {
    * @param {SelectedPagareGeneracion} selected
    * @memberof GeneradorMasivoComponent
    */
-  public actualizarInfoBar(selected: SelectedPagareGeneracion) {
+  public actualizarInfoBar({catalog: idOperacion, generation: idGeneracion}: SelectedPagareGeneracion) {
 
+    const extra: RequestOperationGen = {
+      idOperacion: idOperacion,
+      idGeneracion: idGeneracion
+    }
     //Consulta Validacion Promesas
-    this.Service.ConsultarValidacionPromesas({
-      idOperacion: selected.catalog,
-      idGeneracion: selected.generation.toString(),
-    }).subscribe((response) => {
+    this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
       this.infoBar.msj = response[0].msj;
     });
 
     //Consulta del Costo de las promesas y numero de promesas
-    this.Service.ConsultarCostoPromesas({
-      idOperacion: selected.catalog,
-      idGeneracion: selected.generation.toString(),
-    }).subscribe((response: CostoPromesaResponse[]) => {
+    this.Service.ConsultarCostoPromesas(extra).subscribe((response: CostoPromesaResponse[]) => {
       if (response.length > 0) {
         const { costo, promesas } = response[0];
         this.infoBar.costo = costo;
@@ -81,10 +80,7 @@ export class GeneradorMasivoComponent implements OnInit {
     });
 
     //Consulta de las fechas de la promesas
-    this.Service.ConsultarFechasPromesas({
-      idOperacion: selected.catalog,
-      idGeneracion: selected.generation.toString(),
-    }).subscribe((response: ConsultaFecha[]) => {
+    this.Service.ConsultarFechasPromesas(extra).subscribe((response: ConsultaFecha[]) => {
       console.log('fecha', response);
       if (response.length > 0) {
         this.infoBar.fechas = response;
@@ -108,15 +104,16 @@ export class GeneradorMasivoComponent implements OnInit {
     }
   }
 
-  public actualizarTabla(selected: SelectedPagareGeneracion) {
-    this.Service.GetAlumnosConsiderados({
-      idOperacion: selected.catalog,
-      idGeneracion: selected.generation.toString(),
-    }).subscribe((response:AlumnoResponse[]) => {
+  public actualizarTabla({catalog: idOperacion, generation: idGeneracion}: SelectedPagareGeneracion) {
+    const extra: RequestOperationGen = {
+      idOperacion: idOperacion,
+      idGeneracion: idGeneracion
+    }
+    this.Service.GetAlumnosConsiderados(extra).subscribe((response:AlumnoResponse[]) => {
       this.data = this.Maping.AlumnoResponseToAlumno(response); //Aqui mapeo la respuesta a la mia
       //console.log(this.data);
     });
-    this.actualizarInfoBar(selected);
+    this.actualizarInfoBar({catalog: idOperacion, generation: idGeneracion});
     this.loaderBarProgress = 0;
   }
 

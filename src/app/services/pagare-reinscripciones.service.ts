@@ -16,6 +16,8 @@ import { GeneracionesResponse } from '../interfaces/generaciones-response';
 import { RequestAltaPagare } from '../../../src/app/interfaces/request/request-alta-pagare';
 import { CostoPromesaResponse } from '../interfaces/responses/costo-promesas.interface';
 import { ConsultaFecha } from '../interfaces/responses/consulta-fecha';
+import { SelectedPagareGeneracion } from '../interfaces/selected-pagare-generacion';
+import { RequestOperationGen } from '../interfaces/request/request-operation-gen';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +43,7 @@ export class PagareReinscripcionesService extends ServicioBase {
     return observable;
   }
 
-  public GetPagaresCatalogosOperaciones(
+  public GetCatalogosOperaciones(
     extras: { indicador: string } = { indicador: '' }, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
   ): Observable<Catalogo[]> {
@@ -177,7 +179,7 @@ export class PagareReinscripcionesService extends ServicioBase {
   }
 
   public ConsultarFechasPromesas(
-    extras: {idOperacion:string, idGeneracion: string}, // envia un carcacter numero o nombre
+    extras: RequestOperationGen, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
   ): Observable<ConsultaFecha[]> {
     const parametros = {
@@ -199,7 +201,7 @@ export class PagareReinscripcionesService extends ServicioBase {
    * @memberof PagareReinscripcionesService
    */
   public ConsultarValidacionPromesas(
-    extras: {idOperacion:string, idGeneracion: string}, // envia un carcacter numero o nombre
+    extras: RequestOperationGen, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
   ): Observable<any[]> {
     const parametros = {

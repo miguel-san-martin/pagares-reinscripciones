@@ -1,142 +1,114 @@
 import { Component, OnInit, inject } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaterialModule } from '../../material-module/material.module';
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
-import { RequestAltaPagare } from '../../interfaces/request/request-alta-pagare';
 import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.interface';
 import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
 import { SelectedPagareGeneracion } from '../../interfaces/selected-pagare-generacion';
 import { ConsultaFecha } from '../../interfaces/responses/consulta-fecha';
 import { SharedModule } from '../../shared/shared.module';
+import { RequestOperationGen } from '../../interfaces/request/request-operation-gen';
 
 @Component({
   standalone: true,
-  imports: [
-    MaterialModule,
-    SelectPagaresGeneracionComponent,
-    SharedModule,
-  ],
+  imports: [MaterialModule, SelectPagaresGeneracionComponent, SharedModule],
   templateUrl: './configuracion-generacion.component.html',
   styleUrl: './configuracion-generacion.component.scss',
 })
-
 export class ConfiguracionGeneracionComponent implements OnInit {
   FB = inject(FormBuilder);
   Service = inject(PagareReinscripcionesService);
 
-  idOperacion: any = 0;
-  idGeneracion: any = 0
+  formIsVisible = false;
   sliderValue = 8;
-
   public myForm!: FormGroup;
-
-  get promesasControl() {
-    return (this.myForm.get('fechasPromesas') as FormArray).controls;
-  }
-
-  createArray(length: number) {
-    return new Array(length);
+  public get getFormControlArray() {
+    return this.myForm.get('fechasPromesas') as FormArray;
   }
 
   ngOnInit(): void {
-    this.myForm = this.FB.group({
-      idOperacion: [this.idOperacion],
-      monto: [10000, Validators.required],
-      cantidadPromesas: [this.sliderValue],
-      fechasPromesas: this.FB.array([]),
-    });
-
+    this.resetForm();
     if (this.sliderValue == 1) this.addDate();
   }
 
-  addDate(date: any | null = null) {
-    const arreglo = this.myForm.get('fechasPromesas') as FormArray;
+  public resetForm() {
+    this.myForm = this.FB.group({
+      monto: [0, Validators.required],
+      cantidadPromesas: [1],
+      fechasPromesas: this.FB.array([]),
+    });
+  }
+
+  //Añade campos al formulario de fechas
+  private addDate(date: Date | null = null) {
     const grupo = this.FB.group({
       date: [date, Validators.required],
     });
-    arreglo.push(grupo);
-    //console.log('Añadido');
+    this.getFormControlArray.push(grupo);
   }
 
-  removeDate() {
-    const arreglo = this.myForm.get('fechasPromesas') as FormArray;
-    arreglo.removeAt(this.sliderValue);
-    //console.log('Removido');
+  // Borra el control de fechas, recibe arrayDates, los va añadiendo uno a uno.
+  private setDateOnInputs(arrayDates: Date[]) {
+    this.getFormControlArray.setValue([]);
+    arrayDates.forEach((row: Date) => {
+      this.addDate(row);
+    });
   }
 
   //Metodo que se ejecuta cuando detecta un detectSliderChange en la barra
-  detectSliderChange() {
-    const size = this.promesasControl.length;
-    //console.log('barra', this.sliderValue, 'forms', size);
+  public detectSliderChange() {
+
+    const size = this.getFormControlArray.length;
     if (size < this.sliderValue) {
-      while (this.promesasControl.length < this.sliderValue) {
+      while (this.getFormControlArray.length < this.sliderValue) {
         this.addDate();
       }
     } else {
-      while (this.promesasControl.length > this.sliderValue) {
-        this.removeDate();
+      while (this.getFormControlArray.length > this.sliderValue) {
+        this.getFormControlArray.removeAt(this.sliderValue);
       }
     }
   }
 
-  // Funcion que se ejecuta tras seleccionar un elemento en el select
-  cargarFormulario(selected: SelectedPagareGeneracion) {
+  /**
+   * Al seleccionar un select se manda a llamar para solicitar al back la informacion que poner en los input
+   *
+   * @param {SelectedPagareGeneracion} {catalog: idOperacion, generation: idGeneracion}
+   * @memberof ConfiguracionGeneracionComponent
+   */
+  public loadDataOnForm({catalog: idOperacion, generation: idGeneracion}: SelectedPagareGeneracion) {
     // Limpiar formulario
-    this.myForm = this.FB.group({
-      idOperacion: [this.idOperacion],
-      monto: [10000, Validators.required],
-      cantidadPromesas: [1],
-      fechasPromesas: this.FB.array([]),
-    });
+    this.resetForm();
+    this.formIsVisible = true;
 
-    //Set Promesas
-    this.idOperacion = selected.catalog;
-    this.idGeneracion = selected.generation;
-
+    //Info que se mandara para consulta
+    const extra: RequestOperationGen = {
+      idOperacion: idOperacion,
+      idGeneracion: idGeneracion,
+    };
 
     //Set Monto
-    this.Service.ConsultarCostoPromesas({
-      idOperacion: selected.catalog,
-      idGeneracion: selected.generation.toString(),
-    }).subscribe((response: CostoPromesaResponse[]) => {
-      const promesas = response[0];
-      console.log('Promesas:', promesas);
+    this.Service.ConsultarCostoPromesas(extra).subscribe(
+      (response: CostoPromesaResponse[]) => {
+        const { promesas, costo } = response[0];
+        this.sliderValue = Number(promesas);
+        this.myForm.patchValue({
+          monto: Number(costo),
+          cantidadPromesas: Number(promesas),
+        });
+      },
+    );
 
-      this.sliderValue = Number(promesas.promesas);
-      this.myForm.patchValue({
-        monto: Number(promesas.costo),
-        cantidadPromesas:   Number(promesas.promesas)
-      });
-    });
-
-    let fechasDate: Date[] = [];
-    this.Service.ConsultarFechasPromesas({
-      idOperacion: selected.catalog,
-      idGeneracion: selected.generation.toString(),
-    }).subscribe((response: ConsultaFecha[]) => {
-      const mapa = response;
-      mapa.map((m) => {
-        fechasDate.push(new Date(m.FechaVencimiento));
-      });
-
-      this.createDates(fechasDate);
-
-      console.log('Formulario: ',this.myForm.value);
-
-      //this.setTime(fechasDate);
-    });
-  }
-  createDates(fechasDate: Date[]) {
-    const fechasPromesasArray = this.myForm.get('fechasPromesas') as FormArray;
-    fechasPromesasArray.setValue([]);
-    fechasDate.forEach((r) => {
-      this.addDate(r);
-    });
+    //Set Fechas
+    this.Service.ConsultarFechasPromesas(extra).subscribe(
+      (response: ConsultaFecha[]) => {
+        const fechasDate: Date[] = [];
+        response.forEach(({ FechaVencimiento }) => {
+          fechasDate.push(new Date(FechaVencimiento));
+        });
+        this.setDateOnInputs(fechasDate);
+      },
+    );
   }
 
   // Metodo que se ejecuta con el onsumit
@@ -159,16 +131,5 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     const monto = this.myForm.get('monto')?.value;
 
-    const envio: RequestAltaPagare = {
-      idOperacion: this.idOperacion,
-      idGeneracion: this.idGeneracion,
-      cantidadPromesas: this.sliderValue.toString(),
-      monto: monto,
-      fechasPromesas: fechasConcat,
-    };
-
-    this.Service.PostAltaPagares(envio).subscribe((response) => {
-      console.log('Enviado response: ',response);
-    });
   }
 }
