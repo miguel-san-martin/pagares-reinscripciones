@@ -19,8 +19,8 @@ enum bandera {
   styleUrl: './tabla-contraloria.component.scss',
 })
 export class TablaContraloriaComponent implements OnChanges{
-  @Input() tableHead!: HeaderTable[];
-  @Input() data!: any[];
+  @Input({required: true}) tableHead!: HeaderTable[];
+  @Input({required: true}) data!: any[];
   @Input() checkList: boolean = false;
   @Input() requiereIndex: boolean = false;
 

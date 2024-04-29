@@ -7,7 +7,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { MaterialModule } from '../../material-module/material.module';
+import { MaterialModule } from '../../shared-material-module/material.module';
 import { Catalogo } from '../../interfaces/catalogo';
 import { GeneracionesResponse } from '../../interfaces/generaciones-response';
 import { ResponseAlumnoService } from '../../services/mappingServices/response-alumno.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MaterialModule } from '../../material-module/material.module';
+import { MaterialModule } from '../../shared-material-module/material.module';
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
 import { CostoPromesaResponse } from '../../interfaces/responses/costo-promesas.interface';
 import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';

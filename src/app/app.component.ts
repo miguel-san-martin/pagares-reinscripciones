@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { MaterialModule } from './material-module/material.module';
+import { MaterialModule } from './shared-material-module/material.module';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,7 @@ import { MaterialModule } from './material-module/material.module';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
-  ngOnInit(): void {
-
-  }
+export class AppComponent {
 
   activatedRoute = inject(ActivatedRoute);
 
@@ -30,8 +27,4 @@ export class AppComponent implements OnInit {
     },
   ];
 
-click(){
-  console.log('0');
-
-}
 }

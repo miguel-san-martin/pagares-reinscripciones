@@ -5,7 +5,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { MaterialModule } from '../../material-module/material.module';
+import { MaterialModule } from '../../shared-material-module/material.module';
 import { Subscription } from 'rxjs';
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
 import { Alumno } from '../../interfaces/Alumno';
