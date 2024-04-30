@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { MaterialModule } from './shared-material-module/material.module';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MaterialModule],
+  imports: [RouterOutlet, MaterialModule,RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -13,7 +13,7 @@ export class AppComponent {
 
   activatedRoute = inject(ActivatedRoute);
 
-  title = 'Módulo de Impresión Pagares para Reinscripción';
+  title = 'Contraloría';
   listModulos = [
     {
       nombre: 'Generación Masiva',

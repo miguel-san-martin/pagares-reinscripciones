@@ -4,10 +4,10 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-left: -0.5rem;
+/*   margin-left: -0.5rem;
   margin-right: -0.5rem;
   margin-top: -0.5rem;
-  padding: .5rem;
+  padding: .5rem; */
 }
 
 .grid-nogutter {
@@ -831,4 +831,14 @@ mat-header-cell {
 }
 
 
+
+
+ .menu-single:hover{
+    background-color: #795548bf !important;
+    color: #ffffffbf !important;
+  }
+
+ .menu-single {
+  cursor: pointer !important;
+  }
 

@@ -2,13 +2,36 @@
   <span>{{title}}</span>
   <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
 </mat-toolbar>
-<div class="grid grid-nogutte" style="height: 92%; ">
-  <mat-nav-list class="col-2">
-    @for (link of listModulos; track link) {
-      <a mat-list-item [href]="link.path" [activated]="link.isActive">{{ link.nombre }} </a>
-    }
-  </mat-nav-list>
-  <div class="col-9">
-    <router-outlet ></router-outlet>
-  </div>
-</div>
+
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel style="box-shadow: none;">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>account_circle</mat-icon>
+            Modulos de pagare
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        @for (link of listModulos; track link) {
+          <mat-divider></mat-divider>
+        <a class="menu-single" mat-list-item [routerLink]="link.path"  >{{ link.nombre }} </a>
+        }
+        <!-- Cuerpo de categoria  -->
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="grid" style="height: 95vh">
+      <mat-nav-list >
+
+      </mat-nav-list>
+
+      <div class="col-offset-1 col-10">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
