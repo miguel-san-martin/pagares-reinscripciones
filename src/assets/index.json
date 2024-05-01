@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Moduos de pagare",
+    "img": "",
+    "sub_nodes": [
+      {
+        "name": "Generación Masiva",
+        "path": "./masiva",
+        "img": ""
+      },
+      {
+        "name": "Configuracion",
+        "path": "./config",
+        "img": ""
+      }
+    ]
+  },
+  {
+    "name": "Testeo",
+    "img": "",
+    "sub_nodes": [
+      {
+        "name": "generation",
+        "path": "./masiva",
+        "img": ""
+      }
+    ]
+  },
+  {
+    "name": "Singleton",
+    "img": "",
+    "path":"____"
+  }
+]
+

@@ -14,4 +14,5 @@ export const routes: Routes = [
     path: 'config',
     loadComponent: () => import('./pages/configuracion-generacion/configuracion-generacion.component').then(c => c.ConfiguracionGeneracionComponent)
   },
+
 ];
