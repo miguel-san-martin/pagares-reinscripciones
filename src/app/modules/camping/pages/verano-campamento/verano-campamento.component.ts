@@ -1,21 +1,23 @@
-import { Component, Inject, OnInit, QueryList, ViewChild, ViewChildren, inject, viewChild } from '@angular/core';
-import { CampamentoIestService } from '../../services/campamento-iest.service';
-import { Cataloge } from '../../interfaces/devnull/catalogo';
-import { ResponseExtraFee } from '../../interfaces/responses/response-extra-fee';
-import { ResponseGetFee } from '../../interfaces/responses/response-get-fee';
-import { SelectedCatalog } from '../../interfaces/selected-catalog';
-import { forkJoin, map, tap } from 'rxjs';
-import { ResponseIdDescont } from '../../interfaces/responses/response-mother-child-price';
-import { ResponseEditabilityPeriode, _estatus } from '../../interfaces/responses/response-editability-periode';
-import { PrecioExternoComponent } from '../../components/precio-externo/precio-externo.component';
-import { PrecioDependienteComponent } from '../../components/precio-dependiente/precio-dependiente.component';
-import { PreciosExtraComponent } from '../../components/precios-extra/precios-extra.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { environment  } from '../../../../../environments/environment';
+import { Component, OnInit, inject, ViewChild, ViewChildren, QueryList } from "@angular/core";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { environment } from "environments/environment";
+import { map, tap, forkJoin } from "rxjs";
+import { PrecioDependienteComponent } from "../../components/precio-dependiente/precio-dependiente.component";
+import { PrecioExternoComponent } from "../../components/precio-externo/precio-externo.component";
+import { PreciosExtraComponent } from "../../components/precios-extra/precios-extra.component";
+import { Cataloge } from "../../interfaces/devnull/catalogo";
+import { ResponseEditabilityPeriode } from "../../interfaces/responses/response-editability-periode";
+import { ResponseExtraFee } from "../../interfaces/responses/response-extra-fee";
+import { ResponseGetFee } from "../../interfaces/responses/response-get-fee";
+import { ResponseIdDescont } from "../../interfaces/responses/response-mother-child-price";
+import { SelectedCatalog } from "../../interfaces/selected-catalog";
+import { CampamentoIestService } from "../../services/campamento-iest.service";
+
+
 
 @Component({
   templateUrl: './verano-campamento.component.html',
-  styleUrl: './verano-campamento.component.scss',
+  styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
 })
 export class VeranoCampamentoComponent implements OnInit {
 

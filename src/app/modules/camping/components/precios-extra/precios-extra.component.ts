@@ -1,23 +1,14 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormArray, Validators } from '@angular/forms';
-import { PrecioExternoComponent } from '../precio-externo/precio-externo.component';
-import { MaterialModule } from '../../material-module/material.module';
-import { FormcaseboxComponent } from '../../shared/components/formcasebox/formcasebox.component';
-import { SharedModule } from '../../shared/shared.module';
-import { ResponseExtraFee } from '../../interfaces/responses/response-extra-fee';
-import { ResponseEditabilityPeriode, _estatus } from '../../interfaces/responses/response-editability-periode';
-import { FormBase } from '../form-base';
+import { Component, OnChanges, OnInit, Input, SimpleChanges } from "@angular/core";
+import { FormArray, Validators } from "@angular/forms";
+import { ResponseEditabilityPeriode, _estatus } from "../../interfaces/responses/response-editability-periode";
+import { ResponseExtraFee } from "../../interfaces/responses/response-extra-fee";
+import { FormBase } from "../form-base";
+
 
 @Component({
   selector: 'form-extra-fee',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    SharedModule,
-    FormcaseboxComponent,
-    PrecioExternoComponent,
-  ],  templateUrl: './precios-extra.component.html',
-  styleUrl: './precios-extra.component.scss'
+ templateUrl: './precios-extra.component.html',
+ styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss'
 })
 export class PreciosExtraComponent extends FormBase  implements OnChanges, OnInit  {
 

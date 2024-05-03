@@ -1,0 +1,41 @@
+
+  <div class="form-container" [formGroup]="formGroupIn">
+    <div class="grid" style="padding: 0;">
+      <div class="formSection col-12">
+        <h1>{{nameTitle}}</h1>
+      </div>
+      @if(keys){
+      <div class="col-4">
+      </div>
+        <h3 class="col-4 text-center" style="margin: 0;">Dos Semanas</h3>
+        <h3 class="col-4 text-center" style="margin: 0;">Tres Semanas</h3>
+      }
+      @for (key of keys; let i = $index; track i) {
+      <h3 class="col-offset-1 col-3" style="align-content: center; margin-bottom: 0;">{{key}}</h3>
+
+        @if (formGroupIn.get(['twoWeeks',i,'idDescount'])?.value === '0') {
+        <div class="col-4 text-center">
+          No existe para este periodo
+        </div>
+        }@else{
+        <mat-form-field class="col-4">
+          <span matTextPrefix>$ &nbsp;</span>
+          <input matInput type="number" [formControl]="getIndexFormControlName(i, 'twoWeeks')" />
+          @if (formGroupIn.invalid) {
+          <mat-error>{{'Campo requerido'}}</mat-error>
+          }
+        </mat-form-field>
+        }
+
+        <mat-form-field class="col-4">
+          <span matTextPrefix>$ &nbsp;</span>
+          <input matInput type="number" [formControl]="getIndexFormControlName(i, 'treeWeeks')" />
+          @if (formGroupIn.invalid) {
+          <mat-error>{{'Campo requerido'}}</mat-error>
+          }
+        </mat-form-field>
+
+      }
+    </div>
+  </div>
+

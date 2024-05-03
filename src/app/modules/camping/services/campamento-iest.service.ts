@@ -6,7 +6,6 @@ import { ResponseGetFee} from '../interfaces/responses/response-get-fee';
 import { ResponseExtraFee } from '../interfaces/responses/response-extra-fee';
 import { ResponseIdDescont } from '../interfaces/responses/response-mother-child-price';
 import { ResponseEditabilityPeriode } from '../interfaces/responses/response-editability-periode';
-import { NoResponse } from '../shared/interfaces/no-response';
 
 @Injectable({
   providedIn: 'root',

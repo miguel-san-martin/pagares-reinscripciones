@@ -9,12 +9,8 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { PrecioExternoComponent } from '../precio-externo/precio-externo.component';
-import { MaterialModule } from '../../material-module/material.module';
-import { FormcaseboxComponent } from '../../shared/components/formcasebox/formcasebox.component';
-import { SharedModule } from '../../shared/shared.module';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, debounceTime } from 'rxjs';
+import { Subject } from 'rxjs';
 import { CampamentoIestService } from '../../services/campamento-iest.service';
 import { ResponseIdDescont } from '../../interfaces/responses/response-mother-child-price';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
@@ -22,15 +18,8 @@ import { ResponseEditabilityPeriode, _estatus } from '../../interfaces/responses
 
 @Component({
   selector: 'form-precio-dependiente',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    SharedModule,
-    FormcaseboxComponent,
-    PrecioExternoComponent,
-  ],
   templateUrl: './precio-dependiente.component.html',
-  styleUrl: './precio-dependiente.component.scss',
+  styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss'
 })
 export class PrecioDependienteComponent extends SnackbarComponent  implements OnChanges, OnInit {
 

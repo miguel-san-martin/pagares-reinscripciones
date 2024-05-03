@@ -21,24 +21,14 @@
 
     ]
   },
-  {
-    "name": "Toga",
-    "img": "school",
-    "sub_nodes": [
-      {
-        "name": "generation",
-        "path": "./masiva",
-        "img": "school"
-      }
-    ]
-  },
+
   {
     "name": "Campamento",
     "img": "camping",
     "sub_nodes": [
       {
         "name": "Costos",
-        "path": "./masiva",
+        "path": "./camp",
         "img": "camping"
       }
     ]
@@ -47,5 +37,16 @@
     "name": "Singleton",
     "img": "star_rate",
     "path": "____"
+  },
+  {
+    "name": "Toga",
+    "img": "school",
+    "sub_nodes": [
+      {
+        "name": "Consulta Toga",
+        "path": "./masiva",
+        "img": "school"
+      }
+    ]
   }
 ]

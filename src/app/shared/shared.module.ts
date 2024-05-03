@@ -8,6 +8,7 @@ import { MaterialModule } from '../shared-material-module/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     PagoVerdeDirective,
     TablaContraloriaComponent,
     SideNavComponent,
+    AlertDialogComponent
   ],
   imports: [CommonModule, MaterialModule, FormsModule,
     FormsModule,ReactiveFormsModule, RouterOutlet, RouterLinkActive, RouterLink],
@@ -28,6 +30,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     ReactiveFormsModule,
     TablaContraloriaComponent,
     SideNavComponent,
+    AlertDialogComponent
   ],
 })
 export class SharedModule {}

@@ -1,0 +1,28 @@
+<div class="grid" style="padding: 0;">
+  <div class="col-12" style="
+    border-radius: 5px;
+    border: 1px solid #d6d5d5;
+    min-height: 30vh;
+    max-height: 25vh;
+    padding: 0;">
+    <div class="grid" style="height: 100%">
+      <div class="formSection col-12 rp">
+        <h1>Alerta</h1>
+      </div>
+      <div class="col-12 text-center rp">
+        <div class="grid" style="height: 100%">
+          <div class="col-12">
+            <h2>
+              {{msj}}
+            </h2>
+          </div>
+          <div class="col-12" style="align-self: end;">
+            <button mat-flat-button (click)="actionYes.emit()"  color="primary">Si</button>
+            <button style="margin-left: 1rem;" mat-stroked-button (click)="actionNo.emit()">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,31 +1,17 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  inject,
-  input,
-} from '@angular/core';
-import { MaterialModule } from '../../material-module/material.module';
-import { SharedModule } from '../../shared/shared.module';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CampamentoIestService } from '../../services/campamento-iest.service';
-import { ResponseGetFee } from '../../interfaces/responses/response-get-fee';
-import { Subject, debounceTime } from 'rxjs';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
-import {
-  ResponseEditabilityPeriode,
-  _estatus,
-} from '../../interfaces/responses/response-editability-periode';
-import { VeranoCampamentoComponent } from '../../pages/verano-campamento/verano-campamento.component';
+import { Component, OnInit, OnChanges, inject, Input, SimpleChanges } from "@angular/core";
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
+import { Subject } from "rxjs";
+import { ResponseEditabilityPeriode, _estatus } from "../../interfaces/responses/response-editability-periode";
+import { ResponseGetFee } from "../../interfaces/responses/response-get-fee";
+import { VeranoCampamentoComponent } from "../../pages/verano-campamento/verano-campamento.component";
+import { CampamentoIestService } from "../../services/campamento-iest.service";
+import { SnackbarComponent } from "../snackbar/snackbar.component";
+
 
 @Component({
   selector: 'form-precio-externo',
-  standalone: true,
-  imports: [MaterialModule, SharedModule],
   templateUrl: './precio-externo.component.html',
-  styleUrl: './precio-externo.component.scss',
+  styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss'
 })
 export class PrecioExternoComponent
   extends SnackbarComponent
