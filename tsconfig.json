@@ -2,6 +2,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@shared/*": ["app/shared/*"],
+      "@style":["src/app/shared/scss/custom-template-miguel-v2.scss"]
+   },
     "outDir": "./dist/out-tsc",
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
@@ -23,7 +28,8 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

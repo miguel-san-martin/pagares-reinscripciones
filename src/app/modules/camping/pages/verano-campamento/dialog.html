@@ -1,0 +1,10 @@
+<h2 mat-dialog-title class="text-center">
+  <mat-icon>lock</mat-icon>
+  ATENCIÓN</h2>
+<mat-dialog-content class="text-center">
+  ¿Está seguro que desea continuar? Los valores no podrán ser editados nuevamente.
+</mat-dialog-content>
+<mat-dialog-actions class="text-center" style="justify-content: center;">
+  <button mat-button color="warn" mat-dialog-close cdkFocusInitial>No</button>
+  <button mat-button mat-dialog-close (click)="closePeriod()">Sí, cerrar periodo.</button>
+</mat-dialog-actions>

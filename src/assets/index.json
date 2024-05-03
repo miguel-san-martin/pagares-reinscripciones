@@ -1,35 +1,51 @@
 [
   {
-    "name": "Moduos de pagare",
-    "img": "",
+    "name": "Pagares",
+    "img": "request_quote",
     "sub_nodes": [
       {
         "name": "Generación Masiva",
-        "path": "./masiva",
-        "img": ""
+        "path": "./pagares/generador",
+        "img": "drag_indicator"
+      },
+      {
+        "name": "Especifico",
+        "path": "./pagares/especific",
+        "img": "settings"
       },
       {
         "name": "Configuracion",
-        "path": "./config",
-        "img": ""
+        "path": "./pagares/config",
+        "img": "settings"
       }
+
     ]
   },
   {
-    "name": "Testeo",
-    "img": "",
+    "name": "Toga",
+    "img": "school",
     "sub_nodes": [
       {
         "name": "generation",
         "path": "./masiva",
-        "img": ""
+        "img": "school"
+      }
+    ]
+  },
+  {
+    "name": "Campamento",
+    "img": "camping",
+    "sub_nodes": [
+      {
+        "name": "Costos",
+        "path": "./masiva",
+        "img": "camping"
       }
     ]
   },
   {
     "name": "Singleton",
-    "img": "",
-    "path":"____"
+    "img": "star_rate",
+    "path": "____"
   }
 ]
-

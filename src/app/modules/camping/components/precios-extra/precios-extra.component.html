@@ -1,0 +1,21 @@
+<div class="" class="form-container animate__animated animate__fadeIn">
+  <div class="grid" style="padding: 0;">
+    <div class="formSection col-12">
+      <h1>Costos Extra</h1>
+    </div>
+    @for (formgroup of getFormControl.controls;let i = $index; track i) {
+    <h3 class="col-offset-1 col-2" style="align-content: center; margin-bottom: 0;">
+      {{formgroup.value.description}} </h3>
+    <div class="col-3">
+      <mat-form-field>
+        <span matTextPrefix>$ &nbsp;</span>
+        <input matInput type="number" [formControl]="$any(formgroup).get('price')" (blur)="onInputChange($event.target, $any(formgroup.get('idCost')?.value))"
+        />
+        @if (getFormControl.invalid) {
+        <mat-error>{{'Campo requerido'}}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    }
+  </div>
+</div>
