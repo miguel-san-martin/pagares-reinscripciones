@@ -872,3 +872,7 @@ mat-header-cell {
     font-weight: 400;
     font-family: 'Roboto';
   }
+
+  ::ng-deep .mat-expansion-panel-body{
+    padding: 0 24px 7px !important;
+  }

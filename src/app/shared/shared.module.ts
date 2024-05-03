@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { FormcaseboxComponent } from './components/formcasebox/formcasebox.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     PagoVerdeDirective,
     TablaContraloriaComponent,
     SideNavComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    FormcaseboxComponent
   ],
   imports: [CommonModule, MaterialModule, FormsModule,
     FormsModule,ReactiveFormsModule, RouterOutlet, RouterLinkActive, RouterLink],

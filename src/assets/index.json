@@ -1,20 +1,20 @@
 [
   {
     "name": "Pagares",
-    "img": "request_quote",
+    "img": "fact_check",
     "sub_nodes": [
       {
         "name": "Generación Masiva",
         "path": "./pagares/generador",
-        "img": "drag_indicator"
+        "img": "workspaces"
       },
       {
         "name": "Especifico",
         "path": "./pagares/especific",
-        "img": "settings"
+        "img": "fiber_manual_record"
       },
       {
-        "name": "Configuracion",
+        "name": "Configuración",
         "path": "./pagares/config",
         "img": "settings"
       }
@@ -27,16 +27,11 @@
     "img": "camping",
     "sub_nodes": [
       {
-        "name": "Costos",
+        "name": "Captura de costos",
         "path": "./camp",
-        "img": "camping"
+        "img": "monetization_on"
       }
     ]
-  },
-  {
-    "name": "Singleton",
-    "img": "star_rate",
-    "path": "____"
   },
   {
     "name": "Toga",
@@ -45,8 +40,13 @@
       {
         "name": "Consulta Toga",
         "path": "./masiva",
-        "img": "school"
+        "img": "search"
       }
     ]
+  },
+  {
+    "name": "Modulo Cerrado",
+    "img": "star_rate",
+    "path": "module-closed"
   }
 ]

@@ -1,12 +1,9 @@
 import { Component, Input, inject } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { MaterialModule } from '../../../material-module/material.module';
-import { SharedModule } from '../../shared.module';
+
 
 @Component({
   selector: 'shrd-formcasebox',
-  standalone: true,
-  imports: [MaterialModule, SharedModule],
   templateUrl: './formcasebox.component.html',
   styleUrl: './formcasebox.component.scss',
 })

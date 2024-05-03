@@ -8,7 +8,7 @@ import { SharedModule } from './shared/shared.module';
   standalone: true,
   imports: [MaterialModule,SharedModule,RouterLink, RouterOutlet,],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './shared/scss/custom-template-miguel-v2.scss'
 })
 export class AppComponent {
 

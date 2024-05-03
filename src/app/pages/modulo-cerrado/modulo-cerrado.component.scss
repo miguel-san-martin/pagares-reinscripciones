@@ -1,0 +1,9 @@
+.alert {
+  text-align: center;
+
+  .alert-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
