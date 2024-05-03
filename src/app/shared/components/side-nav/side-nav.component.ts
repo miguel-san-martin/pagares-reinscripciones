@@ -23,16 +23,9 @@ export interface SubNode {
 export class SideNavComponent implements OnInit{
 
 
-bounce($event: MouseEvent, mouse: boolean) {
-console.log($event, mouse);
-
-throw new Error('Method not implemented.');
-}
-
-
   http = inject(HttpClient);
-  modulos!:Nodito[];
   focus: boolean[] = [];
+  modulos!:Nodito[];
 
   ngOnInit(): void {
 

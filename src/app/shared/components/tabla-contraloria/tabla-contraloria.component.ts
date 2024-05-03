@@ -12,7 +12,7 @@ enum bandera {
     SinRespuesta
 }
 @Component({
-  selector: 'shr-tabla',
+  selector: 'shrd-tabla',
   standalone: false,
   //imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, FormsModule],
   templateUrl: './tabla-contraloria.component.html',
