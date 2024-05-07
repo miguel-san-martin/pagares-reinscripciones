@@ -8,10 +8,9 @@ describe('PrecioExternoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PrecioExternoComponent]
-    })
-    .compileComponents();
-    
+      imports: [PrecioExternoComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PrecioExternoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

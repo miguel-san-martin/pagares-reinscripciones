@@ -8,10 +8,9 @@ describe('PrecioDependienteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PrecioDependienteComponent]
-    })
-    .compileComponents();
-    
+      imports: [PrecioDependienteComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PrecioDependienteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

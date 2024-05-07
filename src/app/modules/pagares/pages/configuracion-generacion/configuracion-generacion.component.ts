@@ -1,10 +1,10 @@
-import { Component, OnInit, inject } from "@angular/core";
-import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
-import { RequestOperationGen } from "../../../../interfaces/request/request-operation-gen";
-import { ConsultaFecha } from "../../../../interfaces/responses/consulta-fecha";
-import { CostoPromesaResponse } from "../../../../interfaces/responses/costo-promesas.interface";
-import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
-import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
+import { Component, inject, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RequestOperationGen } from '../../../../interfaces/request/request-operation-gen';
+import { ConsultaFecha } from '../../../../interfaces/responses/consulta-fecha';
+import { CostoPromesaResponse } from '../../../../interfaces/responses/costo-promesas.interface';
+import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare-generacion';
+import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
 
 
 @Component({

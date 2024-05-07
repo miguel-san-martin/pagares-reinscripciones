@@ -2,10 +2,10 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  inject,
   OnInit,
   Output,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { MaterialModule } from '../../../../shared-material-module/material.module';
 import { Catalogo } from '../../../../interfaces/catalogo';

@@ -8,10 +8,9 @@ describe('SelectPagaresGeneracionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SelectPagaresGeneracionComponent]
-    })
-    .compileComponents();
-    
+      imports: [SelectPagaresGeneracionComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(SelectPagaresGeneracionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

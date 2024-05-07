@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Cataloge } from '../../interfaces/devnull/catalogo';
 
 @Injectable({
   providedIn: 'root'

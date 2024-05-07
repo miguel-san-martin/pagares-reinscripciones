@@ -1,11 +1,26 @@
-import { Component, OnInit, OnChanges, inject, Input, SimpleChanges } from "@angular/core";
-import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
-import { Subject } from "rxjs";
-import { ResponseEditabilityPeriode, _estatus } from "../../interfaces/responses/response-editability-periode";
-import { ResponseGetFee } from "../../interfaces/responses/response-get-fee";
-import { VeranoCampamentoComponent } from "../../pages/verano-campamento/verano-campamento.component";
-import { CampamentoIestService } from "../../services/campamento-iest.service";
-import { SnackbarComponent } from "../snackbar/snackbar.component";
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Subject } from 'rxjs';
+import {
+  _estatus,
+  ResponseEditabilityPeriode,
+} from '../../interfaces/responses/response-editability-periode';
+import { ResponseGetFee } from '../../interfaces/responses/response-get-fee';
+import { VeranoCampamentoComponent } from '../../pages/verano-campamento/verano-campamento.component';
+import { CampamentoIestService } from '../../services/campamento-iest.service';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 
 @Component({

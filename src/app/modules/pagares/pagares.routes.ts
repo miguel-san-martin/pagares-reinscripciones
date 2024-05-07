@@ -1,7 +1,7 @@
-import { Routes } from "@angular/router";
-import { ConfiguracionGeneracionComponent } from "./pages/configuracion-generacion/configuracion-generacion.component";
-import { GeneradorEspecificoComponent } from "./pages/generador-especifico/generador-especifico.component";
-import { GeneradorMasivoComponent } from "./pages/generador-masivo/generador-masivo.component";
+import { Routes } from '@angular/router';
+import { ConfiguracionGeneracionComponent } from './pages/configuracion-generacion/configuracion-generacion.component';
+import { GeneradorEspecificoComponent } from './pages/generador-especifico/generador-especifico.component';
+import { GeneradorMasivoComponent } from './pages/generador-masivo/generador-masivo.component';
 
 
 export const routes: Routes = [

@@ -36,24 +36,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      @for (microItem of item.sub_nodes;let j = $index; track j) {
-        <mat-divider></mat-divider>
-        <a #reference class="menu-single" [routerLink]="microItem.path"
-        routerLinkActive="active"
-        (mouseenter)="focus[j] = true" (mouseleave)="focus[j] = false"
-        >
-
-          <mat-icon class="material-symbols-outlined"
-          [ngClass]="{'animate__animated animate__bounce': focus[j]}"
-          >
-            {{microItem.img}}
-          </mat-icon>
-          <span style="display: flex; width: 100%; margin-left: 10px; font-family: Roboto,sans-serif !important;
-           font-weight: 400 !important; font-size: 16px !important;">
-            {{ microItem.name }}
-          </span>
-        </a>
-      }
+      <app-for [focus]="focus"></app-for>
     </mat-expansion-panel>
   }
 }

@@ -5,7 +5,7 @@
   <h1 class="col-12">Costos campamento</h1>
 
   <!-- Select catalog section -->
-  <mat-form-field class="col-12" style="padding: 0%;">
+  <mat-form-field class="col-12" style="padding: 0;">
     <mat-label>Edición</mat-label>
     <mat-select (selectionChange)="$emitSelectedCatalog($event.value)" [(value)]="selectedCatalog" name="catalogo">
       @for (catalogue of catalogesList; track catalogue) {
@@ -50,7 +50,7 @@
   }
 
   <!-- New Period alert message -->
-  @if(formIsNotGenerated?.existe == '0'){
+  @if(formIsNotGenerated?.existe === '0'){
   <div class="col-6">
     <shrd-alert-dialog [msj]="formIsNotGenerated?.msj" (actionYes)="$generateNewPeriod()"
       (actionNo)="$reloadPage()"></shrd-alert-dialog>
@@ -73,7 +73,7 @@
 
   <br />
 
-  <!--Only for Debbugin -->
+  <!--Only for Debugging -->
   @if (showDebugButton) {
     <button style="margin-top: 2rem;" (click)="borrarGeneradoDev()" mat-flat-button color="accent">
       <mat-icon>

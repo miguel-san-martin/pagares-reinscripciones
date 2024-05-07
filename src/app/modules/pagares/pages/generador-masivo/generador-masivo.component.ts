@@ -1,14 +1,20 @@
-import { Component, OnInit, inject, ViewChild, ElementRef } from "@angular/core";
-import { Subscription } from "rxjs";
-import { Alumno } from "../../../../interfaces/Alumno";
-import { RequestOperationGen } from "../../../../interfaces/request/request-operation-gen";
-import { AlumnoResponse } from "../../../../interfaces/responses/AlumnoResponse";
-import { ConsultaFecha } from "../../../../interfaces/responses/consulta-fecha";
-import { CostoPromesaResponse } from "../../../../interfaces/responses/costo-promesas.interface";
-import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
-import { ResponseAlumnoService } from "../../../../services/mappingServices/response-alumno.service";
-import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
-import { HEADTABLE } from "./headTable";
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Alumno } from '../../../../interfaces/Alumno';
+import { RequestOperationGen } from '../../../../interfaces/request/request-operation-gen';
+import { AlumnoResponse } from '../../../../interfaces/responses/AlumnoResponse';
+import { ConsultaFecha } from '../../../../interfaces/responses/consulta-fecha';
+import { CostoPromesaResponse } from '../../../../interfaces/responses/costo-promesas.interface';
+import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare-generacion';
+import { ResponseAlumnoService } from '../../../../services/mappingServices/response-alumno.service';
+import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
+import { HEADTABLE } from './headTable';
 
 @Component({
   templateUrl: './generador-masivo.component.html',

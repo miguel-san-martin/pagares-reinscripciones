@@ -1,18 +1,24 @@
-import { Component, OnInit, inject, ViewChild, ViewChildren, QueryList } from "@angular/core";
-import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { environment } from "environments/environment";
-import { map, tap, forkJoin } from "rxjs";
-import { PrecioDependienteComponent } from "../../components/precio-dependiente/precio-dependiente.component";
-import { PrecioExternoComponent } from "../../components/precio-externo/precio-externo.component";
-import { PreciosExtraComponent } from "../../components/precios-extra/precios-extra.component";
-import { Cataloge } from "../../interfaces/devnull/catalogo";
-import { ResponseEditabilityPeriode } from "../../interfaces/responses/response-editability-periode";
-import { ResponseExtraFee } from "../../interfaces/responses/response-extra-fee";
-import { ResponseGetFee } from "../../interfaces/responses/response-get-fee";
-import { ResponseIdDescont } from "../../interfaces/responses/response-mother-child-price";
-import { SelectedCatalog } from "../../interfaces/selected-catalog";
-import { CampamentoIestService } from "../../services/campamento-iest.service";
-
+import {
+  Component,
+  inject,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { environment } from 'environments/environment';
+import { forkJoin, map, tap } from 'rxjs';
+import { PrecioDependienteComponent } from '../../components/precio-dependiente/precio-dependiente.component';
+import { PrecioExternoComponent } from '../../components/precio-externo/precio-externo.component';
+import { PreciosExtraComponent } from '../../components/precios-extra/precios-extra.component';
+import { Cataloge } from '../../interfaces/devnull/catalogo';
+import { ResponseEditabilityPeriode } from '../../interfaces/responses/response-editability-periode';
+import { ResponseExtraFee } from '../../interfaces/responses/response-extra-fee';
+import { ResponseGetFee } from '../../interfaces/responses/response-get-fee';
+import { ResponseIdDescont } from '../../interfaces/responses/response-mother-child-price';
+import { SelectedCatalog } from '../../interfaces/selected-catalog';
+import { CampamentoIestService } from '../../services/campamento-iest.service';
 
 
 @Component({
@@ -70,7 +76,7 @@ export class VeranoCampamentoComponent implements OnInit {
         //? Id registro sirve para poder mandar a llamar el endpoint para cerrar el periodo.
 
 
-        const flags = ['No Capturado', 'PermiteCambios'];
+        const flags:string[] = ['No Capturado', 'PermiteCambioAs'];
         this.priceIsEditable = flags.includes(estatus);
 
         this.formIsNotGenerated = {
@@ -104,7 +110,7 @@ export class VeranoCampamentoComponent implements OnInit {
       this.Service.GetAdditionalCosts(idPrecio),
     ];
     forkJoin(observables).subscribe(
-      ([baseFee, childPrices, maternalPrices, additionalCosts]) => {
+      ([baseFee, childPrices, maternalPrices, additionalCosts]):void => {
 
         this.externalPriceData = baseFee as ResponseGetFee[];
         this.childishPriceData = childPrices as ResponseIdDescont[];
@@ -117,11 +123,11 @@ export class VeranoCampamentoComponent implements OnInit {
   }
 
 
-  //? SI: Generar nuevo año
+  //? SÍ: Generar nuevo año
   $generateNewPeriod() {
     this.formIsVisible = false;
     this.Service.GenerateMigrationNewPeriod(this.selectedCatalog).subscribe({
-      next: (response:any) => {
+      next: () => {
         this.formIsVisible = true;
         this.$emitSelectedCatalog(this.selectedCatalog);
       },
@@ -146,7 +152,7 @@ export class VeranoCampamentoComponent implements OnInit {
   @ViewChildren(PrecioDependienteComponent)dependientes!: QueryList<PrecioDependienteComponent>;
 
   $openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    const dialogRef = this.dialog.open(DialogAnimationsExampleDialog, {
+    const dialogRef:MatDialogRef<DialogAnimationsExampleDialog> = this.dialog.open(DialogAnimationsExampleDialog, {
       data:{},
       width: '40%',
       enterAnimationDuration,

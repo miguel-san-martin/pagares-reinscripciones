@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServicioBase } from './servicio-base.service';
 import { Observable } from 'rxjs';
 import { SelectedCatalog } from '../interfaces/selected-catalog';
-import { ResponseGetFee} from '../interfaces/responses/response-get-fee';
-import { ResponseExtraFee } from '../interfaces/responses/response-extra-fee';
+import { ResponseGetFee } from '../interfaces/responses/response-get-fee';
 import { ResponseIdDescont } from '../interfaces/responses/response-mother-child-price';
 import { ResponseEditabilityPeriode } from '../interfaces/responses/response-editability-periode';
 

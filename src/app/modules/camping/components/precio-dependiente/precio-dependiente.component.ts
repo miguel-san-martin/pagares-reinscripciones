@@ -1,20 +1,23 @@
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { CampamentoIestService } from '../../services/campamento-iest.service';
 import { ResponseIdDescont } from '../../interfaces/responses/response-mother-child-price';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-import { ResponseEditabilityPeriode, _estatus } from '../../interfaces/responses/response-editability-periode';
+import {
+  _estatus,
+  ResponseEditabilityPeriode,
+} from '../../interfaces/responses/response-editability-periode';
 
 @Component({
   selector: 'form-precio-dependiente',

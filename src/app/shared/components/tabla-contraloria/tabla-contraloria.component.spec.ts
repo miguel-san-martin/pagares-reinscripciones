@@ -8,10 +8,9 @@ describe('TablaContraloriaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TablaContraloriaComponent]
-    })
-    .compileComponents();
-    
+      imports: [TablaContraloriaComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TablaContraloriaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
