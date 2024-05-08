@@ -52,8 +52,11 @@ export class GeneradorMasivoComponent {
       this.infoBar.msj = response[0].msj;
     });
 
+    console.log(extra);
     //Consulta del Costo de las promesas y numero de promesas
     this.Service.ConsultarCostoPromesas(extra).subscribe(
+
+
       (response: CostoPromesaResponse[]) => {
         if (response.length > 0) {
           const { costo, promesas } = response[0];

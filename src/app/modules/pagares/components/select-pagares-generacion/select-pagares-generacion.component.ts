@@ -56,12 +56,10 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   }
 
   public emitSelectedCatalog(value: number) {
-    console.log(value);
     this.selectedCataloge = {
       catalog: this.selectedCataloge.catalog,
       generation: this.selectedCataloge.generation,
     };
-    console.log(this.selectedCataloge);
     this.displaySubSelect(this.selectedCataloge.catalog);
     this.emitSelectedOption.emit(this.selectedCataloge);
   }

@@ -16,15 +16,18 @@
     </div>
 
     <form class="col-11 grid" [formGroup]="myForm" (ngSubmit)="onSave()">
-      <mat-form-field class="col-11">
-        <mat-label>Monto</mat-label>
-        <input
-          type="number"
-          formControlName="monto"
-          matInput
-          placeholder="Ex. pat@example.com"
-        />
-      </mat-form-field>
+      @if(showMontoField){
+
+        <mat-form-field class="col-11" style="display: contents;" #montoInput>
+          <mat-label>Monto</mat-label>
+          <input
+            type="number"
+            formControlName="monto"
+            matInput
+            placeholder="Ex. pat@example.com"
+          />
+        </mat-form-field>
+      }
 
       <div class="col-12 grid" formArrayName="fechasPromesas">
         @for (promesa of getFormControlArray.controls; let i = $index; track promesa) {

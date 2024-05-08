@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, inject } from "@angular/core";
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { RequestOperationGen } from "../../../../interfaces/request/request-operation-gen";
 import { ConsultaFecha } from "../../../../interfaces/responses/consulta-fecha";
@@ -15,9 +15,14 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   FB = inject(FormBuilder);
   Service = inject(PagareReinscripcionesService);
 
+  @ViewChild('montoInput') montoInput!: ElementRef; //View de generacion el segundo select oculto.
+
+
   formIsVisible = false;
+  showMontoField = true;
   sliderValue = 8;
   public myForm!: FormGroup;
+
   public get getFormControlArray() {
     return this.myForm.get('fechasPromesas') as FormArray;
   }
@@ -77,6 +82,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
     this.resetForm();
     this.formIsVisible = true;
 
+
     //Info que se mandara para consulta
     const extra: RequestOperationGen = {
       idOperacion: idOperacion,
@@ -92,6 +98,15 @@ export class ConfiguracionGeneracionComponent implements OnInit {
           monto: Number(costo),
           cantidadPromesas: Number(promesas),
         });
+
+        if(extra.idOperacion == '572'){
+          this.myForm.get('monto')?.disable();
+          this.showMontoField = false;
+          console.log(this.montoInput);
+        }else{
+          this.showMontoField = true;
+        }
+
       },
     );
 

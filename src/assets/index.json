@@ -47,10 +47,5 @@
     "name": "Modulo Cerrado",
     "img": "star_rate",
     "path": "module-closed"
-  },
-  {
-    "name": "Playeras",
-    "img": "apparel",
-    "path": "shirt-sale"
   }
 ]
