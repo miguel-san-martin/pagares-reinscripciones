@@ -26,6 +26,6 @@ import {
     SharedModule,
     [RouterModule.forChild(routes)],
   ],
-  exports: [VeranoCampamentoComponent, RouterModule],
+  exports: [RouterModule],
 })
 export class CampingModule {}
