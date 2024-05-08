@@ -1,25 +1,24 @@
-import { Component, OnInit, inject, ViewChild, ElementRef } from "@angular/core";
-import { Subscription } from "rxjs";
-import { Alumno } from "../../../../interfaces/Alumno";
-import { RequestOperationGen } from "../../../../interfaces/request/request-operation-gen";
-import { AlumnoResponse } from "../../../../interfaces/responses/AlumnoResponse";
-import { ConsultaFecha } from "../../../../interfaces/responses/consulta-fecha";
-import { CostoPromesaResponse } from "../../../../interfaces/responses/costo-promesas.interface";
-import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
-import { ResponseAlumnoService } from "../../../../services/mappingServices/response-alumno.service";
-import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
-import { HEADTABLE } from "./headTable";
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Alumno } from '../../../../interfaces/Alumno';
+import { RequestOperationGen } from '../../../../interfaces/request/request-operation-gen';
+import { AlumnoResponse } from '../../../../interfaces/responses/AlumnoResponse';
+import { ConsultaFecha } from '../../../../interfaces/responses/consulta-fecha';
+import { CostoPromesaResponse } from '../../../../interfaces/responses/costo-promesas.interface';
+import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare-generacion';
+import { ResponseAlumnoService } from '../../../../services/mappingServices/response-alumno.service';
+import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
+import { HEADTABLE } from './headTable';
 
 @Component({
   templateUrl: './generador-masivo.component.html',
   styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
 })
-
-export class GeneradorMasivoComponent implements OnInit {
+export class GeneradorMasivoComponent {
   Service = inject(PagareReinscripcionesService);
   Maping = inject(ResponseAlumnoService);
 
-  @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generacion el segundo select oculto.
+  @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
 
   public loaderBarProgress: number = 0; // Progreso de la barra.
   public data: Alumno[] | undefined = undefined; // Valores de la tabla.
@@ -31,10 +30,8 @@ export class GeneradorMasivoComponent implements OnInit {
     costo: '',
     promesas: '',
     fechas: this.fechas,
-    msj: ''
+    msj: '',
   };
-
-  ngOnInit(): void {}
 
   /**
    *  Actualiza el cuadro recibe el idOperacion y idGeneracion
@@ -42,37 +39,42 @@ export class GeneradorMasivoComponent implements OnInit {
    * @param {SelectedPagareGeneracion} selected
    * @memberof GeneradorMasivoComponent
    */
-  public actualizarInfoBar({catalog: idOperacion, generation: idGeneracion}: SelectedPagareGeneracion) {
-
+  public actualizarInfoBar({
+    catalog: idOperacion,
+    generation: idGeneracion,
+  }: SelectedPagareGeneracion) {
     const extra: RequestOperationGen = {
       idOperacion: idOperacion,
-      idGeneracion: idGeneracion
-    }
+      idGeneracion: idGeneracion,
+    };
     //Consulta Validacion Promesas
     this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
       this.infoBar.msj = response[0].msj;
     });
 
     //Consulta del Costo de las promesas y numero de promesas
-    this.Service.ConsultarCostoPromesas(extra).subscribe((response: CostoPromesaResponse[]) => {
-      if (response.length > 0) {
-        const { costo, promesas } = response[0];
-        this.infoBar.costo = costo;
-        this.infoBar.promesas = promesas;
-      } else {
-        this.restablecerInfoBar()
-      }
-    });
+    this.Service.ConsultarCostoPromesas(extra).subscribe(
+      (response: CostoPromesaResponse[]) => {
+        if (response.length > 0) {
+          const { costo, promesas } = response[0];
+          this.infoBar.costo = costo;
+          this.infoBar.promesas = promesas;
+        } else {
+          this.restablecerInfoBar();
+        }
+      },
+    );
 
-    //Consulta de las fechas de la promesas
-    this.Service.ConsultarFechasPromesas(extra).subscribe((response: ConsultaFecha[]) => {
-      console.log('fecha', response);
-      if (response.length > 0) {
-        this.infoBar.fechas = response;
-      } else {
-        this.restablecerInfoBar()
-      }
-    });
+    //Consulta de las fechas de las promesas.
+    this.Service.ConsultarFechasPromesas(extra).subscribe(
+      (response: ConsultaFecha[]) => {
+        if (response.length > 0) {
+          this.infoBar.fechas = response;
+        } else {
+          this.restablecerInfoBar();
+        }
+      },
+    );
   }
 
   /**
@@ -80,28 +82,32 @@ export class GeneradorMasivoComponent implements OnInit {
    *
    * @memberof GeneradorMasivoComponent
    */
-  private restablecerInfoBar(){
+  private restablecerInfoBar() {
     this.infoBar = {
-      costo : '',
-      fechas : [],
-      msj : 'Seleccione una generacion',
-      promesas : ''
-    }
+      costo: '',
+      fechas: [],
+      msj: 'Seleccione una generacion',
+      promesas: '',
+    };
   }
 
-  public actualizarTabla({catalog: idOperacion, generation: idGeneracion}: SelectedPagareGeneracion) {
+  public actualizarTabla({
+    catalog: idOperacion,
+    generation: idGeneracion,
+  }: SelectedPagareGeneracion) {
     const extra: RequestOperationGen = {
       idOperacion: idOperacion,
-      idGeneracion: idGeneracion
-    }
-    this.Service.GetAlumnosConsiderados(extra).subscribe((response:AlumnoResponse[]) => {
-      this.data = this.Maping.AlumnoResponseToAlumno(response); //Aqui mapeo la respuesta a la mia
-      //console.log(this.data);
-    });
-    this.actualizarInfoBar({catalog: idOperacion, generation: idGeneracion});
+      idGeneracion: idGeneracion,
+    };
+    this.Service.GetAlumnosConsiderados(extra).subscribe(
+      (response: AlumnoResponse[]) => {
+        this.data = this.Maping.AlumnoResponseToAlumno(response); //Aqui mapeo la respuesta a la mia
+        //console.log(this.data);
+      },
+    );
+    this.actualizarInfoBar({ catalog: idOperacion, generation: idGeneracion });
     this.loaderBarProgress = 0;
   }
-
 
   // Parte de place holder
   //! TO DO::
@@ -123,5 +129,4 @@ export class GeneradorMasivoComponent implements OnInit {
       });
     }
   }
-
 }

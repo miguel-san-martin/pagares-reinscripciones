@@ -2,7 +2,7 @@
 <div class="grid" >
   <mat-form-field class="col " style="padding: 0%;">
     <mat-label>Pagares</mat-label>
-    <mat-select (selectionChange)="emitSelectedCatalog()" [(value)]="selectedCataloge.catalog" name="catalogo">
+    <mat-select (selectionChange)="emitSelectedCatalog($event.value)" [(value)]="selectedCataloge.catalog" name="catalogo">
       @for (pagare of listaPagare; track pagare) {
         <mat-option [value]="pagare.id">{{ pagare.descripcion }}</mat-option>
       }
@@ -14,7 +14,7 @@
   <div #generacion style="display: none">
     <mat-form-field class="col-6" style="padding: 0%; margin-left: 1rem">
       <mat-label>Generacion</mat-label>
-      <mat-select (selectionChange)="emitSelectedCatalog()" [(value)]="selectedCataloge.generation" name="catalogo">
+      <mat-select (selectionChange)="emitSelectedCatalog($event.value)" [(value)]="selectedCataloge.generation" name="catalogo">
         @for (generacion of listaGeneraciones; track generacion) {
           <mat-option [value]="generacion.id">{{ generacion.nombre }}</mat-option>
         }
