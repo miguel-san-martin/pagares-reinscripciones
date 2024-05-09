@@ -85,8 +85,8 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     //Info que se mandara para consulta
     const extra: RequestOperationGen = {
-      idOperacion: idOperacion,
-      idGeneracion: idGeneracion,
+      idOperacion: idOperacion || '',
+      idGeneracion: idGeneracion || '',
     };
 
     //Set Monto

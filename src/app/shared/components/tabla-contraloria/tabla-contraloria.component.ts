@@ -38,7 +38,7 @@ export class TablaContraloriaComponent implements OnChanges{
   } */
 
   ngOnChanges(changes: SimpleChanges): void {
-/*     console.log('Onchange'); */
+
     if(changes['data']){
       this.construirTabla();
     }

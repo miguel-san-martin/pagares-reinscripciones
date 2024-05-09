@@ -12,7 +12,7 @@
   <h1 class="col-11">Generación masiva</h1>
 
   <!-- Select reutilizable -->
-  <app-select-pagares class="col-11" (selectedCatalog)="actualizarTabla($event)" />
+  <app-select-pagares class="col-11" (selectedCatalog)="actualizarTabla($event)" (showPanel)="hiddenPanel($event)" />
 
   <div class="col-11"
     style="justify-content: space-evenly;align-items: center;align-content: center;flex-direction: row-reverse; text-align: center;">
@@ -26,7 +26,7 @@
               style="color: rgb(74, 173, 70);" />
             <span class="mat-h3" style="margin: 0px;">Costo</span> <br />
           </div>
-          @if (infoBar.promesas !== '') {<span class="mat-h1">{{infoBar.costo | dineromxn }}</span>}
+          @if ( infoBar.costo !== null) {<span class="mat-h1">{{infoBar.costo | dineromxn }}</span>}
         </div>
 
         <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
@@ -37,7 +37,7 @@
               style="color: rgb(197, 76, 191)" />
             <span class="mat-h3" style="margin: 0px;">Promesas</span><br />
           </div>
-          @if (infoBar.promesas !== '') {<span class="mat-h1">{{infoBar.promesas}} Meses</span>}
+          @if ( infoBar.promesas ) {<span class="mat-h1">{{infoBar.promesas}} Meses</span>}
 
         </div>
 
@@ -59,23 +59,6 @@
       </mat-card-content>
     </mat-card>
 
-    <!--Inicio panel informativo verde-->
-    <!--     <div class="alert alert-success" role="alert">
-      <span><b>{{infoBar.msj}}</b> </span> <br />
-
-      <span><b>Costo:</b> {{infoBar.costo}} $</span> <br />
-
-      <span> <b>Promesas:</b> {{infoBar.promesas}} Meses</span> <br />
-
-      <span> <b>Fechas:</b> </span>
-      <ul>
-        @for (fecha of infoBar.fechas; track $index) {
-        <li>{{fecha.FechaVencimiento}}</li>
-        }
-      </ul>
-
-
-    </div> -->
 
     <!-- Barra de progreso -->
 
@@ -107,6 +90,7 @@
     </div>
     }
   </div>
+
   <!-- Barra de progreso -->
 
 

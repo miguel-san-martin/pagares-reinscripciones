@@ -15,6 +15,7 @@ import { HEADTABLE } from './headTable';
   styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
 })
 export class GeneradorMasivoComponent {
+
   Service = inject(PagareReinscripcionesService);
   Maping = inject(ResponseAlumnoService);
 
@@ -45,16 +46,13 @@ export class GeneradorMasivoComponent {
     generation: idGeneracion,
   }: SelectedPagareGeneracion) {
     const extra: RequestOperationGen = {
-      idOperacion: idOperacion,
-      idGeneracion: idGeneracion,
+      idOperacion: idOperacion ?? '',
+      idGeneracion: idGeneracion ?? '',
     };
     //Consulta Validacion Promesas
     this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
       this.infoBar.msj = response[0].msj;
-      console.log(response[0].error);
       if(response[0].error == 1){
-        console.log('Entro');
-
         this.disableGenerateButton = true;
       } else{
         this.disableGenerateButton = false;
@@ -65,7 +63,6 @@ export class GeneradorMasivoComponent {
 
     //Consulta del Costo de las promesas y numero de promesas
     this.Service.ConsultarCostoPromesas(extra).subscribe(
-
 
       (response: CostoPromesaResponse[]) => {
         if (response.length > 0) {
@@ -98,9 +95,9 @@ export class GeneradorMasivoComponent {
   private restablecerInfoBar() {
     this.infoBar = {
       costo: '',
+      promesas: '',
       fechas: [],
       msj: 'Seleccione una generacion',
-      promesas: '',
     };
   }
 
@@ -108,9 +105,10 @@ export class GeneradorMasivoComponent {
     catalog: idOperacion,
     generation: idGeneracion,
   }: SelectedPagareGeneracion) {
+
     const extra: RequestOperationGen = {
-      idOperacion: idOperacion,
-      idGeneracion: idGeneracion,
+      idOperacion: idOperacion ?? '',
+      idGeneracion: idGeneracion ?? '',
     };
     this.Service.GetAlumnosConsiderados(extra).subscribe(
       (response: AlumnoResponse[]) => {
@@ -121,6 +119,17 @@ export class GeneradorMasivoComponent {
     this.actualizarInfoBar({ catalog: idOperacion, generation: idGeneracion });
     this.loaderBarProgress = 0;
   }
+
+  hiddenPanel(signal: boolean) {
+    if(!signal){
+      this.restablecerInfoBar()
+      this.data = []
+
+    }
+
+    }
+
+
 
   // Parte de place holder
   //! TO DO::
@@ -138,7 +147,6 @@ export class GeneradorMasivoComponent {
         this.data?.length || 0,
       ).subscribe((value) => {
         this.loaderBarProgress = value;
-        console.log(this.loaderBarProgress);
       });
     }
   }

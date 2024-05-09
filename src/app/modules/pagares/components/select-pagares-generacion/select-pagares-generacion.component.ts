@@ -25,61 +25,59 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   Service = inject(PagareReinscripcionesService);
   Maping = inject(ResponseAlumnoService);
 
+
   @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generacion el segundo select oculto.
 
   @Output('selectedCatalog')
   public emitSelectedOption: EventEmitter<SelectedPagareGeneracion> =
     new EventEmitter();
 
-  public listaPagare!: Catalogo[]; //Lista de Catalogos
-  public selectedCatalog!: string; // Valor del Select de Catalogos
-  public listaGeneraciones: GeneracionesResponse[] = []; //Lista de Generaciones
-  public selectedGeneracion: string | undefined; //Valor del Select de Generacion que esta oculto.
+  @Output()
+  public showPanel: EventEmitter<boolean> =
+    new EventEmitter();
+
+  public listaCatalogos!: Catalogo[]; //Lista de Catalogos
+  public listaGeneraciones!: GeneracionesResponse[]; //Lista de Generaciones
+
   public selectedCataloge: SelectedPagareGeneracion = {
-    catalog: '',
-    generation: '0',
+    catalog: null,
+    generation: null,
   };
-  public idConGenercion: string[] = ['798', '708'];
 
   ngOnInit(): void {
-    /* */
+
     this.Service.GetCatalogosOperaciones().subscribe((response: Catalogo[]) => {
-      this.listaPagare = response;
-      const valorPorDefault: string = this.listaPagare[1].id;
-      this.selectedCatalog = valorPorDefault;
-      this.updateTable({ value: valorPorDefault }, '0');
+      this.listaCatalogos = response;
     });
 
-    this.Service.GetCatalogosGeneraciones().subscribe((response) => {
+    this.Service.GetCatalogosGeneraciones().subscribe((response: GeneracionesResponse[]) => {
       this.listaGeneraciones = response;
     });
   }
 
-  public emitSelectedCatalog(value: number) {
-    this.selectedCataloge = {
-      catalog: this.selectedCataloge.catalog,
-      generation: this.selectedCataloge.generation,
-    };
-    this.displaySubSelect(this.selectedCataloge.catalog);
-    this.emitSelectedOption.emit(this.selectedCataloge);
+  public onSelectPagare() {
+
+    if(Number(this.selectedCataloge.catalog) === 798 || Number(this.selectedCataloge.catalog) === 708){
+      this.selectedCataloge.generation = null;
+      this.seleccionGeneracion.nativeElement.style.display = 'contents';
+      this.showPanel.emit(false)
+
+    } else{
+      this.selectedCataloge.generation = '0';
+      this.seleccionGeneracion.nativeElement.style.display = 'none';
+      this.emitSelectedOption.emit(this.selectedCataloge)
+      this.showPanel.emit(true)
+    }
+
+  }
+
+  public onSelectGeneration() {
+
+    this.emitSelectedOption.emit(this.selectedCataloge)
+    this.showPanel.emit(true)
+
   }
 
   // Si es un pagare tipo Impulsa - 798 o 708 Vertice se mostrara un select con #genereacion como referencia
-  displaySubSelect(id: string) {
-    if (id == '798' || id == '708') {
-      this.seleccionGeneracion.nativeElement.style.display = 'contents';
-    } else {
-      this.seleccionGeneracion.nativeElement.style.display = 'none';
-      this.selectedCataloge.generation = '0';
-    }
-  }
 
-  private updateTable({ value }: any, generacion: string = '0') {
-    if (value == '798' || value == '708') {
-      this.selectedGeneracion = generacion;
-    } else {
-      this.selectedGeneracion = undefined;
-    }
-    this.displaySubSelect(value);
-  }
 }
