@@ -23,6 +23,7 @@ export class GeneradorMasivoComponent {
   public loaderBarProgress: number = 0; // Progreso de la barra.
   public data: Alumno[] | undefined = undefined; // Valores de la tabla.
   public headTable = HEADTABLE; //Variable global.
+  public disableGenerateButton: boolean = false;
 
   private fechas: ConsultaFecha[] = [];
 
@@ -50,9 +51,18 @@ export class GeneradorMasivoComponent {
     //Consulta Validacion Promesas
     this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
       this.infoBar.msj = response[0].msj;
+      console.log(response[0].error);
+      if(response[0].error == 1){
+        console.log('Entro');
+
+        this.disableGenerateButton = true;
+      } else{
+        this.disableGenerateButton = false;
+
+      }
+
     });
 
-    console.log(extra);
     //Consulta del Costo de las promesas y numero de promesas
     this.Service.ConsultarCostoPromesas(extra).subscribe(
 

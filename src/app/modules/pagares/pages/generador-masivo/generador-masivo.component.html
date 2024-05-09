@@ -91,10 +91,10 @@
     <!--Fin panel informativo verde-->
     <!-- Botones -->
     <div class="col" style="margin-top: 1rem;text-align:end ;padding: 0%;">
-      <button mat-flat-button color="primary" (click)="simularBarra()">
+      <button mat-flat-button color="primary" (click)="simularBarra()" [disabled]="disableGenerateButton">
         Generar
       </button>
-      <button mat-flat-button color="primary" style="margin-left: 1rem">
+      <button mat-flat-button color="primary" style="margin-left: 1rem" [disabled]="disableGenerateButton">
         <mat-icon class="tac" style="margin: 0">
           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 50 50">
             <path

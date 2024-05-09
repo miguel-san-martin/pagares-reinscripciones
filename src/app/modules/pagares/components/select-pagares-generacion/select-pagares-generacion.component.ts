@@ -67,7 +67,6 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   // Si es un pagare tipo Impulsa - 798 o 708 Vertice se mostrara un select con #genereacion como referencia
   displaySubSelect(id: string) {
     if (id == '798' || id == '708') {
-      console.log('entra');
       this.seleccionGeneracion.nativeElement.style.display = 'contents';
     } else {
       this.seleccionGeneracion.nativeElement.style.display = 'none';

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 
-export interface Nodito {
+export interface Node {
   name:      string;
   img:       string;
   sub_nodes?: SubNode[];
@@ -25,12 +25,11 @@ export class SideNavComponent implements OnInit{
 
   http = inject(HttpClient);
   focus: boolean[] = [];
-  modulos!:Nodito[];
+  modulos!:Node[];
 
   ngOnInit(): void {
 
-    this.http.get<Nodito[]>('/assets/index.json').subscribe( (res:Nodito[]) => {
-      console.log(res);
+    this.http.get<Node[]>('/assets/index.json').subscribe( (res:Node[]) => {
       this.modulos = res;
     })
   }
