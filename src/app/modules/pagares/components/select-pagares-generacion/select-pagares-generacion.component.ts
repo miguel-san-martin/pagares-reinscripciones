@@ -28,7 +28,7 @@ export class SelectPagaresGeneracionComponent implements OnInit {
 
   @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generacion el segundo select oculto.
 
-  @Output('selectedCatalog')
+  @Output()
   public emitSelectedOption: EventEmitter<SelectedPagareGeneracion> =
     new EventEmitter();
 

@@ -1,7 +1,8 @@
 export interface RequestAltaPagare {
   idOperacion: string,
   monto: string,
-  cantidadPromesas: string,
+  cantidadPromesas: number,
   fechasPromesas: string,
   idGeneracion:string
+  idRegistro?: string;
 }

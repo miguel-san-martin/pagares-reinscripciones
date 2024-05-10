@@ -143,20 +143,29 @@ export class PagareReinscripcionesService extends ServicioBase {
     return `${dia}-${mes}-${año}`;
   }
 
-
-  public formatearStringAFecha(fechas:string[]){
-
-  }
+  public formatearStringAFecha(fechas: string[]) {}
 
   public PostAltaPagares(
     extras: RequestAltaPagare, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
   ): Observable<any> {
-    const parametros = {
-      servicio: 'pagaresMasivo',
-      accion: 'CON_GeneracionPagares_Administracion_Alta',
-      tipoRespuesta: 'json',
-    };
+    let parametros;
+    console.log('log', extras.idRegistro);
+
+    if (extras.idRegistro === undefined) {
+      parametros = {
+        servicio: 'pagaresMasivo',
+        accion: 'CON_GeneracionPagares_Administracion_Alta',
+        tipoRespuesta: 'json',
+      };
+    } else {
+      parametros = {
+        servicio: 'pagaresMasivo',
+        accion: 'CON_GeneracionPagares_ActualizaCostos_Fechas',
+        tipoRespuesta: 'json',
+      };
+    }
+
     return this.consulta(
       { ...parametros, ...extras },
       '/api/contraloria/generaPagaresM.php',
@@ -164,7 +173,7 @@ export class PagareReinscripcionesService extends ServicioBase {
   }
 
   public ConsultarCostoPromesas(
-    extras: {idOperacion:string, idGeneracion: string}, // envia un carcacter numero o nombre
+    extras: { idOperacion: string; idGeneracion: string }, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
   ): Observable<CostoPromesaResponse[]> {
     const parametros = {

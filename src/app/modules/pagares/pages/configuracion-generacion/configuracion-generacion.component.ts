@@ -1,35 +1,46 @@
-import { Component, ElementRef, OnInit, ViewChild, inject } from "@angular/core";
-import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
-import { RequestOperationGen } from "../../../../interfaces/request/request-operation-gen";
-import { ConsultaFecha } from "../../../../interfaces/responses/consulta-fecha";
-import { CostoPromesaResponse } from "../../../../interfaces/responses/costo-promesas.interface";
-import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
-import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
-
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  ViewChild,
+  inject,
+} from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { RequestOperationGen } from '../../../../interfaces/request/request-operation-gen';
+import { ConsultaFecha } from '../../../../interfaces/responses/consulta-fecha';
+import { CostoPromesaResponse } from '../../../../interfaces/responses/costo-promesas.interface';
+import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare-generacion';
+import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
+import { RequestAltaPagare } from 'app/interfaces/request/request-alta-pagare';
 
 @Component({
   templateUrl: './configuracion-generacion.component.html',
   styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
 })
-export class ConfiguracionGeneracionComponent implements OnInit {
+export class ConfiguracionGeneracionComponent implements AfterViewInit {
   FB = inject(FormBuilder);
   Service = inject(PagareReinscripcionesService);
 
   @ViewChild('montoInput') montoInput!: ElementRef; //View de generacion el segundo select oculto.
 
-
   formIsVisible = false;
   showMontoField = true;
-  sliderValue = 8;
+  sliderValue = 1;
+  idOperacion !: string | null;
+  idGeneracion !: string | null;
+  idRegistro: string | undefined;
+
+
   public myForm!: FormGroup;
 
   public get getFormControlArray() {
     return this.myForm.get('fechasPromesas') as FormArray;
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.resetForm();
-    if (this.sliderValue == 1) this.addDate();
+    this.addDate()
+
   }
 
   public resetForm() {
@@ -46,6 +57,8 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       date: [date, Validators.required],
     });
     this.getFormControlArray.push(grupo);
+    console.log(this.myForm);
+
   }
 
   // Borra el control de fechas, recibe arrayDates, los va añadiendo uno a uno.
@@ -58,7 +71,6 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
   //Metodo que se ejecuta cuando detecta un detectSliderChange en la barra
   public detectSliderChange() {
-
     const size = this.getFormControlArray.length;
     if (size < this.sliderValue) {
       while (this.getFormControlArray.length < this.sliderValue) {
@@ -77,36 +89,53 @@ export class ConfiguracionGeneracionComponent implements OnInit {
    * @param {SelectedPagareGeneracion} {catalog: idOperacion, generation: idGeneracion}
    * @memberof ConfiguracionGeneracionComponent
    */
-  public loadDataOnForm({catalog: idOperacion, generation: idGeneracion}: SelectedPagareGeneracion) {
+  public loadDataOnForm({
+    catalog: idOperacion,
+    generation: idGeneracion,
+  }: SelectedPagareGeneracion) {
+
+    this.idOperacion = idOperacion;
+    this.idGeneracion = idGeneracion;
+
     // Limpiar formulario
     this.resetForm();
     this.formIsVisible = true;
 
-
     //Info que se mandara para consulta
     const extra: RequestOperationGen = {
-      idOperacion: idOperacion || '',
-      idGeneracion: idGeneracion || '',
+      idOperacion: idOperacion ?? '',
+      idGeneracion: idGeneracion ?? '',
     };
 
+    this.idRegistro = undefined;
     //Set Monto
     this.Service.ConsultarCostoPromesas(extra).subscribe(
       (response: CostoPromesaResponse[]) => {
-        const { promesas, costo } = response[0];
-        this.sliderValue = Number(promesas);
-        this.myForm.patchValue({
-          monto: Number(costo),
-          cantidadPromesas: Number(promesas),
-        });
+        console.log(response);
+        if(response[0]){
 
-        if(extra.idOperacion == '572'){
-          this.myForm.get('monto')?.disable();
-          this.showMontoField = false;
-          console.log(this.montoInput);
-        }else{
-          this.showMontoField = true;
+          console.log('Respuesta promesas', response);
+
+          const { promesas, costo, idOperacion, id } = response[0];
+          this.idOperacion = idOperacion;
+          this.sliderValue = Number(promesas);
+          this.idRegistro = id;
+          this.myForm.patchValue({
+            monto: Number(costo),
+            cantidadPromesas: Number(promesas),
+          });
+
+          if (extra.idOperacion == '572') {
+            let montoTemp = this.myForm.get('monto');
+            montoTemp?.patchValue('0')
+            montoTemp?.disable();
+
+            this.showMontoField = false;
+            console.log(this.montoInput);
+          } else {
+            this.showMontoField = true;
+          }
         }
-
       },
     );
 
@@ -126,8 +155,8 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   onSave() {
     // Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24
     let fechasConcat: string = '';
-    let fechas = this.myForm.get('fechasPromesas')?.value;
-    fechas = fechas.map((row: any) => {
+    const fechas = this.myForm.get('fechasPromesas')?.value;
+     fechas.map((row: any) => {
       fechasConcat = fechasConcat + this.Service.formatearFecha(row.date) + '|';
       return this.Service.formatearFecha(row.date);
     });
@@ -142,5 +171,26 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     const monto = this.myForm.get('monto')?.value;
 
+    let payload :RequestAltaPagare = {
+      idOperacion: this.idOperacion ?? '',
+      monto: monto,
+      cantidadPromesas: this.sliderValue,
+      fechasPromesas: fechasConcat,
+      idGeneracion: this.idOperacion ?? '0',
+    }
+
+    if(this.idRegistro) {
+      payload = {
+        ...payload,
+        idRegistro: this.idRegistro
+      }
+    }
+    console.log('Payload',payload);
+
+
+    this.Service.PostAltaPagares(payload).subscribe(
+      (response) => console.log
+
+    );
   }
 }
