@@ -3,7 +3,7 @@
 
   <app-select-pagares class="col-11" (emitSelectedOption)="loadDataOnForm($event)"/>
 
-  @if(formIsVisible){
+  @if(formIsVisible()){
     <div class="col-8">
 
       <h2>Número de promesas</h2><br/>
@@ -18,7 +18,8 @@
     <form class="col-11 grid" [formGroup]="myForm" (ngSubmit)="onSave()">
       @if(showMontoField){
 
-        <mat-form-field class="col-11" style="display: contents;" #montoInput>
+        <div class="col-11" style="padding-right: 0.5rem">
+        <mat-form-field  style="display: contents;" #montoInput>
           <mat-label>Monto</mat-label>
           <input
             type="number"
@@ -27,32 +28,31 @@
             placeholder="Ex. pat@example.com"
           />
         </mat-form-field>
+
+        </div>
       }
 
-      <div class="col-12 grid" formArrayName="fechasPromesas">
-        @for (promesa of getFormControlArray.controls; let i = $index; track promesa) {
-          <div [formGroupName]="i" class="col-3" >
-            <mat-form-field style="width: 100%;">
-              <mat-label>Fecha Limite {{i+1}}</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="date"/>
-              <mat-hint>Dia/Mes/Año</mat-hint>
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        }
+      <div class="col-12" style="padding: 0">
+         <div class="grid" formArrayName="fechasPromesas">
+          @for (promesa of getFormControlArray.controls; let i = $index; track promesa) {
+            <div [formGroupName]="i" class="col-3" >
+              <mat-form-field style="width: 100%;">
+                <mat-label>Fecha Limite {{i+1}}</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date"/>
+                <mat-hint>Dia/Mes/Año</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"/>
+                <mat-datepicker #picker />
+              </mat-form-field>
+            </div>
+          }
+        </div>
       </div>
 
-      <div class="">
-        <button mat-flat-button type="submit" class="btn btn-primary float-end">
+      <div style="padding: 0.5rem">
+        <button mat-raised-button type="submit" class="btn btn-primary float-end">
           Guardar
         </button>
       </div>
     </form>
   }
-
-
 </div>

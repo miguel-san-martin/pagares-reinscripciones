@@ -1,46 +1,42 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { RequestOperationGen } from '../../../../interfaces/request/request-operation-gen';
-import { ConsultaFecha } from '../../../../interfaces/responses/consulta-fecha';
-import { CostoPromesaResponse } from '../../../../interfaces/responses/costo-promesas.interface';
-import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare-generacion';
-import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
-import { RequestAltaPagare } from 'app/interfaces/request/request-alta-pagare';
+import { AfterViewInit,Component,ElementRef,ViewChild,inject,signal } from "@angular/core";
+import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
+import { RequestOperationGen } from "../../../../interfaces/request/request-operation-gen";
+import { ConsultaFecha } from "../../../../interfaces/responses/consulta-fecha";
+import { CostoPromesaResponse } from "../../../../interfaces/responses/costo-promesas.interface";
+import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
+import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
+import { RequestAltaPagare } from "app/interfaces/request/request-alta-pagare";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SnackBarComponent } from "@shared/components/snack-bar/snack-bar.component";
 
 @Component({
-  templateUrl: './configuracion-generacion.component.html',
-  styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
+  templateUrl: "./configuracion-generacion.component.html",
+  styleUrl: "../../../../shared/scss/custom-template-miguel-v2.scss",
 })
 export class ConfiguracionGeneracionComponent implements AfterViewInit {
-  FB = inject(FormBuilder);
-  Service = inject(PagareReinscripcionesService);
+  private FB = inject(FormBuilder);
+  private Service = inject(PagareReinscripcionesService);
+  private snackBar = inject(MatSnackBar);
 
-  @ViewChild('montoInput') montoInput!: ElementRef; //View de generacion el segundo select oculto.
+  @ViewChild("montoInput") montoInput!: ElementRef; //View de generacion el segundo select oculto.
 
-  formIsVisible = false;
-  showMontoField = true;
-  sliderValue = 1;
-  idOperacion !: string | null;
-  idGeneracion !: string | null;
+  // formIsVisible = false;
+  public formIsVisible = signal(false);
+  showMontoField: boolean = true;
+  sliderValue:number = 1;
+  idOperacion!: string | null;
+  idGeneracion!: string | null;
   idRegistro: string | undefined;
-
 
   public myForm!: FormGroup;
 
   public get getFormControlArray() {
-    return this.myForm.get('fechasPromesas') as FormArray;
+    return this.myForm.get("fechasPromesas") as FormArray;
   }
 
   ngAfterViewInit(): void {
     this.resetForm();
-    this.addDate()
-
+    this.addDate();
   }
 
   public resetForm() {
@@ -58,7 +54,6 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
     });
     this.getFormControlArray.push(grupo);
     console.log(this.myForm);
-
   }
 
   // Borra el control de fechas, recibe arrayDates, los va añadiendo uno a uno.
@@ -72,6 +67,7 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
   //Metodo que se ejecuta cuando detecta un detectSliderChange en la barra
   public detectSliderChange() {
     const size = this.getFormControlArray.length;
+
     if (size < this.sliderValue) {
       while (this.getFormControlArray.length < this.sliderValue) {
         this.addDate();
@@ -89,22 +85,18 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
    * @param {SelectedPagareGeneracion} {catalog: idOperacion, generation: idGeneracion}
    * @memberof ConfiguracionGeneracionComponent
    */
-  public loadDataOnForm({
-    catalog: idOperacion,
-    generation: idGeneracion,
-  }: SelectedPagareGeneracion) {
-
+  public loadDataOnForm( { catalog: idOperacion, generation: idGeneracion }: SelectedPagareGeneracion) {
     this.idOperacion = idOperacion;
     this.idGeneracion = idGeneracion;
 
     // Limpiar formulario
     this.resetForm();
-    this.formIsVisible = true;
+    this.formIsVisible.set(true);
 
     //Info que se mandara para consulta
     const extra: RequestOperationGen = {
-      idOperacion: idOperacion ?? '',
-      idGeneracion: idGeneracion ?? '',
+      idOperacion: idOperacion ?? "",
+      idGeneracion: idGeneracion ?? "",
     };
 
     this.idRegistro = undefined;
@@ -112,9 +104,8 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
     this.Service.ConsultarCostoPromesas(extra).subscribe(
       (response: CostoPromesaResponse[]) => {
         console.log(response);
-        if(response[0]){
-
-          console.log('Respuesta promesas', response);
+        if (response[0]) {
+          console.log("Respuesta promesas", response);
 
           const { promesas, costo, idOperacion, id } = response[0];
           this.idOperacion = idOperacion;
@@ -125,9 +116,9 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
             cantidadPromesas: Number(promesas),
           });
 
-          if (extra.idOperacion == '572') {
-            let montoTemp = this.myForm.get('monto');
-            montoTemp?.patchValue('0')
+          if (extra.idOperacion == "572") {
+            const montoTemp = this.myForm.get("monto");
+            montoTemp?.patchValue("0");
             montoTemp?.disable();
 
             this.showMontoField = false;
@@ -154,10 +145,11 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
   // Metodo que se ejecuta con el onsumit
   onSave() {
     // Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24
-    let fechasConcat: string = '';
-    const fechas = this.myForm.get('fechasPromesas')?.value;
-     fechas.map((row: any) => {
-      fechasConcat = fechasConcat + this.Service.formatearFecha(row.date) + '|';
+    let fechasConcat: string = "";
+    const fechas = this.myForm.get("fechasPromesas")?.value;
+    console.log("l", fechas);
+    fechas.map((row: any) => {
+      fechasConcat = fechasConcat + this.Service.formatearFecha(row.date) + "|";
       return this.Service.formatearFecha(row.date);
     });
 
@@ -169,28 +161,50 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
       cantidadPromesas: this.sliderValue,
     });
 
-    const monto = this.myForm.get('monto')?.value;
+    const monto: string = this.myForm.get("monto")?.value;
 
-    let payload :RequestAltaPagare = {
-      idOperacion: this.idOperacion ?? '',
+    let payload: RequestAltaPagare = {
+      idOperacion: this.idOperacion ?? "",
       monto: monto,
       cantidadPromesas: this.sliderValue,
       fechasPromesas: fechasConcat,
-      idGeneracion: this.idOperacion ?? '0',
-    }
+      idGeneracion: this.idOperacion ?? "0",
+    };
 
-    if(this.idRegistro) {
+    if (this.idRegistro) {
       payload = {
         ...payload,
-        idRegistro: this.idRegistro
-      }
+        idRegistro: this.idRegistro,
+      };
     }
-    console.log('Payload',payload);
 
+    console.log("Payload", payload);
 
-    this.Service.PostAltaPagares(payload).subscribe(
-      (response) => console.log
+    console.log(this.myForm.invalid);
 
-    );
+    if (!this.myForm.invalid) {
+      this.Service.PostAltaPagares(payload).subscribe((response) => {
+        console.log(response);
+        this.showSnackBar();
+      });
+    } else {
+      this.showSnackBar(true);
+    }
+  }
+
+  showSnackBar(error: boolean = false) {
+    const config: {
+      duration: number;
+      data: { message: string; error: boolean };
+    } = {
+      data: {
+        message: !error
+          ? "Información guardada con exíto"
+          : "Error: Información no guardada",
+        error,
+      },
+      duration: 1800,
+    };
+    this.snackBar.openFromComponent(SnackBarComponent, config);
   }
 }

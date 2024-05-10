@@ -1,0 +1,12 @@
+<div class="grid " style="align-items: center">
+  <div class="col-11" style="justify-self: center">
+    <span matSnackBarLavel [ngStyle]="getStyle()" style="place-content: center">
+      {{ message() }}
+    </span>
+  </div>
+
+  <mat-icon>
+    <mat-icon [ngStyle]="getStyle()" class="material-symbols-outlined"> {{icon()}} </mat-icon>
+  </mat-icon>
+
+</div>
