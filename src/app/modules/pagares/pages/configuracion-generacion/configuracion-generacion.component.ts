@@ -18,12 +18,12 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
   private Service = inject(PagareReinscripcionesService);
   private snackBar = inject(MatSnackBar);
 
-  @ViewChild("montoInput") montoInput!: ElementRef; //View de generacion el segundo select oculto.
+  @ViewChild("montoInput") montoInput!: ElementRef; //View de generación el segundo select oculto.
 
   // formIsVisible = false;
   public formIsVisible = signal(false);
   showMontoField: boolean = true;
-  sliderValue:number = 1;
+  sliderValue : number = 1;
   idOperacion!: string | null;
   idGeneracion!: string | null;
   idRegistro: string | undefined;
@@ -147,8 +147,8 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
     // Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24
     let fechasConcat: string = "";
     const fechas = this.myForm.get("fechasPromesas")?.value;
-    console.log("l", fechas);
-    fechas.map((row: any) => {
+    fechas.map((row: { date: Date | null }) => {
+    console.log("l", row);
       fechasConcat = fechasConcat + this.Service.formatearFecha(row.date) + "|";
       return this.Service.formatearFecha(row.date);
     });
@@ -207,4 +207,10 @@ export class ConfiguracionGeneracionComponent implements AfterViewInit {
     };
     this.snackBar.openFromComponent(SnackBarComponent, config);
   }
+
+  editWithInput(date:any, index: number){
+    console.log('Info', date)
+    this.getFormControlArray.get([index])?.patchValue(date.value)
+  }
 }
+
