@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  inject,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, OnInit, Output, ViewChild} from '@angular/core';
 import { MaterialModule } from '../../../../shared-material-module/material.module';
 import { Catalogo } from '../../../../interfaces/catalogo';
 import { GeneracionesResponse } from '../../../../interfaces/generaciones-response';
@@ -23,14 +15,13 @@ import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare
 })
 export class SelectPagaresGeneracionComponent implements OnInit {
   Service = inject(PagareReinscripcionesService);
-  Maping = inject(ResponseAlumnoService);
+  // Maping = inject(ResponseAlumnoService);
 
 
-  @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generacion el segundo select oculto.
+  @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
 
   @Output()
-  public emitSelectedOption: EventEmitter<SelectedPagareGeneracion> =
-    new EventEmitter();
+  public emitSelectedOption: EventEmitter<SelectedPagareGeneracion> = new EventEmitter();
 
   @Output()
   public showPanel: EventEmitter<boolean> =

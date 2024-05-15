@@ -12,7 +12,7 @@
   <h1 class="col-11">Generación masiva</h1>
 
   <!-- Select reutilizable -->
-  <app-select-pagares class="col-11" (emitSelectedOption)="actualizarTabla($event)" (showPanel)="hiddenPanel($event)" />
+  <app-select-pagares #selectPagare  class="col-11" (emitSelectedOption)="actualizarTabla($event)" (showPanel)="hiddenPanel($event)" />
 
   <!--Panel-->
   <div class="col-11"

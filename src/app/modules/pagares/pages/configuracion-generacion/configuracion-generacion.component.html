@@ -1,7 +1,8 @@
 <div class="grid animate__animated animate__fadeIn">
   <h1 class="col-11">Configurar generación</h1>
 
-  <app-select-pagares class="col-11" (emitSelectedOption)="loadDataOnForm($event)"/>
+  <app-select-pagares class="col-11" (emitSelectedOption)="loadDataOnForm($event)"
+                      (showPanel)="formIsVisible.set($event)" />
 
   @if(formIsVisible()){
     <div class="col-8">
@@ -16,7 +17,7 @@
 
     </div>
 
-    <form class="col-11 grid" [formGroup]="myForm" (ngSubmit)="onSave()">
+    <form class="col-12 grid" [formGroup]="myForm" (ngSubmit)="onSave()">
       @if(showMontoField){
 
         <div class="col-11" style="padding-right: 0.5rem">
@@ -36,7 +37,7 @@
       <div class="col-12" style="padding: 0">
          <div class="grid" formArrayName="fechasPromesas">
           @for (promesa of getFormControlArray.controls; let i = $index; track promesa) {
-            <div [formGroupName]="i" class="col-3" >
+            <div [formGroupName]="i" class="md:col-3 sm:col-10" >
               <mat-form-field style="width: 100%;">
                 <mat-label>Fecha Limite {{i+1}}</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="date" />
