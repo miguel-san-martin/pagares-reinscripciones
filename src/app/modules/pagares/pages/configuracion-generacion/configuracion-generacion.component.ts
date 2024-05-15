@@ -28,13 +28,13 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   readonly formIsVisible = signal<boolean>(false);
 
   showMontoField: boolean = true;
-  sliderValue : number = 1;
+  sliderValue: number = 1;
 
   idOperacion!: string | null;
   idGeneracion!: string | null;
   idRegistro: string | undefined;
 
-  protected  myForm
+  protected myForm
     = this.FB.group({
     monto: [0, Validators.required],
     cantidadPromesas: [1],
@@ -52,21 +52,19 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
   //Metodo que se ejecuta cuando detecta un detectSliderChange en la barra
   protected detectSliderChange() {
-    const size = this.getFormControlArray.length;
 
-    if (size < this.sliderValue) {
-      while (this.getFormControlArray.length < this.sliderValue) {
-        this.addDate();
-      }
-    } else {
-      while (this.getFormControlArray.length > this.sliderValue) {
-        this.getFormControlArray.removeAt(this.sliderValue);
-      }
+    while (this.getFormControlArray.length < this.sliderValue) {
+      this.addDate();
     }
+    while (this.getFormControlArray.length > this.sliderValue) {
+      this.getFormControlArray.removeAt(this.sliderValue);
+    }
+
   }
 
+
   /** Solicita llamada a back para poner en los "input" **/
-  protected loadDataOnForm( { catalog: idOperacion, generation: idGeneracion }: SelectedPagareGeneracion) {
+  protected loadDataOnForm({ catalog: idOperacion, generation: idGeneracion }: SelectedPagareGeneracion) {
 
     console.log(idOperacion, idGeneracion);
     this.idOperacion = idOperacion;
@@ -74,39 +72,39 @@ export class ConfiguracionGeneracionComponent implements OnInit {
     this.idRegistro = undefined;
 
     // Limpiar formulario
-    this.myForm.reset()
+    this.myForm.reset();
 
     //Info que se mandara para consulta
     const extra: RequestOperationGen = {
       idOperacion: idOperacion ?? "",
-      idGeneracion: idGeneracion ?? ""
+      idGeneracion: idGeneracion ?? "",
     };
 
     // Get
     this.Service.ConsultarCostoPromesas(extra).pipe(
-      map( value => value[0])
+      map(value => value[0]),
     ).subscribe(
       (response: CostoPromesaResponse) => {
-          console.log("Respuesta promesas", response);
-          const { promesas, costo, idOperacion, id } = response;
-          this.idOperacion = idOperacion;
-          this.sliderValue = Number(promesas);
-          this.idRegistro = id;
+        console.log("Respuesta promesas", response);
+        const { promesas, costo, idOperacion, id } = response;
+        this.idOperacion = idOperacion;
+        this.sliderValue = Number(promesas);
+        this.idRegistro = id;
 
-          this.myForm.patchValue({
-            monto: Number(costo),
-            cantidadPromesas: Number(promesas),
-          });
+        this.myForm.patchValue({
+          monto: Number(costo),
+          cantidadPromesas: Number(promesas),
+        });
 
-          if (extra.idOperacion == "572") {
-            this.myForm.get("monto")?.patchValue(0);
-            this.showMontoField = false;
+        if (extra.idOperacion == "572") {
+          this.myForm.get("monto")?.patchValue(0);
+          this.showMontoField = false;
 
-          } else {
-            this.showMontoField = true;
-          }
+        } else {
+          this.showMontoField = true;
+        }
 
-      }
+      },
     );
 
     //Set Fechas
@@ -143,18 +141,18 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   }
 
   /** Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24 **/
-  private formatDates():string{
+  private formatDates(): string {
     const formDates = this.myForm.get("fechasPromesas")?.value;
-    const numDates = (formDates?.length || 0) -1
+    const numDates = (formDates?.length || 0) - 1;
 
-    if(formDates === undefined) return 'Error';
+    if (formDates === undefined) return "Error";
 
 
     let dateResult: string = "";
-    formDates.forEach(( row: any, index:number ) => {
-      console.log( row)
-      dateResult = dateResult + this.Service.formatearFecha(row.date )
-      if(index != numDates ) dateResult += '|';
+    formDates.forEach((row: any, index: number) => {
+      console.log(row);
+      dateResult = dateResult + this.Service.formatearFecha(row.date);
+      if (index != numDates) dateResult += "|";
     });
 
     //console.log(dateResult);
@@ -167,14 +165,14 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   // Metodo que se ejecuta con el on summit
   protected onSave() {
 
-    if(this.idGeneracion === null || this.idOperacion === null ) return;
-    if(this.myForm.invalid) return this.showSnackBar(true);
+    if (this.idGeneracion === null || this.idOperacion === null) return;
+    if (this.myForm.invalid) return this.showSnackBar(true);
 
     this.myForm.patchValue({
       cantidadPromesas: this.sliderValue,
     });
 
-    const monto: string = (this.myForm.get("monto")?.value ?? 0) + '';
+    const monto: string = (this.myForm.get("monto")?.value ?? 0) + "";
 
     let payload: RequestAltaPagare = {
       idOperacion: this.idOperacion,
@@ -191,10 +189,10 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       };
     }
 
-      this.Service.PostAltaPagares(payload).subscribe((response) => {
-        console.log(response);
-        this.showSnackBar();
-      });
+    this.Service.PostAltaPagares(payload).subscribe((response) => {
+      console.log(response);
+      this.showSnackBar();
+    });
 
   }
 

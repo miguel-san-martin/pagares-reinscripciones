@@ -1,24 +1,22 @@
-import { Component, ElementRef, EventEmitter, inject, OnInit, Output, ViewChild} from '@angular/core';
-import { MaterialModule } from '../../../../shared-material-module/material.module';
-import { Catalogo } from '../../../../interfaces/catalogo';
-import { GeneracionesResponse } from '../../../../interfaces/generaciones-response';
-import { ResponseAlumnoService } from '../../../../services/mappingServices/response-alumno.service';
-import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
-import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare-generacion';
+import { Component, ElementRef, EventEmitter, inject, OnInit, Output, ViewChild } from "@angular/core";
+import { MaterialModule } from "../../../../shared-material-module/material.module";
+import { Catalogo } from "../../../../interfaces/catalogo";
+import { GeneracionesResponse } from "../../../../interfaces/generaciones-response";
+import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
+import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
 
 @Component({
-  selector: 'app-select-pagares',
+  selector: "app-select-pagares",
   standalone: true,
   imports: [MaterialModule],
-  templateUrl: './select-pagares-generacion.component.html',
-  styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
+  templateUrl: "./select-pagares-generacion.component.html",
+  styleUrl: "../../../../shared/scss/custom-template-miguel-v2.scss",
 })
 export class SelectPagaresGeneracionComponent implements OnInit {
   Service = inject(PagareReinscripcionesService);
-  // Maping = inject(ResponseAlumnoService);
 
 
-  @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
+  @ViewChild("generacion") seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
 
   @Output()
   public emitSelectedOption: EventEmitter<SelectedPagareGeneracion> = new EventEmitter();
@@ -48,24 +46,24 @@ export class SelectPagaresGeneracionComponent implements OnInit {
 
   public onSelectPagare() {
 
-    if(Number(this.selectedCataloge.catalog) === 798 || Number(this.selectedCataloge.catalog) === 708){
+    if (Number(this.selectedCataloge.catalog) === 798 || Number(this.selectedCataloge.catalog) === 708) {
       this.selectedCataloge.generation = null;
-      this.seleccionGeneracion.nativeElement.style.display = 'contents';
-      this.showPanel.emit(false)
+      this.seleccionGeneracion.nativeElement.style.display = "contents";
+      this.showPanel.emit(false);
 
-    } else{
-      this.selectedCataloge.generation = '0';
-      this.seleccionGeneracion.nativeElement.style.display = 'none';
-      this.emitSelectedOption.emit(this.selectedCataloge)
-      this.showPanel.emit(true)
+    } else {
+      this.selectedCataloge.generation = "0";
+      this.seleccionGeneracion.nativeElement.style.display = "none";
+      this.emitSelectedOption.emit(this.selectedCataloge);
+      this.showPanel.emit(true);
     }
 
   }
 
   public onSelectGeneration() {
 
-    this.emitSelectedOption.emit(this.selectedCataloge)
-    this.showPanel.emit(true)
+    this.emitSelectedOption.emit(this.selectedCataloge);
+    this.showPanel.emit(true);
 
   }
 

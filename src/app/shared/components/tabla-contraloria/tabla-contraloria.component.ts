@@ -1,7 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { HeaderTable } from '../../interfaces/header-tables';
@@ -12,6 +10,7 @@ enum bandera {
     SinRespuesta
 }
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'shrd-tabla',
   standalone: false,
   //imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, FormsModule],

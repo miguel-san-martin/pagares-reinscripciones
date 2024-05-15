@@ -1,25 +1,25 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Alumno } from '../../../../interfaces/Alumno';
-import { RequestOperationGen } from '../../../../interfaces/request/request-operation-gen';
-import { AlumnoResponse } from '../../../../interfaces/responses/AlumnoResponse';
-import { ConsultaFecha } from '../../../../interfaces/responses/consulta-fecha';
-import { CostoPromesaResponse } from '../../../../interfaces/responses/costo-promesas.interface';
-import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare-generacion';
-import { ResponseAlumnoService } from '../../../../services/mappingServices/response-alumno.service';
-import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
-import { HEADTABLE } from './headTable';
+import { Component, ElementRef, inject, ViewChild } from "@angular/core";
+import { Subscription } from "rxjs";
+import { Alumno } from "../../../../interfaces/Alumno";
+import { RequestOperationGen } from "../../../../interfaces/request/request-operation-gen";
+import { AlumnoResponse } from "../../../../interfaces/responses/AlumnoResponse";
+import { ConsultaFecha } from "../../../../interfaces/responses/consulta-fecha";
+import { CostoPromesaResponse } from "../../../../interfaces/responses/costo-promesas.interface";
+import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
+import { ResponseAlumnoService } from "../../../../services/mappingServices/response-alumno.service";
+import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
+import { HEADTABLE } from "./headTable";
 
 @Component({
-  templateUrl: './generador-masivo.component.html',
-  styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
+  templateUrl: "./generador-masivo.component.html",
+  styleUrl: "../../../../shared/scss/custom-template-miguel-v2.scss",
 })
 export class GeneradorMasivoComponent {
 
   Service = inject(PagareReinscripcionesService);
   Maping = inject(ResponseAlumnoService);
 
-  @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
+  @ViewChild("generacion") seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
 
   public loaderBarProgress: number = 0; // Progreso de la barra.
   public data: Alumno[] | undefined = undefined; // Valores de la tabla.
@@ -29,10 +29,10 @@ export class GeneradorMasivoComponent {
   private fechas: ConsultaFecha[] = [];
 
   public infoBar = {
-    costo: '',
-    promesas: '',
+    costo: "",
+    promesas: "",
     fechas: this.fechas,
-    msj: '',
+    msj: "",
   };
 
   /**
@@ -42,19 +42,19 @@ export class GeneradorMasivoComponent {
    * @memberof GeneradorMasivoComponent
    */
   public actualizarInfoBar({
-    catalog: idOperacion,
-    generation: idGeneracion,
-  }: SelectedPagareGeneracion) {
+                             catalog: idOperacion,
+                             generation: idGeneracion,
+                           }: SelectedPagareGeneracion) {
     const extra: RequestOperationGen = {
-      idOperacion: idOperacion ?? '',
-      idGeneracion: idGeneracion ?? '',
+      idOperacion: idOperacion ?? "",
+      idGeneracion: idGeneracion ?? "",
     };
     //Consulta Validacion Promesas
     this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
       this.infoBar.msj = response[0].msj;
-      if(response[0].error == 1){
+      if (response[0].error == 1) {
         this.disableGenerateButton = true;
-      } else{
+      } else {
         this.disableGenerateButton = false;
 
       }
@@ -63,7 +63,6 @@ export class GeneradorMasivoComponent {
 
     //Consulta del Costo de las promesas y numero de promesas
     this.Service.ConsultarCostoPromesas(extra).subscribe(
-
       (response: CostoPromesaResponse[]) => {
         if (response.length > 0) {
           const { costo, promesas } = response[0];
@@ -94,21 +93,21 @@ export class GeneradorMasivoComponent {
    */
   private restablecerInfoBar() {
     this.infoBar = {
-      costo: '',
-      promesas: '',
+      costo: "",
+      promesas: "",
       fechas: [],
-      msj: 'Seleccione una generacion',
+      msj: "Seleccione una generacion",
     };
   }
 
   public actualizarTabla({
-    catalog: idOperacion,
-    generation: idGeneracion,
-  }: SelectedPagareGeneracion) {
+                           catalog: idOperacion,
+                           generation: idGeneracion,
+                         }: SelectedPagareGeneracion) {
 
     const extra: RequestOperationGen = {
-      idOperacion: idOperacion ?? '',
-      idGeneracion: idGeneracion ?? '',
+      idOperacion: idOperacion ?? "",
+      idGeneracion: idGeneracion ?? "",
     };
     this.Service.GetAlumnosConsiderados(extra).subscribe(
       (response: AlumnoResponse[]) => {
@@ -121,14 +120,12 @@ export class GeneradorMasivoComponent {
   }
 
   hiddenPanel(signal: boolean) {
-    if(!signal){
-      this.restablecerInfoBar()
-      this.data = []
+    if (!signal) {
+      this.restablecerInfoBar();
+      this.data = [];
 
     }
-
-    }
-
+  }
 
 
   // Parte de place holder
