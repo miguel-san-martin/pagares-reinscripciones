@@ -24,9 +24,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
+import { MatBadgeModule } from "@angular/material/badge";
 
 @NgModule({
   exports: [
+    MatBadgeModule,
     MatSliderModule,
     MatProgressBarModule,
     MatCheckboxModule,

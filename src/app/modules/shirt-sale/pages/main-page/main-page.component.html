@@ -1,27 +1,60 @@
-<div class="grid" style="justify-content: space-around">
-  <div class="col-12">
-    <mat-toolbar color="primary">
-      <span>IEST STORE</span>
-      <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
-    </mat-toolbar>
+<mat-toolbar color="primary" style="align-items: center; justify-content: space-between;" class="grid">
+  <span>IEST STORE</span>
+  <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
+  <div class="menu-bar" style="align-items: center; justify-content: space-between;">
+  <mat-icon style="cursor: pointer" matBadge="15" matBadgeColor="accent" >shopping_cart</mat-icon>
+  <mat-icon style="padding: 0 10;cursor: pointer" matBadgeColor="accent" >history</mat-icon>
   </div>
+</mat-toolbar>
 
-  <div class="col-6">
-    <mat-card>
-      <mat-card-header style="align-self: center; padding-bottom: 2rem">
-        <mat-card-title> Playera de preparatoria para hombre</mat-card-title>
-      </mat-card-header>
-      <mat-card-content style="align-self: center">
-      <img alt="articulo" matCardImage src="../../../../../assets/playeras/placeholder.jpg" width="100%" height="45%"/>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-flat-button color="primary" (click)="changePage()">Action1</button>
 
-      </mat-card-actions>
-      <mat-card-footer>
-      Precio: {{precio()}}
+<div class="grid" style="justify-content: center;margin-top: 0.5rem;">
+  @if (items()) {
+    @for (item of items(); track $index) {
 
-      </mat-card-footer>
-    </mat-card>
-  </div>
+      <div class="xl:col-3 lg:col-3 md:col-6 sm:col-12 " style="position: relative">
+        <mat-card style="height: 100%">
+          <mat-card-content
+            style=";display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
+            <img [alt]='item.nombre' matCardImage [ngSrc]="item.img_url" width="200" priority
+                 height="300" />
+            @if (item.disponabilidad !== 0) {
+              <button mat-raised-button color="warn" style="position: absolute; width: 80%"
+                      (click)="openProductDetails()">
+                <mat-icon>shopping_cart</mat-icon>
+                Añadir al carrito
+              </button>
+                } @else {
+              <button mat-raised-button disabled style="position: absolute; width: 80%" >
+                <mat-icon></mat-icon>
+                Agotado
+              </button>
+            }
+          </mat-card-content>
+          <!--            <mat-card-actions style="align-self: center">-->
+          <!--            </mat-card-actions>-->
+          <mat-card-footer style="height: 8rem">
+            <div style="
+                padding: .5rem;
+                display: flex;
+                overflow: hidden;
+                height: 80%;
+                justify-content: space-between;
+                flex-direction: column;
+                align-items: center;
+              ">
+              <h3>{{ item.nombre }}</h3>
+              <span style="font-family: 'Roboto', sans-serif; color: #f67a50; font-weight: normal; font-size: 1.2rem">
+                ${{ item.Precio }}
+              </span>
+            </div>
+
+          </mat-card-footer>
+        </mat-card>
+
+      </div>
+    }
+  } @else {
+    La tienda se encuentra cerrada
+  }
 </div>

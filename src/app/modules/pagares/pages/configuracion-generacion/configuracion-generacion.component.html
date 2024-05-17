@@ -1,11 +1,11 @@
 <div class="grid animate__animated animate__fadeIn">
-  <h1 class="col-11">Configurar generación</h1>
 
+  <h1 class="col-11">Configurar generación</h1>
   <app-select-pagares class="col-11" (emitSelectedOption)="loadDataOnForm($event)"
                       (showPanel)="formIsVisible.set($event)" />
 
   @if (formIsVisible()) {
-    <div class="col-8">
+    <div class="col-11">
 
       <h2>Número de promesas</h2><br />
       <h3> {{ slider.value }} Meses</h3>
@@ -17,44 +17,45 @@
 
     </div>
 
-    <form class="col-12 grid" [formGroup]="myForm" (ngSubmit)="onSave()">
-      @if (showMontoField) {
+    <form class="col-11" [formGroup]="myForm" (ngSubmit)="onSave()" style="padding-left: 0">
+      <div class="grid">
 
-        <div class="col-11" style="padding-right: 0.5rem">
-          <mat-form-field style="display: contents;" #montoInput>
-            <mat-label>Monto</mat-label>
-            <input
-              type="number"
-              formControlName="monto"
-              matInput
-              placeholder="Ex. pat@example.com"
-            />
-          </mat-form-field>
+        @if (showMontoField) {
+          <div class="md:col-3">
+            <mat-form-field style="display: contents;" #montoInput>
+              <mat-label>Monto</mat-label>
+              <span matTextPrefix>$ &nbsp;</span>
+              <input type="number" formControlName="monto" matInput placeholder="" />
+            </mat-form-field>
+          </div>
+        }
 
+        <div class="col-12" style="padding: 0">
+          <div class="grid" formArrayName="fechasPromesas">
+            @for (promesa of getFormControlArray.controls; let i = $index; track promesa) {
+              <div [formGroupName]="i" class="md:col-3 sm:col-10">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>Fecha Limite {{ i + 1 }}</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="date" />
+                  <mat-hint>Dia/Mes/Año</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker" />
+                  <mat-datepicker #picker startView="month" />
+                </mat-form-field>
+              </div>
+            }
+          </div>
         </div>
-      }
 
-      <div class="col-12" style="padding: 0">
-        <div class="grid" formArrayName="fechasPromesas">
-          @for (promesa of getFormControlArray.controls; let i = $index; track promesa) {
-            <div [formGroupName]="i" class="md:col-3 sm:col-10">
-              <mat-form-field style="width: 100%;">
-                <mat-label>Fecha Limite {{ i + 1 }}</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="date" />
-                <mat-hint>Dia/Mes/Año</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker" />
-                <mat-datepicker #picker startView="month" />
-              </mat-form-field>
-            </div>
-          }
+        <div style="padding: 0.5rem">
+          <button mat-raised-button type="submit" class="btn btn-primary float-end">
+            Guardar
+          </button>
         </div>
+
       </div>
 
-      <div style="padding: 0.5rem">
-        <button mat-raised-button type="submit" class="btn btn-primary float-end">
-          Guardar
-        </button>
-      </div>
     </form>
+  } @else {
+    Cargando...
   }
 </div>

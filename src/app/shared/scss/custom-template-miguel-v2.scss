@@ -254,6 +254,7 @@
 
 @media screen and (min-width: 768px) {
   .md\:col {
+      box-sizing: border-box;
       flex-grow:1;
       flex-basis: 0;
       padding: .5rem
@@ -273,6 +274,7 @@
   }
 
   .md\:col-2,.md\:col-3 {
+      box-sizing: border-box;
       flex: 0 0 auto;
       padding: .5rem
   }
@@ -286,6 +288,7 @@
   }
 
   .md\:col-4,.md\:col-5 {
+      box-sizing: border-box;
       flex: 0 0 auto;
       padding: .5rem
   }
@@ -299,6 +302,7 @@
   }
 
   .md\:col-6,.md\:col-7 {
+      box-sizing: border-box;
       flex: 0 0 auto;
       padding: .5rem
   }
@@ -312,6 +316,7 @@
   }
 
   .md\:col-8,.md\:col-9 {
+      box-sizing: border-box;
       flex: 0 0 auto;
       padding: .5rem
   }
@@ -325,6 +330,7 @@
   }
 
   .md\:col-10,.md\:col-11 {
+      box-sizing: border-box;
       flex: 0 0 auto;
       padding: .5rem
   }
@@ -334,6 +340,7 @@
   }
 
   .md\:col-12 {
+      box-sizing: border-box;
       flex: 0 0 auto;
       padding: .5rem;
       width: 100%

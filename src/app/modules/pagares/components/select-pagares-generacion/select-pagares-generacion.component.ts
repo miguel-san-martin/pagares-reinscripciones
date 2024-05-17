@@ -47,9 +47,9 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   public onSelectPagare() {
 
     if (Number(this.selectedCataloge.catalog) === 798 || Number(this.selectedCataloge.catalog) === 708) {
+      this.showPanel.emit(false);
       this.selectedCataloge.generation = null;
       this.seleccionGeneracion.nativeElement.style.display = "contents";
-      this.showPanel.emit(false);
 
     } else {
       this.selectedCataloge.generation = "0";
@@ -61,7 +61,6 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   }
 
   public onSelectGeneration() {
-
     this.emitSelectedOption.emit(this.selectedCataloge);
     this.showPanel.emit(true);
 

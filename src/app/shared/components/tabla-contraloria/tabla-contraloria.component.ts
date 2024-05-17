@@ -1,25 +1,20 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { HeaderTable } from '../../interfaces/header-tables';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
 
-enum bandera {
-    Disponible,
-    Vacia,
-    SinRespuesta
-}
+import { MatTableDataSource } from "@angular/material/table";
+import { HeaderTable } from "../../interfaces/header-tables";
+
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'shrd-tabla',
+  selector: "shrd-tabla",
   standalone: false,
   //imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, FormsModule],
-  templateUrl: './tabla-contraloria.component.html',
-  styleUrl: './tabla-contraloria.component.scss',
+  templateUrl: "./tabla-contraloria.component.html",
+  styleUrl: "./tabla-contraloria.component.scss",
 })
-export class TablaContraloriaComponent implements OnChanges{
-  @Input({required: true}) tableHead!: HeaderTable[];
-  @Input({required: true}) data!: any[];
+export class TablaContraloriaComponent implements OnChanges {
+  @Input({ required: true }) tableHead!: HeaderTable[];
+  @Input({ required: true }) data!: any[];
   @Input() checkList: boolean = false;
   @Input() requiereIndex: boolean = false;
 
@@ -38,31 +33,31 @@ export class TablaContraloriaComponent implements OnChanges{
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if(changes['data']){
+    if (changes["data"]) {
       this.construirTabla();
     }
   }
-/*
-  ngAfterViewInit() {
-    console.log('Afterview');
 
-    this.construirTabla();
+  /*
+    ngAfterViewInit() {
+      console.log('Afterview');
 
-  } */
+      this.construirTabla();
 
-  construirTabla(){
-/*     console.log('Log',this.data); */
-    this.protector = true  // La primera ves que tenga datos
-    if(this.data.length>0){
+    } */
+
+  construirTabla() {
+    /*     console.log('Log',this.data); */
+    this.protector = true;  // La primera ves que tenga datos
+    if (this.data.length > 0) {
       this.dataSource = new MatTableDataSource(this.addIndex(this.data));
       this.dataSource.paginator = this.paginator;
       this.banderaNoHayElementos = true;
 
-    }else{
+    } else {
       this.banderaNoHayElementos = false;
     }
   }
-
 
 
   /**
@@ -78,8 +73,8 @@ export class TablaContraloriaComponent implements OnChanges{
     this.tableHead.map((row) => {
       sti.push(row.label);
     });
-    if(this.requiereIndex){
-      sti.unshift('No.');
+    if (this.requiereIndex) {
+      sti.unshift("No.");
     }
     return sti;
   }
@@ -98,7 +93,7 @@ export class TablaContraloriaComponent implements OnChanges{
   }
 
   addIndex(data: any) {
-    if(!this.requiereIndex) return data; // Si no requiere indices devuelve
+    if (!this.requiereIndex) return data; // Si no requiere indices devuelve
     if (this.data.length === 0) return [];
 
     // Aqui se añade ala data sus indices

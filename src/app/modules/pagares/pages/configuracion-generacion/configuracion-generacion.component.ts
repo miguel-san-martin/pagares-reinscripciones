@@ -66,7 +66,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   /** Solicita llamada a back para poner en los "input" **/
   protected loadDataOnForm({ catalog: idOperacion, generation: idGeneracion }: SelectedPagareGeneracion) {
 
-    console.log(idOperacion, idGeneracion);
+
     this.idOperacion = idOperacion;
     this.idGeneracion = idGeneracion;
     this.idRegistro = undefined;
@@ -85,7 +85,6 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       map(value => value[0]),
     ).subscribe(
       (response: CostoPromesaResponse) => {
-        console.log("Respuesta promesas", response);
         const { promesas, costo, idOperacion, id } = response;
         this.idOperacion = idOperacion;
         this.sliderValue = Number(promesas);
@@ -115,7 +114,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
           fechasDate.push(new Date(FechaVencimiento));
         });
         this.populateDateInputs(fechasDate);
-        this.formIsVisible.set(true);
+        // this.formIsVisible.set(true);
       },
     );
 
@@ -124,11 +123,11 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
   /** Llena los inputs **/
   private populateDateInputs(arrayDates: Date[]) {
-    // console.log(this.getFormControlArray);
     this.getFormControlArray.clear();
     arrayDates.forEach((row: Date) => {
       this.addDate(row);
     });
+
   }
 
   /** Añade fechas al Form **/
@@ -137,7 +136,6 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       date: [date, Validators.required],
     });
     this.getFormControlArray.push(grupo);
-    console.log(this.myForm);
   }
 
   /** Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24 **/
@@ -150,15 +148,12 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     let dateResult: string = "";
     formDates.forEach((row: any, index: number) => {
-      console.log(row);
       dateResult = dateResult + this.Service.formatearFecha(row.date);
       if (index != numDates) dateResult += "|";
     });
 
-    //console.log(dateResult);
     //Extraccion del | del final.
     //dateResult = dateResult.slice(0, dateResult.length - 1);
-    console.log(dateResult);
     return dateResult;
   }
 
@@ -189,8 +184,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       };
     }
 
-    this.Service.PostAltaPagares(payload).subscribe((response) => {
-      console.log(response);
+    this.Service.PostAltaPagares(payload).subscribe(() => {
       this.showSnackBar();
     });
 

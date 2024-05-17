@@ -44,6 +44,11 @@
     ]
   },
   {
+    "name": "Modulo Playeras",
+    "img": "apparel",
+    "path": "shirt-sale"
+  },
+  {
     "name": "Modulo Cerrado",
     "img": "star_rate",
     "path": "module-closed"
