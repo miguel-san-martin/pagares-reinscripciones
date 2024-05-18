@@ -1,9 +1,9 @@
-import { Component, computed, effect, inject, OnInit, signal, WritableSignal } from "@angular/core";
+import { Component, computed, inject, OnInit, signal, WritableSignal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Item } from "../../interfaces/items.interface";
 import { MatDialog } from "@angular/material/dialog";
 import { DetailItemComponent } from "../../components/detail-item/detail-item.component";
-import { NgOptimizedImage } from '@angular/common'
+import { ShirtsSaleService } from "../../services/shirts-sale.service";
 
 @Component({
   templateUrl: './main-page.component.html',
@@ -11,11 +11,14 @@ import { NgOptimizedImage } from '@angular/common'
 })
 export class MainPageComponent implements OnInit{
 
+
   readonly http = inject(HttpClient);
   readonly dialog = inject(MatDialog);
+  readonly shirt = inject(ShirtsSaleService)
 
-  public state = signal<string>('Mujer');
-  public precio = computed(() => (this.state() === 'Hombre' ? 300 : 150));
+  protected cardElements = signal(0)
+  protected state = signal<string>('Mujer');
+  protected precio = computed(() => (this.state() === 'Hombre' ? 300 : 150));
 
   readonly items: WritableSignal<Item[]|null> = signal<Item[] | null>(null);
 
@@ -23,6 +26,12 @@ export class MainPageComponent implements OnInit{
     this.http.get<Item[]>('/assets/articulos.json').subscribe( (res:Item[]) => {
       this.items.set(res);
     })
+
+
+    localStorage.setItem('iestcart', 'value');
+    console.log(localStorage.getItem('iestcart'));
+
+
   }
 
 
@@ -35,10 +44,11 @@ export class MainPageComponent implements OnInit{
 
   }
 
-  openProductDetails() {
+  openProductDetails(item:Item) {
     this.dialog.open(DetailItemComponent,{
       height: '80%',
       width: '90%',
+      data: item
     })
   }
 }

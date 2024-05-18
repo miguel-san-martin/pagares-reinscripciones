@@ -1,31 +1,38 @@
 <mat-toolbar color="primary" style="align-items: center; justify-content: space-between;" class="grid">
   <span>IEST STORE</span>
   <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
-  <div class="menu-bar" style="align-items: center; justify-content: space-between;">
-  <mat-icon style="cursor: pointer" matBadge="15" matBadgeColor="accent" >shopping_cart</mat-icon>
-  <mat-icon style="padding: 0 10;cursor: pointer" matBadgeColor="accent" >history</mat-icon>
+  <div style="display: flex; width: 100px; justify-content: space-around">
+    <div class="menu-bar" style="align-items: center; justify-content: space-between;">
+      <mat-icon style="cursor: pointer" [matBadge]="15" matBadgeColor="accent">shopping_cart</mat-icon>
+    </div>
+
+    <div class="menu-bar" style="align-items: center; justify-content: space-between;">
+      <mat-icon style="padding: 0px 10px;cursor: pointer" matBadgeColor="accent">history</mat-icon>
+    </div>
   </div>
 </mat-toolbar>
 
 
 <div class="grid" style="justify-content: center;margin-top: 0.5rem;">
   @if (items()) {
-    @for (item of items(); track $index) {
 
+    @for (item of items(); track $index) {
       <div class="xl:col-3 lg:col-3 md:col-6 sm:col-12 " style="position: relative">
         <mat-card style="height: 100%">
           <mat-card-content
             style=";display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-            <img [alt]='item.nombre' matCardImage [ngSrc]="item.img_url" width="200" priority
-                 height="300" />
+            <img [alt]='item.nombre' matCardImage
+                 (click)="openProductDetails(item)"
+                 [ngSrc]="item.img_url" width="200" priority
+                 height="300" style="cursor: pointer" />
             @if (item.disponabilidad !== 0) {
               <button mat-raised-button color="warn" style="position: absolute; width: 80%"
-                      (click)="openProductDetails()">
+                      (click)="openProductDetails(item)">
                 <mat-icon>shopping_cart</mat-icon>
                 Añadir al carrito
               </button>
-                } @else {
-              <button mat-raised-button disabled style="position: absolute; width: 80%" >
+            } @else {
+              <button mat-raised-button disabled style="position: absolute; width: 80%">
                 <mat-icon></mat-icon>
                 Agotado
               </button>
@@ -42,8 +49,8 @@
                 justify-content: space-between;
                 flex-direction: column;
                 align-items: center;
-              ">
-              <h3>{{ item.nombre }}</h3>
+                text-align: center;">
+              <h3 style="margin: 0 0.8rem;">{{ item.nombre }}</h3>
               <span style="font-family: 'Roboto', sans-serif; color: #f67a50; font-weight: normal; font-size: 1.2rem">
                 ${{ item.Precio }}
               </span>

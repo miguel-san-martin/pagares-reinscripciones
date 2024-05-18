@@ -1,23 +1,10 @@
 {
-  "arrowParens": "always",
-  "bracketSameLine": true,
-  "bracketSpacing": true,
-  "semi": true,
-  "experimentalTernaries": false,
-  "singleQuote": false,
-  "jsxSingleQuote": false,
-  "quoteProps": "as-needed",
-  "trailingComma": "all",
-  "singleAttributePerLine": false,
-  "htmlWhitespaceSensitivity": "css",
-  "vueIndentScriptAndStyle": false,
-  "proseWrap": "preserve",
-  "insertPragma": false,
-  "printWidth": 90,
-  "requirePragma": true,
-  "tabWidth": 3,
-  "useTabs": false,
-  "embeddedLanguageFormatting": "off",
-  "rangeStart": 0,
-  "rangeEnd": 0
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ]
 }
