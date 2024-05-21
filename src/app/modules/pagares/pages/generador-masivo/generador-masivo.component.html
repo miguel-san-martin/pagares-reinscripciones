@@ -8,6 +8,19 @@
   account_child_invert
 </span> -->
 
+<style>
+  @media (max-width: 1100px) {
+    .movil {
+      font-size: 14px;
+      flex-direction:column
+    }
+    .movil-icon{
+      display: none;
+    }
+  }
+
+</style>
+
 <div class="grid  animate__animated animate__fadeIn">
   <h1 class="col-11">Generación masiva</h1>
 
@@ -19,12 +32,15 @@
   <div class="col-11"
        style="justify-content: space-evenly;align-items: center;align-content: center;flex-direction: row-reverse; text-align: center;">
 
+    @if(showPanel()){
+
     <mat-card>
-      <mat-card-content class="grid" style="text-align: left;">
+      <mat-card-content class="grid movil" style="text-align: left; display: flex;">
 
         <div class="col-2">
           <div style="display: flex; align-items: center;">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
+
+            <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
                       style="color: rgb(74, 173, 70);" />
             <span class="mat-h3" style="margin: 0px;">Costo</span> <br />
           </div>
@@ -37,7 +53,7 @@
 
         <div class="col-2">
           <div style="display: flex; align-items: center;">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="autorenew"
+            <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="autorenew"
                       style="color: rgb(197, 76, 191)" />
             <span class="mat-h3" style="margin: 0px;">Promesas</span><br />
           </div>
@@ -51,7 +67,7 @@
         <div class="col">
 
           <div style="display: flex; align-items: center;">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"
+            <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"
                       style="color: rgb(255, 56, 21)" />
             <span class="mat-h3" style="margin: 0px;">Fechas</span>
           </div>
@@ -65,7 +81,7 @@
       </mat-card-content>
     </mat-card>
 
-
+  }
     <!-- Barra de progreso -->
 
 

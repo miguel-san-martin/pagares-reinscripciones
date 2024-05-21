@@ -32,7 +32,7 @@
 
     @for (microItem of item.sub_nodes; let j = $index; track j) {
     <mat-divider></mat-divider>
-    <a #reference class="menu-single" [routerLink]="microItem.path" routerLinkActive="active"
+    <a class="menu-single" [routerLink]="microItem.path" routerLinkActive="active"
       (mouseenter)="focus[j] = true" (mouseleave)="focus[j] = false">
       <mat-icon class="material-symbols-outlined" [ngClass]="{ 'animate__animated animate__bounce': focus[j] }">
         {{ microItem.img }}
@@ -53,3 +53,4 @@
   }
   }
 </mat-accordion>
+

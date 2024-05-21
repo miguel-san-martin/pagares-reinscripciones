@@ -10,6 +10,9 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { SnackBarComponent } from "@shared/components/snack-bar/snack-bar.component";
 import { map } from "rxjs";
 
+export interface dati {
+  date : any
+}
 
 @Component({
   templateUrl: "./configuracion-generacion.component.html",
@@ -26,6 +29,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   @ViewChild("montoInput") montoInput!: ElementRef; //View de generación el segundo select oculto.
 
   readonly formIsVisible = signal<boolean>(false);
+  readonly hasMadeARequest =signal<boolean>(false);
 
   showMontoField: boolean = true;
   sliderValue: number = 1;
@@ -62,10 +66,8 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
   }
 
-
   /** Solicita llamada a back para poner en los "input" **/
   protected loadDataOnForm({ catalog: idOperacion, generation: idGeneracion }: SelectedPagareGeneracion) {
-
 
     this.idOperacion = idOperacion;
     this.idGeneracion = idGeneracion;
@@ -73,6 +75,9 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     // Limpiar formulario
     this.myForm.reset();
+
+    // Bandera que se activa cuando el usuario hace su primer consulta
+    this.hasMadeARequest.set(true);
 
     //Info que se mandara para consulta
     const extra: RequestOperationGen = {
@@ -104,6 +109,10 @@ export class ConfiguracionGeneracionComponent implements OnInit {
         }
 
       },
+      // Si hay algun error
+      () => {
+        this.showSnackBar(true)
+      }
     );
 
     //Set Fechas
@@ -140,19 +149,20 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
   /** Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24 **/
   private formatDates(): string {
-    const formDates = this.myForm.get("fechasPromesas")?.value;
+    // @ts-expect-error Esto es correcto solo hay que confiar
+    const formDates: dati[] = this.myForm.get("fechasPromesas").value;
     const numDates = (formDates?.length || 0) - 1;
 
     if (formDates === undefined) return "Error";
 
 
     let dateResult: string = "";
-    formDates.forEach((row: any, index: number) => {
+    formDates.forEach((row: dati, index: number) => {
       dateResult = dateResult + this.Service.formatearFecha(row.date);
-      if (index != numDates) dateResult += "|";
+      if (index != numDates) dateResult += '|';
     });
 
-    //Extraccion del | del final.
+    //Extracción del | del final.
     //dateResult = dateResult.slice(0, dateResult.length - 1);
     return dateResult;
   }
@@ -160,7 +170,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
   // Metodo que se ejecuta con el on summit
   protected onSave() {
 
-    if (this.idGeneracion === null || this.idOperacion === null) return;
+    if (this.idGeneracion === null || this.idOperacion === null) return console.error('problema') ;
     if (this.myForm.invalid) return this.showSnackBar(true);
 
     this.myForm.patchValue({
@@ -171,7 +181,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
 
     let payload: RequestAltaPagare = {
       idOperacion: this.idOperacion,
-      idGeneracion: this.idOperacion,
+      idGeneracion: this.idGeneracion,
       monto: monto,
       cantidadPromesas: this.sliderValue,
       fechasPromesas: this.formatDates(),
@@ -184,6 +194,7 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       };
     }
 
+    console.log(`Informacion que se mandara`, payload);
     this.Service.PostAltaPagares(payload).subscribe(() => {
       this.showSnackBar();
     });

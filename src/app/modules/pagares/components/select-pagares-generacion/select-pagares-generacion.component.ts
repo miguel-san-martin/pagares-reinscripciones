@@ -4,16 +4,22 @@ import { Catalogo } from "../../../../interfaces/catalogo";
 import { GeneracionesResponse } from "../../../../interfaces/generaciones-response";
 import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
 import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
+import { SnackBarComponent } from "@shared/components/snack-bar/snack-bar.component";
+import { SharedModule } from "@shared/shared.module";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { HttpErrorResponse } from "@angular/common/http";
+
 
 @Component({
   selector: "app-select-pagares",
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, SharedModule],
   templateUrl: "./select-pagares-generacion.component.html",
   styleUrl: "../../../../shared/scss/custom-template-miguel-v2.scss",
 })
 export class SelectPagaresGeneracionComponent implements OnInit {
   Service = inject(PagareReinscripcionesService);
+  SnackBar = inject(MatSnackBar);
 
 
   @ViewChild("generacion") seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
@@ -35,9 +41,15 @@ export class SelectPagaresGeneracionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.Service.GetCatalogosOperaciones().subscribe((response: Catalogo[]) => {
+    this.Service.GetCatalogosOperaciones().subscribe(
+      (response: Catalogo[]) => {
       this.listaCatalogos = response;
-    });
+    },
+    (error:HttpErrorResponse) => {
+      console.log(error);
+        this.showSnackBar(error)
+    }
+    );
 
     this.Service.GetCatalogosGeneraciones().subscribe((response: GeneracionesResponse[]) => {
       this.listaGeneraciones = response;
@@ -64,6 +76,21 @@ export class SelectPagaresGeneracionComponent implements OnInit {
     this.emitSelectedOption.emit(this.selectedCataloge);
     this.showPanel.emit(true);
 
+  }
+
+  /** Muestra snackbar **/
+  private showSnackBar(messague: HttpErrorResponse) {
+    const config: {
+      duration: number;
+      data: { message: string, error: boolean};
+    } = {
+      data: {
+        message: "Error: No hay conexión con el modulo" + messague.message,
+        error: true
+      },
+      duration: 3000,
+    };
+    this.SnackBar.openFromComponent(SnackBarComponent, config);
   }
 
   // Si es un pagare tipo Impulsa - 798 o 708 Vertice se mostrara un select con #genereacion como referencia

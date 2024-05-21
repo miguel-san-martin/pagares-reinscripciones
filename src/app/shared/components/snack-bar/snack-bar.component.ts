@@ -13,6 +13,7 @@ export interface dataSnackBar {
   styleUrl: "../../scss/custom-template-miguel-v2.scss",
 })
 export class SnackBarComponent implements OnInit {
+
   public message: WritableSignal<string> = signal("");
   public error: WritableSignal<boolean> = signal(false);
   public icon  = computed(() => {
@@ -26,7 +27,6 @@ export class SnackBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this._snackBarRef);
     if (this._snackBarRef.containerInstance.snackBarConfig.data.error) {
       this.error.set(true);
     }
