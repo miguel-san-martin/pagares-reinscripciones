@@ -10,6 +10,10 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import { TableIESTComponent } from "@shared/components/table-iest/table-iest.component";
+import {
+  PartidasPresupuestalesMainPageComponent
+} from "../modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +23,9 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
     TablaContraloriaComponent,
     SideNavComponent,
     AlertDialogComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    TableIESTComponent,
+
   ],
   imports: [CommonModule, MaterialModule, FormsModule,
     FormsModule,ReactiveFormsModule, RouterOutlet, RouterLinkActive, RouterLink],
@@ -32,7 +38,8 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
     ReactiveFormsModule,
     TablaContraloriaComponent,
     SideNavComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    TableIESTComponent
   ],
 })
 export class SharedModule {}

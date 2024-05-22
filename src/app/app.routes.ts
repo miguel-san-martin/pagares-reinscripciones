@@ -25,4 +25,18 @@ export const routes: Routes = [
         (c) => c.ModuloCerradoComponent,
       ),
   },
+  {
+    path: 'partidas-presupuestales',
+    loadComponent: () =>
+      import('./modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component').then(
+        (c) => c.PartidasPresupuestalesMainPageComponent,
+      ),
+  },
+  {
+    path: 'module-closed',
+    loadComponent: () =>
+      import('./pages/modulo-cerrado/modulo-cerrado.component').then(
+        (c) => c.ModuloCerradoComponent,
+      ),
+  },
 ];

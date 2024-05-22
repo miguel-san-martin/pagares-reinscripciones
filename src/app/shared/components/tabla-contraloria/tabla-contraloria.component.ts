@@ -10,7 +10,7 @@ import { HeaderTable } from "../../interfaces/header-tables";
   standalone: false,
   //imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, FormsModule],
   templateUrl: "./tabla-contraloria.component.html",
-  styleUrl: "./tabla-contraloria.component.scss",
+  styleUrl: "./../../scss/custom-template-miguel-v2.scss",
 })
 export class TablaContraloriaComponent implements OnChanges {
   @Input({ required: true }) tableHead!: HeaderTable[];
