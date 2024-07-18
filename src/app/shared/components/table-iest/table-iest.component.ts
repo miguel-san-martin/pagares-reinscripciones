@@ -91,7 +91,7 @@ export class TableIESTComponent<T> implements AfterViewInit {
       console.log(this.tableHead());
       console.log(this.tableHead()[indice].namePropiedad);
 
-      return item[indice]
+      return "item[indice]"
       // return item[this.tableHead[indice] as keyof HeaderTable];
 
     };

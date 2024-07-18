@@ -81,6 +81,7 @@ export class PartidasPresupuestalesMainPageComponent implements AfterViewInit {
       tipo: 'aprubed',
     },
   ];
+
   readonly dataSource: MatTableDataSource<presupuesto>;
 
   constructor() {
@@ -107,6 +108,4 @@ export class PartidasPresupuestalesMainPageComponent implements AfterViewInit {
     });
     return sti;
   }
-
-
 }

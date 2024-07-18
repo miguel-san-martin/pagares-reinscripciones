@@ -87,7 +87,7 @@
 
     @if (data!) {
       <mat-progress-bar class="padding-off" mode="determinate" [value]="porcentajeAvance" style="margin: .7rem 0;" />
-      <span class="col-12 tac" style="margin-left: 0.5rem">{{ loaderBarProgress }} / de {{ data.length }}</span>
+      <span class="col-12 tac" style="margin-left: 0.5rem">{{ loaderBarProgress }} / de {{ data?.length }}</span>
 
       <shrd-tabla class=" col-12 padding-off animate__animated animate__fadeIn" [data]="data" [tableHead]="headTable"
                   [checkList]="true"
@@ -95,7 +95,7 @@
 
 
       <!--Fin panel informativo verde-->
-        <!-- Botones -->
+      <!-- Botones -->
       <div class="col" style="margin-top: 1rem;text-align:end ;padding: 0%;">
         <button mat-flat-button color="primary" (click)="simularBarra()" [disabled]="disableGenerateButton">
           Generar
@@ -115,7 +115,6 @@
   </div>
 
   <!-- Barra de progreso -->
-
-
   <!-- Tabla  -->
+
 </div>
