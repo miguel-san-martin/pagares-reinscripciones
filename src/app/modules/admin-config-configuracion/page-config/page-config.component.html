@@ -1,0 +1,25 @@
+<div class="animate__animated animate__fadeIn" style="justify-content: center;">
+  <mat-toolbar color="primary">
+    <span>Configuración de Horarios Escolares</span>
+
+  </mat-toolbar>
+
+
+  <div *ngIf="listConfigs.length > 0" class="tilesContainer animate__animated animate__fadeIn">
+    @for (config of listConfigs; track config.idParametro) {
+
+      <div class="tile">
+        <span>
+          Horario:
+          {{config.idParametro}}
+        </span>
+        <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false" (change)="onChange(+config.idParametro,$event)" />
+      </div>
+    }
+  </div>
+</div>
+
+
+<div #loadingScreen id="loading-screen" class="loading-screen">
+  <mat-spinner></mat-spinner>
+</div>
