@@ -33,6 +33,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'config-escolares',
+    loadComponent: () =>
+      import('./modules/admin-config-configuracion/page-config/page-config.component').then(
+        (c) => c.PageConfigComponent,
+      ),
+  },
+  {
     path: 'module-closed',
     loadComponent: () =>
       import('./pages/modulo-cerrado/modulo-cerrado.component').then(
