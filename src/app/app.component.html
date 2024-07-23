@@ -6,30 +6,5 @@
   }
   </style>
 
-
-<mat-toolbar color="primary">
-  <mat-icon class="material-symbols-outlined" style="padding: .5rem ; cursor: pointer" (click)="closemap()">menu</mat-icon>
-  <span>{{title}}</span>
-  <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
-</mat-toolbar>
-
-<mat-drawer-container >
-  <mat-drawer class="movil-size" #drawer mode="side" opened>
-
-    <shrd-side-nav ></shrd-side-nav>
-  </mat-drawer>
-
-  <mat-drawer-content>
-    <div class="grid" style="height: 95vh">
-      <mat-nav-list>
-
-      </mat-nav-list>
-      <div class="col-12">
-<!--      <div class="col-offset-1 col-11">-->
-        <router-outlet/>
-      </div>
-    </div>
-  </mat-drawer-content>
-</mat-drawer-container>
-
+<router-outlet/>
 
