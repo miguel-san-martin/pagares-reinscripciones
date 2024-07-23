@@ -1,5 +1,6 @@
 @if(data().length > 0){
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange()" >
+  <table mat-table [dataSource]="dataSource" matSort>
+<!--         (matSortChange)="announceSortChange()" >-->
     @for (head of tableHead(); track head.label) {
       <ng-container [matColumnDef]="head.label">
         <th class="th" mat-header-cell *matHeaderCellDef mat-sort-header>{{ head.label }}</th>
