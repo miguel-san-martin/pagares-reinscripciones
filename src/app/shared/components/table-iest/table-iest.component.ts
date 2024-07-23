@@ -76,26 +76,26 @@ export class TableIESTComponent<T> implements AfterViewInit {
     return sti;
   }
 
-  announceSortChange() {
-    this.dataSource.sortingDataAccessor = (item: T, property: string) => {
-
-      let indice = 0;
-      this.tableHead().forEach((head: HeaderTable, index: number) => {
-        if (head.label.toLowerCase().includes(property.toLowerCase())) {
-          console.log(index);
-          indice = index;
-        }
-      })
-
-      console.log(item, property);
-      console.log(this.tableHead());
-      console.log(this.tableHead()[indice].namePropiedad);
-
-      return item[indice]
-      // return item[this.tableHead[indice] as keyof HeaderTable];
-
-    };
-
-
-  }
+  // announceSortChange() {
+  //   this.dataSource.sortingDataAccessor = (item: T, property: string) => {
+  //
+  //     let indice = 0;
+  //     this.tableHead().forEach((head: HeaderTable, index: number) => {
+  //       if (head.label.toLowerCase().includes(property.toLowerCase())) {
+  //         console.log(index);
+  //         indice = index;
+  //       }
+  //     })
+  //
+  //     console.log(item, property);
+  //     console.log(this.tableHead());
+  //     console.log(this.tableHead()[indice].namePropiedad);
+  //
+  //     // return item[indice]
+  //     // return item[this.tableHead[indice] as keyof HeaderTable];
+  //
+  //   };
+  //
+  //
+  // }
 }

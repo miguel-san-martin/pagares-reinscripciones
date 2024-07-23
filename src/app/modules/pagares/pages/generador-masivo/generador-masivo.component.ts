@@ -35,7 +35,7 @@ export class GeneradorMasivoComponent {
     msj: '',
   };
   public loaderBarProgress: number = 0; // Progreso de la barra.
-  public data: Alumno[] | undefined = undefined; // Valores de la tabla.
+  public data: Alumno[] = []; // Valores de la tabla.
   public headTable = HEADTABLE; //Variable global.
   public disableGenerateButton: boolean = false;
 
