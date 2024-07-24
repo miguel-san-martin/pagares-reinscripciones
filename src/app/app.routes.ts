@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { accesoEscolarConfGuard } from "./guard/acceso-escolar-conf.guard";
 
 export const routes: Routes = [
   {
@@ -38,6 +39,7 @@ export const routes: Routes = [
       import('./modules/admin-config-configuracion/page-config/page-config.component').then(
         (c) => c.PageConfigComponent,
       ),
+    canActivate: [accesoEscolarConfGuard]
   },
   {
     path: 'module-closed',
