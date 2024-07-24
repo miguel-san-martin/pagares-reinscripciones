@@ -35,7 +35,7 @@ export const routes: Routes = [
  //      ),
  //  },
 
-  { path: '**', redirectTo: 'config-escolares', pathMatch: 'full' },
+  { path: '', redirectTo: 'config-escolares', pathMatch: 'full' },
   {
     path: 'config-escolares',
     loadComponent: () =>
@@ -49,6 +49,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/modulo-cerrado/modulo-cerrado.component').then(
         (c) => c.ModuloCerradoComponent,
+      ),
+  },
+  {
+    path: 'no-permits',
+    loadComponent: () =>
+      import('./pages/no-permisos/no-permisos.component').then(
+        (c) => c.NoPermisosComponent,
       ),
   },
 ];

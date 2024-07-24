@@ -10,8 +10,7 @@ export const accesoEscolarConfGuard: CanActivateFn = (route, state) => {
    return myService.getListHorarios().pipe(
     tap(
       (response:any) => {
-        console.log(response);
-      if (!response.parametros) {
+      if (response.parametros[0].error === '2') {
         console.error(
           '                           ,---.\n' +
           '                          /    |\n' +
@@ -41,6 +40,9 @@ export const accesoEscolarConfGuard: CanActivateFn = (route, state) => {
           "           ||                ,'   /    |\n"
         );
         router.navigate(['/module-closed']);
+      }
+      else if(response.parametros[0].error === '1') {
+        router.navigate(['/no-permits']);
       }
       return true;
     }),
