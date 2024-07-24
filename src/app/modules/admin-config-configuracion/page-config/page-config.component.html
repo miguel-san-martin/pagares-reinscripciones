@@ -1,22 +1,54 @@
 <div class="animate__animated animate__fadeIn" style="justify-content: center;">
   <mat-toolbar color="primary">
     <span>Configuración de Horarios Escolares</span>
-
   </mat-toolbar>
 
+  <div *ngIf="listResponse.length > 0" class="tilesContainer animate__animated animate__fadeIn">
 
-  <div *ngIf="listConfigs.length > 0" class="tilesContainer animate__animated animate__fadeIn">
-    @for (config of listConfigs; track config.idParametro) {
+    <h2>Preparatoria</h2>
+    @for (config of bacherorList; track config.idParametro) {
 
-      <div class="tile">
-        <span>
-          Horario:
-          {{config.idParametro}}
+      <div class="tile" [matTooltip]="config.descripcion">
+
+        <span style="font-weight: 500">
+            {{ config.concepto }}
         </span>
-        <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false" (change)="onChange(+config.idParametro,$event)" />
+        <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false"
+                          (change)="onChange(+config.idParametro,$event)" />
       </div>
     }
+
+    <h2>Profesional</h2>
+    @for (config of profesionalList; track config.idParametro) {
+
+      <div class="tile" [matTooltip]="config.descripcion">
+
+        <span style="font-weight: 500">
+            {{ config.concepto }}
+        </span>
+        <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false"
+                          (change)="onChange(+config.idParametro,$event)" />
+      </div>
+    }
+
+    @if (listExtra.length) {
+      @for (config of listExtra; track config.idParametro) {
+        <h2>{{ config.grado | titlecase }}</h2>
+
+        <div class="tile" [matTooltip]="config.descripcion">
+
+        <span style="font-weight: 500">
+            {{ config.concepto }}
+        </span>
+          <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false"
+                            (change)="onChange(+config.idParametro,$event)" />
+        </div>
+      }
+    }
   </div>
+
+
+
 </div>
 
 
