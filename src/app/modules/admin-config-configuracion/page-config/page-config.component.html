@@ -4,8 +4,8 @@
   </mat-toolbar>
 
   <div *ngIf="listResponse.length > 0" class="tilesContainer animate__animated animate__fadeIn">
-
-    <h2>Preparatoria</h2>
+<!--  LISTA PREPARATORIA-->
+    <h2 *ngIf="bacherorList.length">Preparatoria</h2>
     @for (config of bacherorList; track config.idParametro) {
 
       <div class="tile" [matTooltip]="config.descripcion">
@@ -17,8 +17,9 @@
                           (change)="onChange(+config.idParametro,$event)" />
       </div>
     }
+<!--LISTA PROFESIONAL-->
+    <h2 *ngIf="profesionalList.length">Profesional</h2>
 
-    <h2>Profesional</h2>
     @for (config of profesionalList; track config.idParametro) {
 
       <div class="tile" [matTooltip]="config.descripcion">
@@ -30,6 +31,8 @@
                           (change)="onChange(+config.idParametro,$event)" />
       </div>
     }
+
+<!--    LISTA EXTRA-->
 
     @if (listExtra.length) {
       @for (config of listExtra; track config.idParametro) {
@@ -46,8 +49,6 @@
       }
     }
   </div>
-
-
 
 </div>
 

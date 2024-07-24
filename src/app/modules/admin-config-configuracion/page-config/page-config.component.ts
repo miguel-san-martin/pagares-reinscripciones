@@ -41,6 +41,7 @@ export class PageConfigComponent implements OnInit {
   }
 
   loadList() {
+
     this.horariosExamenes
       .getListHorarios()
       .pipe(
@@ -58,14 +59,6 @@ export class PageConfigComponent implements OnInit {
       .subscribe(
         (response) => {
           this.listResponse = response;
-          this.listResponse.push(
-            {grado:'Testeo',
-            descripcion:'iapisa',
-            parametroInt: '1',
-            concepto: 'F',
-            idParametro:'34'}
-          )
-
           this.listResponse.forEach(
             (item:listParameters) => {
               switch (item.grado.toLowerCase()){
@@ -100,6 +93,9 @@ export class PageConfigComponent implements OnInit {
 
   onChange(id: number, event: any) {
     this.loadingScreen.nativeElement.style.display = 'block';
+    this.bacherorList=[]
+    this.profesionalList=[]
+    this.listExtra = []
     console.log(id, event.checked);
     this.horariosExamenes.patchListHorarios(id).subscribe(
       (response) => {
