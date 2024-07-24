@@ -1,13 +1,12 @@
 @import "../../../shared/scss/custom-template-miguel-v2.scss";
 :host{
   .tilesContainer{
-    display: block ;
+    display: flex ;
     box-sizing: border-box;
     padding: 1.5rem;
     position: relative;
     text-align: center;
     font-weight: 500;
-    width: 30%;
 
   }
   .tile{
@@ -17,7 +16,6 @@
 
     &:hover {
       background-color: #e4dfe3 !important;
-
     }
   }
   .loading-screen {

@@ -1,54 +1,28 @@
-<div class="animate__animated animate__fadeIn" style="justify-content: center;">
+<div style="justify-content: center;">
   <mat-toolbar color="primary">
     <span>Configuración de Horarios Escolares</span>
   </mat-toolbar>
 
-  <div *ngIf="listResponse.length > 0" class="tilesContainer animate__animated animate__fadeIn">
+  <div class=" animate__animated animate__fadeIn tilesContainer grid">
 
-    <h2>Preparatoria</h2>
-    @for (config of bacherorList; track config.idParametro) {
+    @for (cat of map.keys(); track cat) {
+      <div class="sm:col-12 md:col-6 lg:col-3">
+        <h2>{{ cat | titlecase }}</h2>
+        <hr />
+        @for (m of map.get(cat); track m) {
+          <div class="tile" [matTooltip]="m.descripcion">
+          <span style="font-weight: 500">
+              {{ m.concepto }}
+          </span>
 
-      <div class="tile" [matTooltip]="config.descripcion">
-
-        <span style="font-weight: 500">
-            {{ config.concepto }}
-        </span>
-        <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false"
-                          (change)="onChange(+config.idParametro,$event)" />
+          <mat-slide-toggle style="position: relative"
+          [checked]="!!m.parametroInt"
+          (change)="onChange(+m.idParametro)"/>
+          </div>
+        }
       </div>
-    }
-
-    <h2>Profesional</h2>
-    @for (config of profesionalList; track config.idParametro) {
-
-      <div class="tile" [matTooltip]="config.descripcion">
-
-        <span style="font-weight: 500">
-            {{ config.concepto }}
-        </span>
-        <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false"
-                          (change)="onChange(+config.idParametro,$event)" />
-      </div>
-    }
-
-    @if (listExtra.length) {
-      @for (config of listExtra; track config.idParametro) {
-        <h2>{{ config.grado | titlecase }}</h2>
-
-        <div class="tile" [matTooltip]="config.descripcion">
-
-        <span style="font-weight: 500">
-            {{ config.concepto }}
-        </span>
-          <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false"
-                            (change)="onChange(+config.idParametro,$event)" />
-        </div>
-      }
     }
   </div>
-
-
-
 </div>
 
 

@@ -8,15 +8,16 @@ import {
 import { SharedModule } from '@shared/shared.module';
 import { MaterialModule } from '../../../shared-material-module/material.module';
 import { AdministraConfiguracionService } from '../administra-configuracion.service';
-import { delay, map, tap } from "rxjs";
-import { CommonModule } from "@angular/common";
+import { delay, map } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 interface listParameters {
   concepto: string;
   idParametro: string;
   descripcion: string;
   parametroInt: string;
-  grado:string;
+  grado: string;
+  estado?: boolean;
 }
 
 
@@ -30,63 +31,79 @@ interface listParameters {
 export class PageConfigComponent implements OnInit {
   private horariosExamenes = inject(AdministraConfiguracionService);
   @ViewChild('loadingScreen') loadingScreen!: ElementRef;
-  listResponse: listParameters[] = [];
 
-  profesionalList: listParameters[] = [];
-  bacherorList: listParameters[] = [];
-  listExtra: listParameters[] = [];
+  protected map: Map<string, listParameters[]> = new Map([]);
 
   ngOnInit(): void {
     this.loadList();
   }
-
-  loadList() {
+  private loadList() {
+    //Mapea la respuesta un tipo listParameters
     this.horariosExamenes
       .getListHorarios()
       .pipe(
-        map((array) =>
-          array.parametros.map((item: any) => ({
-            concepto: item.concepto,
-            idParametro: Number(item.idParametro),
-            descripcion: item.descripcion,
-            parametroInt: Number(item.parametroInt),
-            grado: item.grado,
-          })),
-        ),
-        delay(250),
-      )
+        map((array) => {
+          if (array.parametros[0].error) return array.parametros[0];
+          return array.parametros.map(
+            ({
+              idParametro,
+              parametroInt,
+              grado,
+              ...rest
+            }: listParameters) => ({
+              idParametro: Number(idParametro),
+              parametroInt: Number(parametroInt),
+              grado: grado.toLowerCase(),
+              estado: !!parametroInt,
+              ...rest,
+            }),
+          );
+        }),
+        delay(250))
       .subscribe(
-        (response) => {
-          this.listResponse = response;
-          this.listResponse.push(
-            {grado:'Testeo',
-            descripcion:'iapisa',
-            parametroInt: '1',
-            concepto: 'F',
-            idParametro:'34'}
-          )
+        (response): void => {
+          if (response.error) return;
 
-          this.listResponse.forEach(
-            (item:listParameters) => {
-              switch (item.grado.toLowerCase()){
-                case('preparatoria'):
-                  this.bacherorList.push(item);
-                  break;
-                case ('profesional'):
-                  this.profesionalList.push(item);
-                  break;
-                default:
-                  this.listExtra.push(item)
-              }
-          }
-          )
-
-
-          // this.bacherorList = this.listResponse.filter(id => id.grado.toLowerCase() === 'preparatoria');
-          // this.profesionalList = this.listResponse.filter(id => id.grado.toLowerCase() === 'profesional');
-
-          console.log(this.profesionalList);
-          console.log(this.bacherorList);
+          // Dada la respuesta, va separando en arreglos según su grado.
+         /* response.push(
+            {
+              idParametro: '12',
+              descripcion: 'asas',
+              grado: 'Rectoria',
+              concepto: 'OASONAO',
+              parametroInt: '0',
+            },
+            {
+              idParametro: '12',
+              descripcion: 'asas',
+              grado: 'rectoria',
+              concepto: 'OASONAO',
+              parametroInt: '0',
+            },
+            {
+              idParametro: '12',
+              descripcion: 'asas',
+              grado: 'asdca',
+              concepto: 'OASONAO',
+              parametroInt: '0',
+            },
+            {
+              idParametro: '12',
+              descripcion: 'asas',
+              grado: 'as',
+              concepto: 'OASONAO',
+              parametroInt: '0',
+            },
+            {
+              idParametro: '12',
+              descripcion: 'asas',
+              grado: 'asdca',
+              concepto: 'OASONAO',
+              parametroInt: '0',
+            },
+          );*/
+          console.table(response);
+          this.setCategoriasMap(response);
         },
         (error) => {
           console.error(error);
@@ -97,17 +114,38 @@ export class PageConfigComponent implements OnInit {
       );
   }
 
-
-  onChange(id: number, event: any) {
+  //Evento generado al hacer cambios en el flip flop
+  protected onChange(id: number) {
     this.loadingScreen.nativeElement.style.display = 'block';
-    console.log(id, event.checked);
     this.horariosExamenes.patchListHorarios(id).subscribe(
       (response) => {
         console.log(response);
         this.loadList();
       },
-      () => {},
-      () => {},
+      (error) => {
+        console.log(error);
+      },
     );
   }
+
+  private setCategoriasMap(response:listParameters[]) {
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //Usamos un SET para eliminar la duplicidad
+    const categorias:string[]  = [
+      ...new Set(
+        response.map((item: listParameters) =>
+          item.grado.toLowerCase()))
+    ];
+
+    categorias.forEach((x: string) => this.map.set(x, []));
+    //Itera categorias, para inicializar el mapa con las claves
+    console.log('Llaves',this.map.keys())
+    console.log('Entradas',this.map.entries());
+
+    response.forEach((item: listParameters) => {
+      this.map.get(item.grado)?.push(item);
+    });
+  }
+
 }
