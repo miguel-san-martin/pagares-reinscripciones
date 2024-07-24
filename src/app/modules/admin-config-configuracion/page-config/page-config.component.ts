@@ -12,13 +12,12 @@ import { delay, map, tap } from "rxjs";
 import { CommonModule } from "@angular/common";
 
 interface listParameters {
-  concepto: string;
   idParametro: string;
+  concepto: string;
   descripcion: string;
   parametroInt: string;
   grado:string;
 }
-
 
 @Component({
   selector: 'app-page-config',
@@ -33,7 +32,7 @@ export class PageConfigComponent implements OnInit {
   listResponse: listParameters[] = [];
 
   profesionalList: listParameters[] = [];
-  bacherorList: listParameters[] = [];
+  bachelorList: listParameters[] = [];
   listExtra: listParameters[] = [];
 
   ngOnInit(): void {
@@ -41,29 +40,30 @@ export class PageConfigComponent implements OnInit {
   }
 
   loadList() {
-
     this.horariosExamenes
       .getListHorarios()
       .pipe(
-        map((array) =>
-          array.parametros.map((item: any) => ({
-            concepto: item.concepto,
+        //Mapea la respuesta un tipo listParameters
+        map((array) => array.parametros.map(
+          (item: listParameters) => ({
             idParametro: Number(item.idParametro),
-            descripcion: item.descripcion,
-            parametroInt: Number(item.parametroInt),
+            concepto: item.concepto,
             grado: item.grado,
-          })),
+            parametroInt: Number(item.parametroInt),
+            descripcion: item.descripcion,
+          }))
         ),
+        //Delay para que muestre porlomenos .25 segundos el spiner
         delay(250),
       )
       .subscribe(
-        (response) => {
-          this.listResponse = response;
-          this.listResponse.forEach(
+        (response:listParameters[]): void => {
+          console.table(response);
+          response.forEach(
             (item:listParameters) => {
               switch (item.grado.toLowerCase()){
                 case('preparatoria'):
-                  this.bacherorList.push(item);
+                  this.bachelorList.push(item);
                   break;
                 case ('profesional'):
                   this.profesionalList.push(item);
@@ -73,13 +73,8 @@ export class PageConfigComponent implements OnInit {
               }
           }
           )
-
-
-          // this.bacherorList = this.listResponse.filter(id => id.grado.toLowerCase() === 'preparatoria');
-          // this.profesionalList = this.listResponse.filter(id => id.grado.toLowerCase() === 'profesional');
-
-          console.log(this.profesionalList);
-          console.log(this.bacherorList);
+          console.table(this.profesionalList);
+          console.table(this.bachelorList);
         },
         (error) => {
           console.error(error);
@@ -90,20 +85,21 @@ export class PageConfigComponent implements OnInit {
       );
   }
 
-
-  onChange(id: number, event: any) {
+//Evento generado al hacer cambios en el flip flop
+  protected onChange(id: number, event: {checked: boolean}) {
     this.loadingScreen.nativeElement.style.display = 'block';
-    this.bacherorList=[]
-    this.profesionalList=[]
-    this.listExtra = []
+    this.bachelorList = [];
+    this.profesionalList = [];
+    this.listExtra = [];
     console.log(id, event.checked);
+
     this.horariosExamenes.patchListHorarios(id).subscribe(
-      (response) => {
-        console.log(response);
+      () => {
         this.loadList();
       },
-      () => {},
-      () => {},
+      (error) => {
+        console.log(error)
+      }
     );
   }
 }

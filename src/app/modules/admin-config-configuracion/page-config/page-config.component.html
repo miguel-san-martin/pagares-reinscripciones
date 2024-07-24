@@ -3,10 +3,11 @@
     <span>Configuración de Horarios Escolares</span>
   </mat-toolbar>
 
-  <div *ngIf="listResponse.length > 0" class="tilesContainer animate__animated animate__fadeIn">
-<!--  LISTA PREPARATORIA-->
-    <h2 *ngIf="bacherorList.length">Preparatoria</h2>
-    @for (config of bacherorList; track config.idParametro) {
+  <div class="tilesContainer animate__animated animate__fadeIn">
+    <!--  LISTA PREPARATORIA-->
+    <h2 *ngIf="bachelorList.length">Preparatoria</h2>
+    <hr *ngIf="profesionalList.length" />
+    @for (config of bachelorList; track config.idParametro) {
 
       <div class="tile" [matTooltip]="config.descripcion">
 
@@ -17,8 +18,11 @@
                           (change)="onChange(+config.idParametro,$event)" />
       </div>
     }
-<!--LISTA PROFESIONAL-->
+
+
+    <!--LISTA PROFESIONAL-->
     <h2 *ngIf="profesionalList.length">Profesional</h2>
+    <hr *ngIf="profesionalList.length" />
 
     @for (config of profesionalList; track config.idParametro) {
 
@@ -27,24 +31,28 @@
         <span style="font-weight: 500">
             {{ config.concepto }}
         </span>
-        <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false"
-                          (change)="onChange(+config.idParametro,$event)" />
+        <mat-slide-toggle
+          style="position: relative"
+          [checked]="!!config.parametroInt"
+          (change)="onChange(+config.idParametro,$event)" />
       </div>
     }
 
-<!--    LISTA EXTRA-->
+    <!--    LISTA EXTRA-->
 
     @if (listExtra.length) {
       @for (config of listExtra; track config.idParametro) {
         <h2>{{ config.grado | titlecase }}</h2>
+        <hr/>
 
         <div class="tile" [matTooltip]="config.descripcion">
-
         <span style="font-weight: 500">
             {{ config.concepto }}
         </span>
-          <mat-slide-toggle style="position: relative" [checked]="config.parametroInt ? true : false"
-                            (change)="onChange(+config.idParametro,$event)" />
+          <mat-slide-toggle
+            style="position: relative"
+            [checked]="!!config.parametroInt"
+            (change)="onChange(+config.idParametro,$event)" />
         </div>
       }
     }
