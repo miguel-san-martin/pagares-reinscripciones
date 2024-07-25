@@ -1,0 +1,24 @@
+.alert {
+  text-align: center;
+
+  .alert-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.container {
+  display: flex;
+  height: 70vh;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5vh;
+}
+
+.banner {
+  background-color: #ff4400;
+  width: 100%;
+  height: 10vh
+}

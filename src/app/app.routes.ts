@@ -58,4 +58,11 @@ export const routes: Routes = [
         (c) => c.NoPermisosComponent,
       ),
   },
+  {
+    path: 'login-screen',
+    loadComponent: () =>
+      import('./pages/login-screen/login-screen.component').then(
+        (c) => c.LoginScreenComponent,
+      ),
+  },
 ];
