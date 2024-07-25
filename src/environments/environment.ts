@@ -14,9 +14,9 @@ export const environment = {
   /**
    * URL absoluta del proyecto incluyendo subdirectorios.
    */
-  url: 'https//sie.iest.edu.mx/app/contraloria/consultaPagaresToga',
+  url: 'https://sie.iest.edu.mx/app/cd-panel-conf',
   /**
    * Nombre del proyecto.
    */
-  project: 'recibos-caja',
+  project: 'cf-parametros',
 };
