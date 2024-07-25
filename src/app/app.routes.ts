@@ -48,4 +48,18 @@ export const routes: Routes = [
         (c) => c.ModuloCerradoComponent,
       ),
   },
+  {
+    path: 'no-permits',
+    loadComponent: () =>
+      import('./pages/no-permisos/no-permisos.component').then(
+        (c) => c.NoPermisosComponent,
+      ),
+  },
+  {
+    path: 'login-screen',
+    loadComponent: () =>
+      import('./pages/login-screen/login-screen.component').then(
+        (c) => c.LoginScreenComponent,
+      ),
+  },
 ];
