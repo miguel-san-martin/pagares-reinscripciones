@@ -33,6 +33,17 @@
     ]
   },
   {
+    "name": "Escolares",
+    "img": "square_foot",
+    "sub_nodes": [
+      {
+        "name": "Configuración Horarios",
+        "img": "schedule",
+        "path": "config-escolares"
+      }
+    ]
+  },
+  {
     "name": "Toga",
     "img": "school",
     "sub_nodes": [
@@ -40,6 +51,27 @@
         "name": "Consulta Toga",
         "path": "./masiva",
         "img": "search"
+      }
+    ]
+  },
+  {
+    "name": "Paginas Templates",
+    "img": "grid_guides",
+    "sub_nodes": [
+      {
+        "name": "Modulo Cerrado",
+        "img": "star_rate",
+        "path": "module-closed"
+      },
+      {
+        "name": "Sin Permisos",
+        "img": "star_rate",
+        "path": "no-permits"
+      },
+      {
+        "name": "Inicia Session",
+        "img": "star_rate",
+        "path": "login-screen"
       }
     ]
   },
@@ -52,15 +84,6 @@
     "name": "Partidas Prosupuestales",
     "img": "send_money",
     "path": "partidas-presupuestales"
-  },
-  {
-    "name": "Configuración Horarios",
-    "img": "schedule",
-    "path": "config-escolares"
-  },
-  {
-    "name": "Modulo Cerrado",
-    "img": "star_rate",
-    "path": "module-closed"
   }
+
 ]
