@@ -81,6 +81,11 @@
     "path": "shirt-sale"
   },
   {
+    "name": "Especialidades",
+    "img": "apparel",
+    "path": "esp-bachiller"
+  },
+  {
     "name": "Partidas Prosupuestales",
     "img": "send_money",
     "path": "partidas-presupuestales"

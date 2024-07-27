@@ -42,6 +42,13 @@ export const routes: Routes = [
     canActivate: [accesoEscolarConfGuard]
   },
   {
+    path: 'esp-bachiller',
+    loadComponent: () =>
+      import('./modules/especialidad-bachiller/main-page/main-page.component').then(
+        (c) => c.MainPageComponent,
+      ),
+  },
+  {
     path: 'module-closed',
     loadComponent: () =>
       import('./pages/modulo-cerrado/modulo-cerrado.component').then(
