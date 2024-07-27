@@ -16,7 +16,7 @@ export class MainPageComponent implements OnInit{
   readonly dialog = inject(MatDialog);
   readonly shirt = inject(ShirtsSaleService)
 
-  protected cardElements = signal(0)
+  protected cardElements = signal(null)
   protected state = signal<string>('Mujer');
   protected precio = computed(() => (this.state() === 'Hombre' ? 300 : 150));
 

@@ -1,1 +1,6 @@
 <p>main-page works!</p>
+@if(especialidades()){
+@for (esp of especialidades(); track $index){
+  {{esp.nombre}}
+}
+}
