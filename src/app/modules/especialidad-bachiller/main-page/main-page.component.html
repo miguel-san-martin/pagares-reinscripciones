@@ -1,6 +1,71 @@
-<p>main-page works!</p>
-@if(especialidades()){
-@for (esp of especialidades(); track $index){
-  {{esp.nombre}}
-}
-}
+<!--<div class="container">-->
+<!--  <div class="name-container">-->
+<!--    <div class="header-container">-->
+<!--      Nombre Alumno-->
+<!--    </div>-->
+<!--    <div class="list-container">-->
+<!--      Antonia-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="container-1">-->
+<!--    <div class="table-container">-->
+
+<!--      @for (esp of especialidades(); track $index) {-->
+<!--        <div class="table-header-container" [matTooltip]="esp.nombre">-->
+<!--          {{ esp.abreviatura }}-->
+<!--        </div>-->
+<!--      }-->
+<!--    </div>-->
+
+
+<!--    <mat-radio-group class="table-container" aria-label="Opciones">-->
+
+<!--      @for (esp of especialidades(); track $index) {-->
+<!--        <div class="table-header-container">-->
+<!--          <mat-radio-button [value]="esp.id" />-->
+<!--        </div>-->
+<!--      }-->
+<!--    </mat-radio-group>-->
+
+<!--  </div>-->
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
+
+<section class="example-container mat-elevation-z8" tabindex="0">
+  @if (displayedColumns) {
+
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="alumno" sticky>
+        <th mat-header-cell *matHeaderCellDef="let element"> Nombre</th>
+        <td mat-cell *matCellDef="let element"> {{ element.alumno }}</td>
+      </ng-container>
+
+      <!--    Recorre las columnas -->
+      @for (esp of especialidades(); track $index) {
+
+        <ng-container [matColumnDef]="esp.abreviatura">
+          <th mat-header-cell *matHeaderCellDef> {{ esp.abreviatura }}</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-radio-button (change)="spech($event,esp.id)" [name]="element.IDIEST"
+                              [value]="element.IDIEST"
+                              [checked]="isSame(element.especialidad,esp.id)" />
+          </td>
+        </ng-container>
+
+      }
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  }
+</section>
+
+
+
+
+

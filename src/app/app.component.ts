@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MaterialModule } from './shared-material-module/material.module';
 import { SharedModule } from './shared/shared.module';
@@ -11,7 +11,8 @@ import { MatDrawer } from "@angular/material/sidenav";
   templateUrl: './app.component.html',
   styleUrl: './shared/scss/custom-template-miguel-v2.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
 
   @ViewChild('drawer') drawer!: MatDrawer;
 
@@ -27,6 +28,10 @@ export class AppComponent {
 
   closemap(){
     this.drawer.toggle()
+  }
+
+  ngOnInit(): void {
+    console.log();
   }
 
 }

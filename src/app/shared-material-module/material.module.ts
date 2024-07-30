@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -19,15 +18,16 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSliderModule} from '@angular/material/slider';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule} from '@angular/material/expansion';
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatSortModule } from "@angular/material/sort";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatRadioModule } from "@angular/material/radio";
 
 @NgModule({
   exports: [
@@ -59,7 +59,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatTabsModule,
     MatToolbarModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatRadioModule
   ],
 })
 export class MaterialModule {}

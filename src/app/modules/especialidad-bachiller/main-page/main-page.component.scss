@@ -1,0 +1,82 @@
+@use '../../../shared/scss/custom-template-miguel-v2';
+
+:host {
+  .container {
+    display: flex;
+    border: 1px #cfcecd solid;
+    padding: .75rem;
+    overflow: hidden;
+    height: 1000px;
+
+
+    .name-container {
+      display: flex;
+      flex-direction: row;
+      height: 70px;
+      border: 1px solid #000;
+
+      &:hover {
+        background-color: #cfcecd;
+      }
+
+      .header-container {
+        display: block;
+        box-sizing: unset;
+        padding: 5px;
+        justify-content: center;
+        text-align: center;
+        //width: clamp(100px, 200px, 400px);
+
+        min-width: 50px;
+        width: 50px;
+        max-width: 60px;
+      }
+
+      .radio-container {
+        //width: clamp(100px, 100px, 600px);
+        max-width: 50px;
+        min-width: 50px;
+      }
+
+
+    }
+
+
+    .container-1 {
+      display: flex;
+      overflow: scroll;
+      flex-direction: column;
+      width: auto;
+      height: 100%;
+
+      .table-container {
+        display: flex;
+        width: clamp(0px, 0px, 10hv);
+        flex-wrap: nowrap;
+        gap: 2px;
+
+
+        .table-header-container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          padding: 5px;
+          justify-content: center;
+          text-align: center;
+          min-width: 60px !important;
+          width: 60px;
+          border: 1px solid #000;
+          //flex-wrap: nowrap;
+          &:hover {
+            background-color: #cfcecd;
+            cursor: pointer;
+          }
+
+
+        }
+
+      }
+    }
+
+  }
+}
