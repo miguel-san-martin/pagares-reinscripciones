@@ -10,10 +10,9 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
-import { TableIESTComponent } from "@shared/components/table-iest/table-iest.component";
-import {
-  PartidasPresupuestalesMainPageComponent
-} from "../modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component";
+import { TableIESTComponent } from '@shared/components/table-iest/table-iest.component';
+import { PartidasPresupuestalesMainPageComponent } from '../modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component';
+import { ShrdSpinnerComponent } from '@shared/components/shrd-spinner/shrd-spinner.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +24,18 @@ import {
     AlertDialogComponent,
     SnackBarComponent,
     TableIESTComponent,
-
+    ShrdSpinnerComponent,
   ],
-  imports: [CommonModule, MaterialModule, FormsModule,
-    FormsModule,ReactiveFormsModule, RouterOutlet, RouterLinkActive, RouterLink],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    FormsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterOutlet,
+    RouterLinkActive,
+    RouterLink,
+  ],
   exports: [
     DineromxnPipe,
     FormatoamdhhFormatodmaPipe,
@@ -39,7 +46,8 @@ import {
     TablaContraloriaComponent,
     SideNavComponent,
     AlertDialogComponent,
-    TableIESTComponent
+    TableIESTComponent,
+    ShrdSpinnerComponent,
   ],
 })
 export class SharedModule {}

@@ -7,36 +7,31 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { EspecialityServicesAService } from '../services/especiality-services-a.service';
-import { MaterialModule } from '../../../shared-material-module/material.module';
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { DataSource } from '@angular/cdk/collections';
+import { MaterialModule } from '../../../shared-material-module/material.module';
+import { SharedModule } from '@shared/shared.module';
+import { SnackbarComponent } from '../../camping/components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [MaterialModule, JsonPipe],
+  imports: [MaterialModule, JsonPipe, NgClass, SharedModule, AsyncPipe],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss',
 })
-export class MainPageComponent implements OnInit, AfterViewInit {
-  private special = inject(EspecialityServicesAService);
-  // protected especialidades: WritableSignal<especialidades[]> = signal([]);
-  protected especialidades: WritableSignal<especialidades[]> = signal([]);
+export class MainPageComponent
+  extends SnackbarComponent
+  implements OnInit, AfterViewInit
+{
   dataSource!: MatTableDataSource<any>;
-
   // protected dataSource!: MatTableDataSource<any>
   displayedColumns!: any[];
-  ALUMNO: any[] = [
-    { alumno: 'mike', especialidad: 10, IDIEST: 1251 },
-    { alumno: 'raul', especialidad: 4, IDIEST: 12112 },
-    {
-      alumno: 'juanmaik',
-      especialidad: 1,
-      IDIEST: 128541,
-    },
-  ];
+  ALUMNO: any[] = [];
+  // protected especialidades: WritableSignal<especialidades[]> = signal([]);
+  protected especialidades: WritableSignal<especialidades[]> = signal([]);
+  protected students: WritableSignal<any> = signal([]);
+  private special = inject(EspecialityServicesAService);
 
   ngOnInit(): void {
     this.special.getAllEspecialities().subscribe((r: especialidades[]) => {
@@ -44,11 +39,12 @@ export class MainPageComponent implements OnInit, AfterViewInit {
       this.displayedColumns.unshift('alumno');
 
       this.especialidades.set(r);
+      //this.dataSource = new MatTableDataSource(this.ALUMNO);
 
-      this.dataSource = new MatTableDataSource(this.ALUMNO);
-
-      console.log('0data', this.dataSource);
-      // this.dataSource.data = r;
+      this.special.getAllStudents().subscribe((response: student[]) => {
+        this.students.set(new MatTableDataSource(response));
+        console.log('0data', this.students());
+      });
     });
   }
 
@@ -61,12 +57,22 @@ export class MainPageComponent implements OnInit, AfterViewInit {
   }
 
   spech({ value }: any, id: number) {
+    this.openSnackBar();
+    this.special.patchSpeciality(value, id).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: () => {
+        this.errorSnackBar();
+        window.location.reload();
+      },
+    });
     console.log(value, id);
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.students().filter = filterValue.trim().toLowerCase();
     console.log(this.dataSource);
   }
 }
@@ -76,4 +82,10 @@ export interface especialidades {
   id: number;
   nombre: string;
   abreviatura: string;
+}
+
+export interface student {
+  alumno: string;
+  especialidad: number;
+  IDIEST: number;
 }

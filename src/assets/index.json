@@ -18,7 +18,6 @@
         "path": "./pagares/config",
         "img": "settings"
       }
-
     ]
   },
   {
@@ -82,7 +81,7 @@
   },
   {
     "name": "Especialidades",
-    "img": "apparel",
+    "img": "hotel_class",
     "path": "esp-bachiller"
   },
   {
@@ -90,5 +89,4 @@
     "img": "send_money",
     "path": "partidas-presupuestales"
   }
-
 ]
