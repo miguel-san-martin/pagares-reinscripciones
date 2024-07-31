@@ -2,14 +2,11 @@
   <h1> Modulo de Cambio de Especialidad de Alumnos</h1>
 
   <mat-form-field>
-    <mat-label>Busqueda por nombre o #IDIEST</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholde="Busqueda por nombre o IDIEST" #input>
+    <mat-label>Búsqueda por nombre o #IDIEST</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
   </mat-form-field>
 
-
-  <section class="" tabindex="0">
-
-
+  <section tabindex="0">
     <table mat-table [dataSource]="students()">
 
       <ng-container matColumnDef="alumno" sticky>
@@ -17,19 +14,18 @@
         <td mat-cell *matCellDef="let element"> {{ element.alumno }}</td>
       </ng-container>
 
-      <!--    Recorre las columnas -->
+      <!--    Especialidades dinamicas -->
       @for (esp of especialidades(); track $index) {
         <ng-container [matColumnDef]="esp.abreviatura">
           <th mat-header-cell *matHeaderCellDef
               style="cursor: pointer"
-
               [matTooltip]="esp.nombre">
             {{ esp.abreviatura }}
           </th>
           <td mat-cell *matCellDef="let element">
-            <mat-radio-button (change)="spech($event,esp.id)" [name]="element.IDIEST"
+            <mat-radio-button (change)="modifySpeciality($event,esp.id)" [name]="element.IDIEST"
                               [value]="element.IDIEST"
-                              [checked]="isSame(element.especialidad,esp.id)" />
+                              [checked]="element.especialidad === esp.id" />
           </td>
         </ng-container>
       } @empty {
@@ -37,7 +33,8 @@
       }
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row;let even = even; columns: displayedColumns;"
+      <tr mat-row
+          *matRowDef="let row;let even = even; columns: displayedColumns;"
           [ngClass]="{grayrow: even}"></tr>
     </table>
   </section>
