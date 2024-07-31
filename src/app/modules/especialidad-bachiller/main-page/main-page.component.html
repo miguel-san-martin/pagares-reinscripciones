@@ -1,3 +1,7 @@
+@if (activo()) {
+  <app-toast-iest [hidden]="barra()" #toast></app-toast-iest>
+}
+
 @if (students().data) {
   <h1> Modulo de Cambio de Especialidad de Alumnos</h1>
 

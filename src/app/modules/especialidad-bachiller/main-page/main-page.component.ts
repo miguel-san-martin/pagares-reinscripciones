@@ -1,8 +1,11 @@
 import {
+  AfterViewInit,
   Component,
+  ElementRef,
   inject,
   OnInit,
   signal,
+  ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { EspecialityServicesAService } from '../services/especiality-services-a.service';
@@ -12,6 +15,7 @@ import { MaterialModule } from '../../../shared-material-module/material.module'
 import { SharedModule } from '@shared/shared.module';
 import { SnackbarComponent } from '../../camping/components/snackbar/snackbar.component';
 import { firstValueFrom } from 'rxjs';
+import { ToastIestComponent } from '@shared/components/toast-iest/toast-iest.component';
 
 @Component({
   selector: 'app-main-page',
@@ -26,22 +30,11 @@ export class MainPageComponent extends SnackbarComponent implements OnInit {
   protected especialidades: WritableSignal<especialidades[]> = signal([]);
   protected students: WritableSignal<any> = signal([]);
   private special = inject(EspecialityServicesAService);
+  readonly activo = signal(false);
+  @ViewChild('toast') toast!: ToastIestComponent;
 
   ngOnInit(): void {
     this.tryAsinc();
-    // this.special
-    //   .getAllEspecialities()
-    //   .pipe()
-    //   .subscribe((r: especialidades[]) => {
-    //     this.displayedColumns = r.map((r) => r.abreviatura);
-    //     this.displayedColumns.unshift('alumno');
-    //
-    //     this.especialidades.set(r);
-    //
-    //     this.special.getAllStudents().subscribe((response: student[]) => {
-    //       this.students.set(new MatTableDataSource(response));
-    //     });
-    //   });
   }
 
   async tryAsinc() {
@@ -70,7 +63,9 @@ export class MainPageComponent extends SnackbarComponent implements OnInit {
     // }
   }
 
-  async modifySpeciality({ value }: any, id: number) {
+  async modifySpeciality({ value }: { value: number }, id: number) {
+    this.activo.set(true);
+    this.barra.set(false);
     try {
       const response = await firstValueFrom(
         this.special.patchSpeciality(value, id),
@@ -78,9 +73,13 @@ export class MainPageComponent extends SnackbarComponent implements OnInit {
       console.log(response);
     } catch (err) {
       console.error(err);
-      this.errorSnackBar();
       this.tryAsinc();
       //window.location.reload();
+    } finally {
+      setInterval(() => {
+        //computed(() => !this.hidden());
+        this.barra.set(true);
+      }, 4000);
     }
   }
 
@@ -109,7 +108,7 @@ export class MainPageComponent extends SnackbarComponent implements OnInit {
     console.log(value, id);
   }
 
-  //? Metodo accionado para filtrar por nombre o idiest.
+  barra = signal<any | null>(null);
 }
 
 /// INTERFACES ///

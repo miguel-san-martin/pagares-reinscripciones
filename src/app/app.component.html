@@ -1,32 +1,33 @@
 <style>
   @media (max-width: 425px) {
     .movil-size {
-    width: 100%!important;
+      width: 100% !important;
     }
   }
-  </style>
+</style>
 
 
 <mat-toolbar color="primary">
-  <mat-icon class="material-symbols-outlined" style="padding: .5rem ; cursor: pointer" (click)="closemap()">menu</mat-icon>
-  <span>{{title}}</span>
+  <mat-icon class="material-symbols-outlined" style="padding: .5rem ; cursor: pointer" (click)="closemap()">menu
+  </mat-icon>
+  <span>{{ title }}</span>
   <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
 </mat-toolbar>
 
-<mat-drawer-container >
-  <mat-drawer class="movil-size" #drawer mode="side" opened>
+<mat-drawer-container>
+  <mat-drawer class="movil-size" #drawer mode="side" [opened]="false">
 
-    <shrd-side-nav ></shrd-side-nav>
+    <shrd-side-nav></shrd-side-nav>
   </mat-drawer>
 
-  <mat-drawer-content >
+  <mat-drawer-content>
     <div class="grid" style="height: 95vh">
       <mat-nav-list>
 
       </mat-nav-list>
       <div class="col-12">
-<!--      <div class="col-offset-1 col-11">-->
-        <router-outlet/>
+        <!--      <div class="col-offset-1 col-11">-->
+        <router-outlet />
       </div>
     </div>
   </mat-drawer-content>

@@ -13,6 +13,7 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { TableIESTComponent } from '@shared/components/table-iest/table-iest.component';
 import { PartidasPresupuestalesMainPageComponent } from '../modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component';
 import { ShrdSpinnerComponent } from '@shared/components/shrd-spinner/shrd-spinner.component';
+import { ToastIestComponent } from '@shared/components/toast-iest/toast-iest.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ShrdSpinnerComponent } from '@shared/components/shrd-spinner/shrd-spinn
     SnackBarComponent,
     TableIESTComponent,
     ShrdSpinnerComponent,
+    ToastIestComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +50,7 @@ import { ShrdSpinnerComponent } from '@shared/components/shrd-spinner/shrd-spinn
     AlertDialogComponent,
     TableIESTComponent,
     ShrdSpinnerComponent,
+    ToastIestComponent,
   ],
 })
 export class SharedModule {}

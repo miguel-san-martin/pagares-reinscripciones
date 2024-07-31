@@ -21,9 +21,12 @@ export class EspecialityServicesAService {
 
   patchSpeciality(idiest: any, especiality: number) {
     const body = {
-      idiest,
-      especiality,
+      idIest: idiest,
+      esp: especiality,
     };
-    return this.httpClient.patch<any>(`http://localhost:3002/`, body);
+    return this.httpClient.patch<any>(
+      `http://localhost:3002/especiality/edit`,
+      body,
+    );
   }
 }
