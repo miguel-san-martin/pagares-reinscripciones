@@ -15,9 +15,4 @@ import {
 export class ToastIestComponent {
   @ViewChild('modal') modal!: ElementRef;
   public hidden: InputSignal<boolean> = input.required<boolean>();
-
-
-  }
-
-
 }
