@@ -5,10 +5,9 @@
  -->
 
 
-
 <div class="mat-elevation-z8 table-responsive">
   @if (protector) {
-    @if(banderaNoHayElementos){
+    @if (banderaNoHayElementos) {
       <table mat-table [dataSource]="dataSource" matSort>
 
 
@@ -22,18 +21,19 @@
         @for (head of tableHead; track head) {
           @if (head?.checklist) {
             <ng-container [matColumnDef]="head.label">
-              <th class="th" mat-header-cell *matHeaderCellDef>
+              <th class="th" mat-header-cell *matHeaderCellDef style="color: white">
                 <mat-checkbox
                   [(ngModel)]="markAll"
                   (change)="setAll($event.checked)"
                 >
-                  {{ head.label }}</mat-checkbox
+                  {{ head.label }}
+                </mat-checkbox
                 >
               </th>
               <td mat-cell *matCellDef="let element">
                 <mat-checkbox
                   [(ngModel)]="element.active"
-                  >
+                >
                   <!-- (ngModelChange)="imprimir($event)" -->
                 </mat-checkbox>
               </td>
@@ -46,7 +46,7 @@
               </td>
             </ng-container>
           }
-        }@empty {
+        } @empty {
           cargando...
         }
 
@@ -58,7 +58,7 @@
         [pageSizeOptions]="[10, 25, 100]"
         aria-label="Select page of users"
       />
-    } @else{
+    } @else {
       <div class="alert alert-danger" role="alert">
         No hay elementos para mostrar
       </div>

@@ -1,9 +1,11 @@
 import {
   Component,
   ElementRef,
-  inject, signal,
+  inject,
+  OnDestroy,
+  signal,
   ViewChild,
-} from "@angular/core";
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Alumno } from '../../../../interfaces/Alumno';
 import { RequestOperationGen } from '../../../../interfaces/request/request-operation-gen';
@@ -19,9 +21,7 @@ import { HEADTABLE } from './headTable';
   templateUrl: './generador-masivo.component.html',
   styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
 })
-export class GeneradorMasivoComponent {
-
-
+export class GeneradorMasivoComponent implements OnDestroy {
   Service = inject(PagareReinscripcionesService);
   Maping = inject(ResponseAlumnoService);
 
@@ -38,10 +38,9 @@ export class GeneradorMasivoComponent {
   public data: Alumno[] = []; // Valores de la tabla.
   public headTable = HEADTABLE; //Variable global.
   public disableGenerateButton: boolean = false;
-
+  public subscriptions: Subscription[] = [];
 
   readonly showPanel = signal<boolean>(false);
-
 
   /**
    *  Actualiza el cuadro recibe el idOperacion y idGeneracion
@@ -53,43 +52,48 @@ export class GeneradorMasivoComponent {
     catalog: idOperacion,
     generation: idGeneracion,
   }: SelectedPagareGeneracion) {
-
     const extra: RequestOperationGen = {
       idOperacion: idOperacion ?? '',
       idGeneracion: idGeneracion ?? '',
     };
     //Consulta Validacion Promesas
-    this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
-      this.infoBar.msj = response[0].msj;
-      if (response[0].error == 1) {
-        this.disableGenerateButton = true;
-      } else {
-        this.disableGenerateButton = false;
-      }
-    });
+    this.subscriptions.push(
+      this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
+        this.infoBar.msj = response[0].msj;
+        if (response[0].error == 1) {
+          this.disableGenerateButton = true;
+        } else {
+          this.disableGenerateButton = false;
+        }
+      }),
+    );
 
     //Consulta del Costo de las promesas y número de promesas
-    this.Service.ConsultarCostoPromesas(extra).subscribe(
-      (response: CostoPromesaResponse[]) => {
-        if (response.length > 0) {
-          const { costo, promesas } = response[0];
-          this.infoBar.costo = costo;
-          this.infoBar.promesas = promesas;
-        } else {
-          this.restablecerInfoBar();
-        }
-      },
+    this.subscriptions.push(
+      this.Service.ConsultarCostoPromesas(extra).subscribe(
+        (response: CostoPromesaResponse[]) => {
+          if (response.length > 0) {
+            const { costo, promesas } = response[0];
+            this.infoBar.costo = costo;
+            this.infoBar.promesas = promesas;
+          } else {
+            this.restablecerInfoBar();
+          }
+        },
+      ),
     );
 
     //Consulta de las fechas de las promesas.
-    this.Service.ConsultarFechasPromesas(extra).subscribe(
-      (response: ConsultaFecha[]) => {
-        if (response.length > 0) {
-          this.infoBar.fechas = response;
-        } else {
-          this.restablecerInfoBar();
-        }
-      },
+    this.subscriptions.push(
+      this.Service.ConsultarFechasPromesas(extra).subscribe(
+        (response: ConsultaFecha[]) => {
+          if (response.length > 0) {
+            this.infoBar.fechas = response;
+          } else {
+            this.restablecerInfoBar();
+          }
+        },
+      ),
     );
   }
 
@@ -111,19 +115,21 @@ export class GeneradorMasivoComponent {
     catalog: idOperacion,
     generation: idGeneracion,
   }: SelectedPagareGeneracion) {
-
-
     const extra: RequestOperationGen = {
       idOperacion: idOperacion ?? '',
       idGeneracion: idGeneracion ?? '',
     };
-    this.Service.GetAlumnosConsiderados(extra).subscribe(
-      (response: AlumnoResponse[]) => {
-        this.data = this.Maping.AlumnoResponseToAlumno(response); //Aqui mapeo la respuesta a la mia
-        //console.log(this.data);
-        this.showPanel.set(true)
-      },
-      () => {this.showPanel.set(false);}
+    this.subscriptions.push(
+      this.Service.GetAlumnosConsiderados(extra).subscribe(
+        (response: AlumnoResponse[]) => {
+          this.data = this.Maping.AlumnoResponseToAlumno(response); //Aqui mapeo la respuesta a la mia
+          //console.log(this.data);
+          this.showPanel.set(true);
+        },
+        () => {
+          this.showPanel.set(false);
+        },
+      ),
     );
     this.actualizarInfoBar({ catalog: idOperacion, generation: idGeneracion });
     this.loaderBarProgress = 0;
@@ -154,6 +160,15 @@ export class GeneradorMasivoComponent {
         this.loaderBarProgress = value;
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    let subs: number = 0;
+    this.subscriptions.forEach((sub: Subscription) => {
+      sub.unsubscribe();
+      subs++;
+    });
+    console.log(subs, 'borrados');
   }
 
   protected readonly window = window;
