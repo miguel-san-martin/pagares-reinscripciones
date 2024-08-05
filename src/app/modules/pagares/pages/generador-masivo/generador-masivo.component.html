@@ -12,9 +12,10 @@
   @media (max-width: 1100px) {
     .movil {
       font-size: 14px;
-      flex-direction:column
+      flex-direction: column
     }
-    .movil-icon{
+
+    .movil-icon {
       display: none;
     }
   }
@@ -32,56 +33,56 @@
   <div class="col-11"
        style="justify-content: space-evenly;align-items: center;align-content: center;flex-direction: row-reverse; text-align: center;">
 
-    @if(showPanel()){
+    @if (showPanel()) {
 
-    <mat-card>
-      <mat-card-content class="grid movil" style="text-align: left; display: flex;">
+      <mat-card>
+        <mat-card-content class="grid movil" style="text-align: left; display: flex;">
 
-        <div class="col-2">
-          <div style="display: flex; align-items: center;">
+          <div class="col-2">
+            <div style="display: flex; align-items: center;">
 
-            <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
-                      style="color: rgb(74, 173, 70);" />
-            <span class="mat-h3" style="margin: 0px;">Costo</span> <br />
-          </div>
-          @if (infoBar.costo !== null) {
-            <span class="mat-h1">{{ infoBar.costo | dineromxn }}</span>
-          }
-        </div>
-
-        <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
-
-        <div class="col-2">
-          <div style="display: flex; align-items: center;">
-            <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="autorenew"
-                      style="color: rgb(197, 76, 191)" />
-            <span class="mat-h3" style="margin: 0px;">Promesas</span><br />
-          </div>
-          @if (infoBar.promesas) {
-            <span class="mat-h1">{{ infoBar.promesas }} Meses</span>
-          }
-
-        </div>
-
-        <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
-        <div class="col">
-
-          <div style="display: flex; align-items: center;">
-            <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"
-                      style="color: rgb(255, 56, 21)" />
-            <span class="mat-h3" style="margin: 0px;">Fechas</span>
-          </div>
-
-          <ul>
-            @for (fecha of infoBar.fechas; track $index) {
-              <li>{{ fecha.FechaVencimiento | AMDtoDMA }}</li>
+              <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
+                        style="color: rgb(74, 173, 70);" />
+              <span class="mat-h3" style="margin: 0px;">Costo</span> <br />
+            </div>
+            @if (infoBar.costo !== null) {
+              <span class="mat-h1">{{ infoBar.costo | dineromxn }}</span>
             }
-          </ul>
-        </div>
-      </mat-card-content>
-    </mat-card>
+          </div>
 
-  }
+          <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
+
+          <div class="col-2">
+            <div style="display: flex; align-items: center;">
+              <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="autorenew"
+                        style="color: rgb(197, 76, 191)" />
+              <span class="mat-h3" style="margin: 0px;">Promesas</span><br />
+            </div>
+            @if (infoBar.promesas) {
+              <span class="mat-h1">{{ infoBar.promesas }} Meses</span>
+            }
+
+          </div>
+
+          <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
+          <div class="col">
+
+            <div style="display: flex; align-items: center;">
+              <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"
+                        style="color: rgb(255, 56, 21)" />
+              <span class="mat-h3" style="margin: 0px;">Fechas</span>
+            </div>
+
+            <ul>
+              @for (fecha of infoBar.fechas; track $index) {
+                <li>{{ fecha.FechaVencimiento | AMDtoDMA }}</li>
+              }
+            </ul>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    }
     <!-- Barra de progreso -->
 
 
@@ -100,7 +101,8 @@
         <button mat-flat-button color="primary" (click)="simularBarra()" [disabled]="disableGenerateButton">
           Generar
         </button>
-        <button mat-flat-button color="primary" style="margin-left: 1rem" [disabled]="disableGenerateButton">
+        <button mat-flat-button color="primary" style="margin-left: 1rem" (click)="generateExcel()"
+                [disabled]="disableGenerateButton">
           <mat-icon class="tac" style="margin: 0">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 50 50">
               <path

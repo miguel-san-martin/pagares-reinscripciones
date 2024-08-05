@@ -16,6 +16,7 @@ import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare
 import { ResponseAlumnoService } from '../../../../services/mappingServices/response-alumno.service';
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
 import { HEADTABLE } from './headTable';
+import { ExcelService } from '../../services/excel.service';
 
 @Component({
   templateUrl: './generador-masivo.component.html',
@@ -24,6 +25,7 @@ import { HEADTABLE } from './headTable';
 export class GeneradorMasivoComponent implements OnDestroy {
   Service = inject(PagareReinscripcionesService);
   Maping = inject(ResponseAlumnoService);
+  Excel = inject(ExcelService);
 
   @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
 
@@ -171,5 +173,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
     console.log(subs, 'borrados');
   }
 
-  protected readonly window = window;
+  generateExcel() {
+    this.Excel.generateExcel(this.data, new Date().toISOString());
+  }
 }
