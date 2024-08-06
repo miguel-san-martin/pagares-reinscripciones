@@ -23,19 +23,19 @@
 </style>
 
 <div class="grid  animate__animated animate__fadeIn">
-  <h1 class="col-11">Generación masiva</h1>
+  <h1 class="col-12">Generación masiva</h1>
 
   <!-- Select reutilizable -->
-  <app-select-pagares #selectPagare class="col-11" (emitSelectedOption)="actualizarTabla($event)"
+  <app-select-pagares #selectPagare class="col-12" (emitSelectedOption)="actualizarTabla($event)"
                       (showPanel)="hiddenPanel($event)" />
 
   <!--Panel-->
-  <div class="col-11"
+  <div class="col-12"
        style="justify-content: space-evenly;align-items: center;align-content: center;flex-direction: row-reverse; text-align: center;">
 
     @if (showPanel()) {
 
-      <mat-card>
+      <mat-card style="margin-bottom: .75rem">
         <mat-card-content class="grid movil" style="text-align: left; display: flex;">
 
           <div class="col-2">
@@ -87,17 +87,9 @@
 
 
     @if (data!) {
-      <mat-progress-bar class="padding-off" mode="determinate" [value]="porcentajeAvance" style="margin: .7rem 0;" />
-      <span class="col-12 tac" style="margin-left: 0.5rem">{{ loaderBarProgress }} / de {{ data.length }}</span>
-
-      <shrd-tabla class=" col-12 padding-off animate__animated animate__fadeIn" [data]="data" [tableHead]="headTable"
-                  [checkList]="true"
-                  [requiereIndex]="true" />
-
-
-      <!--Fin panel informativo verde-->
-        <!-- Botones -->
-      <div class="col" style="margin-top: 1rem;text-align:end ;padding: 0;">
+      <!--      <mat-progress-bar class="padding-off" mode="determinate" [value]="porcentajeAvance" style="margin: .7rem 0;" />-->
+        <!--      <span class="col-12 tac" style="margin-left: 0.5rem">{{ loaderBarProgress }} / de {{ data.length }}</span>-->
+      <div class="col" style="margin-top: 1rem;text-align:end ;margin-bottom: 10px;;">
         <button mat-flat-button color="primary" (click)="simularBarra()" [disabled]="disableGenerateButton">
           Generar
         </button>
@@ -112,6 +104,16 @@
           </mat-icon>
         </button>
         <!-- Botones -->
+      </div>
+      <shrd-tabla class=" col-12 padding-off animate__animated animate__fadeIn" [data]="data" [tableHead]="headTable"
+                  [checkList]="true"
+                  [requiereIndex]="true" />
+      <!--Fin panel informativo verde-->
+        <!-- Botones -->
+
+    } @else {
+      <div class="alert alert-danger" role="alert">
+        No hay elementos para mostrar
       </div>
     }
   </div>

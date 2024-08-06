@@ -17,6 +17,7 @@ import { ResponseAlumnoService } from '../../../../services/mappingServices/resp
 import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
 import { HEADTABLE } from './headTable';
 import { ExcelService } from '../../services/excel.service';
+import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
 
 @Component({
   templateUrl: './generador-masivo.component.html',
@@ -28,6 +29,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
   Excel = inject(ExcelService);
 
   @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
+  @ViewChild('selectPagare') pagare!: SelectPagaresGeneracionComponent; //View de generación el segundo select oculto.
 
   readonly fechas: ConsultaFecha[] = [];
   public infoBar = {
@@ -41,6 +43,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
   public headTable = HEADTABLE; //Variable global.
   public disableGenerateButton: boolean = false;
   public subscriptions: Subscription[] = [];
+  public selectedCatalog!: string;
 
   readonly showPanel = signal<boolean>(false);
 
@@ -58,6 +61,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
       idOperacion: idOperacion ?? '',
       idGeneracion: idGeneracion ?? '',
     };
+
     //Consulta Validacion Promesas
     this.subscriptions.push(
       this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
@@ -121,6 +125,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
       idOperacion: idOperacion ?? '',
       idGeneracion: idGeneracion ?? '',
     };
+    this.selectedCatalog = extra.idOperacion || '0';
     this.subscriptions.push(
       this.Service.GetAlumnosConsiderados(extra).subscribe(
         (response: AlumnoResponse[]) => {
@@ -174,6 +179,12 @@ export class GeneradorMasivoComponent implements OnDestroy {
   }
 
   generateExcel() {
-    this.Excel.generateExcel(this.data, new Date().toISOString());
+    console.log(this.selectedCatalog);
+    console.log(this.pagare.map.get(this.selectedCatalog));
+
+    this.Excel.generateExcel(
+      this.data,
+      `${this.pagare.map.get(this.selectedCatalog)}_${new Date().toISOString()}`,
+    );
   }
 }

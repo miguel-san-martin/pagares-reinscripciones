@@ -1,68 +1,50 @@
-<!-- <mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-</mat-form-field>
- -->
-
-
 <div class="mat-elevation-z8 table-responsive">
-  @if (protector) {
-    @if (banderaNoHayElementos) {
-      <table mat-table [dataSource]="dataSource" matSort>
+  @defer (on idle) {
+    <table mat-table [dataSource]="dataSource" matSort>
+      @if (requiereIndex) {
+        <ng-container matColumnDef="No.">
+          <th class="th" mat-header-cell *matHeaderCellDef>Indice</th>
+          <td mat-cell *matCellDef="let element">{{ element.posicion }}</td>
+        </ng-container>
+      }
 
-
-        @if (requiereIndex) {
-          <ng-container matColumnDef="No.">
-            <th class="th" mat-header-cell *matHeaderCellDef>Indice</th>
-            <td mat-cell *matCellDef="let element">{{ element.posicion }}</td>
+      @for (head of tableHead; track head) {
+        @if (head?.checklist) {
+          <ng-container [matColumnDef]="head.label">
+            <th class="th" mat-header-cell *matHeaderCellDef style="color: white">
+              <mat-checkbox
+                [(ngModel)]="markAll"
+                (change)="setAll($event.checked)"
+              >
+                {{ head.label }}
+              </mat-checkbox
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox
+                [(ngModel)]="element.active"
+              >
+                <!-- (ngModelChange)="imprimir($event)" -->
+              </mat-checkbox>
+            </td>
+          </ng-container>
+        } @else {
+          <ng-container [matColumnDef]="head.label">
+            <th class="th" mat-header-cell *matHeaderCellDef>{{ head.label }}</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element[head.namePropiedad] }}
+            </td>
           </ng-container>
         }
+      }
+      <tr mat-header-row *matHeaderRowDef="displayedColums"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColums"></tr>
+    </table>
 
-        @for (head of tableHead; track head) {
-          @if (head?.checklist) {
-            <ng-container [matColumnDef]="head.label">
-              <th class="th" mat-header-cell *matHeaderCellDef style="color: white">
-                <mat-checkbox
-                  [(ngModel)]="markAll"
-                  (change)="setAll($event.checked)"
-                >
-                  {{ head.label }}
-                </mat-checkbox
-                >
-              </th>
-              <td mat-cell *matCellDef="let element">
-                <mat-checkbox
-                  [(ngModel)]="element.active"
-                >
-                  <!-- (ngModelChange)="imprimir($event)" -->
-                </mat-checkbox>
-              </td>
-            </ng-container>
-          } @else {
-            <ng-container [matColumnDef]="head.label">
-              <th class="th" mat-header-cell *matHeaderCellDef>{{ head.label }}</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element[head.namePropiedad] }}
-              </td>
-            </ng-container>
-          }
-        } @empty {
-          cargando...
-        }
-
-        <tr mat-header-row *matHeaderRowDef="displayedColums"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColums"></tr>
-      </table>
-
-      <mat-paginator
-        [pageSizeOptions]="[10, 25, 100]"
-        aria-label="Select page of users"
-      />
-    } @else {
-      <div class="alert alert-danger" role="alert">
-        No hay elementos para mostrar
-      </div>
-    }
+  } @placeholder (minimum 100) {
+    Cargando...
   }
+  <mat-paginator [pageSizeOptions]="[10, 500, 800]" />
+
 
 </div>

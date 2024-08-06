@@ -1,64 +1,61 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from "@angular/core";
-import { MatPaginator } from "@angular/material/paginator";
+import {
+  AfterRenderRef,
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 
-import { MatTableDataSource } from "@angular/material/table";
-import { HeaderTable } from "../../interfaces/header-tables";
+import { MatTableDataSource } from '@angular/material/table';
+import { HeaderTable } from '../../interfaces/header-tables';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: "shrd-tabla",
+  selector: 'shrd-tabla',
   standalone: false,
-  //imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, FormsModule],
-  templateUrl: "./tabla-contraloria.component.html",
-  styleUrl: "./../../scss/custom-template-miguel-v2.scss",
+  templateUrl: './tabla-contraloria.component.html',
+  styleUrl: './../../scss/custom-template-miguel-v2.scss',
 })
-export class TablaContraloriaComponent implements OnChanges {
+export class TablaContraloriaComponent
+  implements AfterViewInit, OnInit, OnChanges
+{
   @Input({ required: true }) tableHead!: HeaderTable[];
-  @Input({ required: true }) data!: any[];
+  @Input({ required: true }) data: any[] = [];
   @Input() checkList: boolean = false;
   @Input() requiereIndex: boolean = false;
 
   dataSource!: MatTableDataSource<any>;
 
   markAll: boolean = true;
-  banderaNoHayElementos: boolean = false;
-  protector = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  /*   itemsSeleccionados: any = {
-    selectedAll: false,
-    data: this.data
-  } */
+  ngOnInit(): void {
+    this.construirTabla();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    if (changes["data"]) {
+    if (changes['data']) {
       this.construirTabla();
     }
   }
-
-  /*
-    ngAfterViewInit() {
-      console.log('Afterview');
-
-      this.construirTabla();
-
-    } */
 
   construirTabla() {
-    /*     console.log('Log',this.data); */
-    this.protector = true;  // La primera ves que tenga datos
-    if (this.data.length > 0) {
-      this.dataSource = new MatTableDataSource(this.addIndex(this.data));
-      this.dataSource.paginator = this.paginator;
-      this.banderaNoHayElementos = true;
-
-    } else {
-      this.banderaNoHayElementos = false;
-    }
+    this.dataSource = new MatTableDataSource(this.addIndex(this.data));
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   /**
    * Metodo que extrae la lista con los nombres y lo devuelve para que el hr los interprete
@@ -74,14 +71,15 @@ export class TablaContraloriaComponent implements OnChanges {
       sti.push(row.label);
     });
     if (this.requiereIndex) {
-      sti.unshift("No.");
+      sti.unshift('No.');
     }
     return sti;
   }
 
   seleccionarTodos() {
     this.markAll =
-      this.dataSource.data != null && this.dataSource.data.every((t) => t.active);
+      this.dataSource.data != null &&
+      this.dataSource.data.every((t) => t.active);
   }
 
   setAll(completed: boolean) {
