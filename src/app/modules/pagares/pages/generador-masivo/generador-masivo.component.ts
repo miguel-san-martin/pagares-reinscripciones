@@ -21,12 +21,12 @@ import { SelectPagaresGeneracionComponent } from '../../components/select-pagare
 
 @Component({
   templateUrl: './generador-masivo.component.html',
-  styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
+  styleUrl: './generador-masivo.scss',
 })
 export class GeneradorMasivoComponent implements OnDestroy {
-  Service = inject(PagareReinscripcionesService);
-  Maping = inject(ResponseAlumnoService);
-  Excel = inject(ExcelService);
+  Service: PagareReinscripcionesService = inject(PagareReinscripcionesService);
+  Maping: ResponseAlumnoService = inject(ResponseAlumnoService);
+  Excel: ExcelService = inject(ExcelService);
 
   @ViewChild('generacion') seleccionGeneracion!: ElementRef; //View de generación el segundo select oculto.
   @ViewChild('selectPagare') pagare!: SelectPagaresGeneracionComponent; //View de generación el segundo select oculto.
@@ -126,6 +126,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
       idGeneracion: idGeneracion ?? '',
     };
     this.selectedCatalog = extra.idOperacion || '0';
+
     this.subscriptions.push(
       this.Service.GetAlumnosConsiderados(extra).subscribe(
         (response: AlumnoResponse[]) => {
@@ -147,6 +148,10 @@ export class GeneradorMasivoComponent implements OnDestroy {
       this.restablecerInfoBar();
       this.data = [];
     }
+  }
+
+  showTable() {
+    console.log('cambio detectado');
   }
 
   // Parte de place holder
@@ -187,4 +192,6 @@ export class GeneradorMasivoComponent implements OnDestroy {
       `${this.pagare.map.get(this.selectedCatalog)}_${new Date().toISOString()}`,
     );
   }
+
+  protected readonly event = event;
 }

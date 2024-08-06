@@ -1,8 +1,10 @@
 import {
-  AfterRenderRef,
   AfterViewInit,
   Component,
+  effect,
+  input,
   Input,
+  InputSignal,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -21,13 +23,13 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './tabla-contraloria.component.html',
   styleUrl: './../../scss/custom-template-miguel-v2.scss',
 })
-export class TablaContraloriaComponent
-  implements AfterViewInit, OnInit, OnChanges
-{
+export class TablaContraloriaComponent<T> {
   @Input({ required: true }) tableHead!: HeaderTable[];
-  @Input({ required: true }) data: any[] = [];
+  //@Input({ required: true }) data: T[] = [];
   @Input() checkList: boolean = false;
   @Input() requiereIndex: boolean = false;
+
+  data2: InputSignal<T[]> = input.required<T[]>();
 
   dataSource!: MatTableDataSource<any>;
 
@@ -36,25 +38,12 @@ export class TablaContraloriaComponent
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngOnInit(): void {
-    this.construirTabla();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['data']) {
-      this.construirTabla();
-    }
-  }
-
-  construirTabla() {
-    this.dataSource = new MatTableDataSource(this.addIndex(this.data));
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  constructor() {
+    effect(() => {
+      this.dataSource = new MatTableDataSource(this.addIndex(this.data2()));
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   /**
@@ -90,16 +79,27 @@ export class TablaContraloriaComponent
     this.dataSource.data.forEach((t) => (t.active = completed));
   }
 
-  addIndex(data: any) {
+  addIndex(data: T[]) {
     if (!this.requiereIndex) return data; // Si no requiere indices devuelve
-    if (this.data.length === 0) return [];
+    if (this.data2().length === 0) return [];
 
     // Aqui se añade ala data sus indices
-    data = this.data.map((r, index) => {
+    data = this.data2().map((r, index) => {
       const salida = { posicion: index + 1, ...r };
       //console.log(salida);
       return salida;
     });
     return data;
   }
+
+  // construirTabla() {
+  //   this.dataSource = new MatTableDataSource(this.addIndex(this.data2()));
+  //   this.dataSource.paginator = this.paginator;
+  //   //this.dataSource.sort = this.sort;
+  // }
+
+  // ngAfterViewInit(): void {
+  //   this.dataSource.paginator = this.paginator;
+  //   this.dataSource.sort = this.sort;
+  // }
 }

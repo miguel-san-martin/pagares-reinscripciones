@@ -4,7 +4,9 @@ import {
   EventEmitter,
   inject,
   OnInit,
+  output,
   Output,
+  OutputEmitterRef,
   ViewChild,
 } from '@angular/core';
 import { MaterialModule } from '../../../../shared-material-module/material.module';
@@ -33,6 +35,8 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   @Output()
   public emitSelectedOption: EventEmitter<SelectedPagareGeneracion> =
     new EventEmitter();
+
+  dirty: OutputEmitterRef<any> = output<any>();
 
   @Output()
   public showPanel: EventEmitter<boolean> = new EventEmitter();
