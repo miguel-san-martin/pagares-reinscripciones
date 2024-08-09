@@ -54,6 +54,11 @@
     ]
   },
   {
+    "name": "Nu",
+    "path": "./nu",
+    "img": "school"
+  },
+  {
     "name": "Paginas Templates",
     "img": "grid_guides",
     "sub_nodes": [

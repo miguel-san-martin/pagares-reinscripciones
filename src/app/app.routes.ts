@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { accesoEscolarConfGuard } from "./guard/acceso-escolar-conf.guard";
+import { accesoEscolarConfGuard } from './guard/acceso-escolar-conf.guard';
 
 export const routes: Routes = [
   {
@@ -29,23 +29,30 @@ export const routes: Routes = [
   {
     path: 'partidas-presupuestales',
     loadComponent: () =>
-      import('./modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component').then(
-        (c) => c.PartidasPresupuestalesMainPageComponent,
-      ),
+      import(
+        './modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component'
+      ).then((c) => c.PartidasPresupuestalesMainPageComponent),
   },
   {
     path: 'config-escolares',
     loadComponent: () =>
-      import('./modules/admin-config-configuracion/page-config/page-config.component').then(
-        (c) => c.PageConfigComponent,
-      ),
-    canActivate: [accesoEscolarConfGuard]
+      import(
+        './modules/admin-config-configuracion/page-config/page-config.component'
+      ).then((c) => c.PageConfigComponent),
+    canActivate: [accesoEscolarConfGuard],
   },
   {
     path: 'esp-bachiller',
     loadComponent: () =>
-      import('./modules/especialidad-bachiller/main-page/main-page.component').then(
-        (c) => c.MainPageComponent,
+      import(
+        './modules/especialidad-bachiller/main-page/main-page.component'
+      ).then((c) => c.MainPageComponent),
+  },
+  {
+    path: 'nu',
+    loadComponent: () =>
+      import('./modules/calculadora-nu/calculadora-nu.component').then(
+        (c) => c.CalculadoraNuComponent,
       ),
   },
   {
