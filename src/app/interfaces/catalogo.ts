@@ -1,4 +1,5 @@
 export interface Catalogo {
-  id: string,
-  descripcion: string
+  id: string;
+  descripcion: string;
+  success?: string;
 }

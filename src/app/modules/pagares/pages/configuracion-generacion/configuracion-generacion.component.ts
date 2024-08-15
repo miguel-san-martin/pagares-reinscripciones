@@ -121,7 +121,12 @@ export class ConfiguracionGeneracionComponent implements OnInit {
       (response: ConsultaFecha[]) => {
         const fechasDate: Date[] = [];
         response.forEach(({ FechaVencimiento }) => {
-          fechasDate.push(new Date(FechaVencimiento));
+          console.log(fechasDate.length + 1);
+          console.log(response);
+
+          //Regla de negocio, si el back menda que son 2 deben ser 2
+          if (fechasDate.length < this.sliderValue)
+            fechasDate.push(new Date(FechaVencimiento));
         });
         this.populateDateInputs(fechasDate);
         // this.formIsVisible.set(true);

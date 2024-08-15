@@ -9,6 +9,7 @@ export const routes: Routes = [
   },
   {
     path: 'pagares',
+    canActivate: [accesoEscolarConfGuard],
     loadChildren: () =>
       import('./modules/pagares/pagares.module').then((m) => m.PagaresModule),
   },
