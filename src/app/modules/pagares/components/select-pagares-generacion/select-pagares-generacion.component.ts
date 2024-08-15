@@ -82,6 +82,11 @@ export class SelectPagaresGeneracionComponent implements OnInit {
     });
   }
 
+  /*
+  Evento que se activa a seleccionar el primer select
+  798 y 708 Mostraran Generaciones
+  963 Mostraran tipos (Inscription y Reinscripción)
+   */
   public onSelectPagare() {
     if (
       Number(this.selectedCataloge.catalog) === 798 ||

@@ -18,9 +18,12 @@
   <!-- Select reutilizable -->
   <app-select-pagares #selectPagare class="col-12" (emitSelectedOption)="actualizarTabla($event)"
                       (showPanel)="hiddenPanel($event)" />
+
+
+
   @if (showPanel()) {
     <!--Panel-->
-    <div class="col-12"
+    <div class="col-12 panel"
          style="justify-content: space-evenly;align-items: center;align-content: center;flex-direction: row-reverse; text-align: center;">
 
 
@@ -33,9 +36,9 @@
 
                 <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
                           style="color: rgb(74, 173, 70);" />
-                <span class="mat-h3" style="margin: 0px;">Costo</span> <br />
+                <span class="mat-h3" style="margin: 0;">Costo</span> <br />
               </div>
-              <span class="mat-h1">{{ infoBar.costo | dineromxn }}</span>
+              <span class="mat-h1">{{ infoBar.costo | DineroToCurrency }}</span>
             </div>
             <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
           }
@@ -45,7 +48,7 @@
             <div style="display: flex; align-items: center;">
               <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="autorenew"
                         style="color: rgb(197, 76, 191)" />
-              <span class="mat-h3" style="margin: 0px;">Promesas</span><br />
+              <span class="mat-h3" style="margin: 0;">Promesas</span><br />
             </div>
             @if (infoBar.promesas) {
               <span class="mat-h1">{{ infoBar.promesas }} Meses</span>
@@ -103,15 +106,10 @@
         <!--Fin panel informativo verde-->
           <!-- Botones -->
       }
-      @if (showPanel() ?? false) {
-        <mat-spinner></mat-spinner>
-      } @else {
-      }
-
     </div>
   }
-
-  <!-- Barra de progreso -->
-  <!-- Tabla  -->
+  @if (showLoader()) {
+    <mat-spinner style="margin: auto" />
+  }
 
 </div>

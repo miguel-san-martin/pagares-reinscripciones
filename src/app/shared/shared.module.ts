@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormatoamdhhFormatodmaPipe } from './pipes/formatoamdhh-formatodma.pipe';
-import { DineromxnPipe } from './pipes/dineromxn.pipe';
+import { DineroToCurrencyPipe } from './pipes/DineroToCurrency.pipe';
 import { TablaContraloriaComponent } from './components/tabla-contraloria/tabla-contraloria.component';
 import { PagoVerdeDirective } from './directives/directives.directive';
 import { MaterialModule } from '../shared-material-module/material.module';
@@ -18,7 +18,7 @@ import { NumberToMxnPipe } from '@shared/pipes/number-to-mxn.pipe';
 
 @NgModule({
   declarations: [
-    DineromxnPipe,
+    DineroToCurrencyPipe,
     NumberToMxnPipe,
     FormatoamdhhFormatodmaPipe,
     PagoVerdeDirective,
@@ -42,7 +42,7 @@ import { NumberToMxnPipe } from '@shared/pipes/number-to-mxn.pipe';
   ],
   exports: [
     NumberToMxnPipe,
-    DineromxnPipe,
+    DineroToCurrencyPipe,
     FormatoamdhhFormatodmaPipe,
     FormsModule,
     PagoVerdeDirective,

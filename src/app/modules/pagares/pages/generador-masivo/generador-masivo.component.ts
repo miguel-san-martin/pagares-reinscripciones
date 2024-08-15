@@ -5,6 +5,7 @@ import {
   OnDestroy,
   signal,
   ViewChild,
+  WritableSignal,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Alumno } from '../../../../interfaces/Alumno';
@@ -18,6 +19,8 @@ import { PagareReinscripcionesService } from '../../services/pagare-reinscripcio
 import { HEADTABLE } from './headTable';
 import { ExcelService } from '../../services/excel.service';
 import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
+import { infoBar } from '../../interfaces/infoBar.interface';
+import { HeaderTable } from '@shared/interfaces/header-tables';
 
 @Component({
   templateUrl: './generador-masivo.component.html',
@@ -32,7 +35,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
   @ViewChild('selectPagare') pagare!: SelectPagaresGeneracionComponent; //View de generación el segundo select oculto.
 
   readonly fechas: ConsultaFecha[] = [];
-  public infoBar = {
+  public infoBar: infoBar = {
     costo: '',
     promesas: '',
     fechas: this.fechas,
@@ -40,12 +43,12 @@ export class GeneradorMasivoComponent implements OnDestroy {
   };
   public loaderBarProgress: number = 0; // Progreso de la barra.
   public data: Alumno[] = []; // Valores de la tabla.
-  public headTable = HEADTABLE; //Variable global.
+  public headTable: HeaderTable[] = HEADTABLE; //Variable global.
   public disableGenerateButton: boolean = false;
   public subscriptions: Subscription[] = [];
   public selectedCatalog!: string;
 
-  readonly showPanel = signal<boolean>(false);
+  readonly showPanel: WritableSignal<boolean> = signal<boolean>(false);
 
   /**
    *  Actualiza el cuadro recibe el idOperacion y idGeneracion
@@ -62,7 +65,6 @@ export class GeneradorMasivoComponent implements OnDestroy {
       idGeneracion: idGeneracion ?? '',
     };
 
-    //Consulta Validacion Promesas
     this.subscriptions.push(
       this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
         this.infoBar.msj = response[0].msj;
@@ -127,21 +129,21 @@ export class GeneradorMasivoComponent implements OnDestroy {
       idGeneracion: idGeneracion ?? '',
     };
     console.log(extra);
+    this.showLoader.set(true);
     this.data = [];
     this.selectedCatalog = extra.idOperacion || '0';
 
     this.subscriptions.push(
       this.Service.GetAlumnosConsiderados(extra).subscribe(
         (response: AlumnoResponse[]) => {
-          this.showPanel.set(false);
+          this.showPanel.set(true);
           this.data = this.Maping.AlumnoResponseToAlumno(response); //Aqui mapeo la respuesta a la mia
-          //console.log(this.data);
         },
         () => {
           this.showPanel.set(false);
         },
         () => {
-          this.showPanel.set(false);
+          this.showLoader.set(false);
         },
       ),
     );
@@ -151,6 +153,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
 
   hiddenPanel(signal: boolean) {
     if (!signal) {
+      this.showPanel.set(false);
       this.restablecerInfoBar();
       this.data = [];
     }
@@ -159,6 +162,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
   // Parte de place holder
   //! TO DO::
   private suscription!: Subscription;
+  showLoader: WritableSignal<boolean> = signal(false);
 
   public get porcentajeAvance() {
     if (!this.data) return 0;
@@ -194,6 +198,4 @@ export class GeneradorMasivoComponent implements OnDestroy {
       `${this.pagare.map.get(this.selectedCatalog)}_${new Date().toISOString()}`,
     );
   }
-
-  protected readonly event = event;
 }
