@@ -1,4 +1,4 @@
-import { HeaderTable } from '../../../../shared/interfaces/header-tables';
+import { HeaderTable } from '@shared/interfaces/header-tables';
 
 export const HEADTABLE: HeaderTable[] = [
   { label: 'ID', namePropiedad: 'idPerson' },
@@ -7,5 +7,4 @@ export const HEADTABLE: HeaderTable[] = [
   { label: 'Costo', namePropiedad: 'costoInsumos', currency: 'true' },
   { label: 'Correo', namePropiedad: 'correo' },
   { label: 'Responsable', namePropiedad: 'nombreResponsable' },
-  { label: 'Todo', namePropiedad: 'active', checklist: 'true' },
-]; //Header necesario para componente shr-table
+]; //Header necesario para componente shr-table  { label: 'Todo', namePropiedad: 'active', checklist: 'true' },
