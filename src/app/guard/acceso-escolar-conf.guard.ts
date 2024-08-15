@@ -2,12 +2,13 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { AdministraConfiguracionService } from '../modules/admin-config-configuracion/administra-configuracion.service';
 import { tap } from 'rxjs';
+import { PagareReinscripcionesService } from '../modules/pagares/services/pagare-reinscripciones.service';
 
 export const accesoEscolarConfGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const myService = inject(AdministraConfiguracionService);
+  const myService = inject(PagareReinscripcionesService);
 
-  return myService.getListHorarios().pipe(
+  return myService.GetCatalogosOperaciones().pipe(
     tap((response: any) => {
       if (response?.sucess === '2') {
         console.log('!!');
@@ -43,8 +44,7 @@ export const accesoEscolarConfGuard: CanActivateFn = (route, state) => {
             "           ||                ,'   /    |\n",
         );
         router.navigate(['/module-closed']);
-      }
-      else if (response.parametros[0].error === '1') {
+      } else if (response.parametros[0].error === '1') {
         router.navigate(['/no-permits']);
       }
       return true;
