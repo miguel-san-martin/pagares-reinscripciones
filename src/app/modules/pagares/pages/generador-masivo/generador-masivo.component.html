@@ -40,7 +40,7 @@
               </div>
               <span class="mat-h1">{{ infoBar.costo | DineroToCurrency }}</span>
             </div>
-            <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
+            <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0;" />
           }
 
 
@@ -56,13 +56,13 @@
 
           </div>
 
-          <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
+          <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0;" />
           <div class="col">
 
             <div style="display: flex; align-items: center;">
               <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"
                         style="color: rgb(255, 56, 21)" />
-              <span class="mat-h3" style="margin: 0px;">Fechas</span>
+              <span class="mat-h3" style="margin: 0;">Fechas</span>
             </div>
 
             <ul>
@@ -76,15 +76,13 @@
 
 
       <!-- Barra de progreso -->
-
-
       @if (data!) {
         <!--      <mat-progress-bar class="padding-off" mode="determinate" [value]="porcentajeAvance" style="margin: .7rem 0;" />-->
           <!--      <span class="col-12 tac" style="margin-left: 0.5rem">{{ loaderBarProgress }} / de {{ data.length }}</span>-->
         <div class="col" style="margin-top: 1rem;text-align:end ;margin-bottom: 10px;;">
-          <button mat-flat-button color="primary" (click)="simularBarra()" [disabled]="disableGenerateButton">
-            Generar
-          </button>
+          <!--          <button mat-flat-button color="primary" (click)="simularBarra()" [disabled]="disableGenerateButton">-->
+          <!--            Generar-->
+          <!--          </button>-->
           <button mat-flat-button color="primary" style="margin-left: 1rem" (click)="generateExcel()"
                   [disabled]="disableGenerateButton">
             <mat-icon class="tac" style="margin: 0">
