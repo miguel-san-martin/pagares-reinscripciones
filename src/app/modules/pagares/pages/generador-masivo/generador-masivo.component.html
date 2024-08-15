@@ -27,19 +27,19 @@
       <mat-card style="margin-bottom: .75rem">
         <mat-card-content class="grid movil" style="text-align: left; display: flex;">
 
-          <div class="col-2">
-            <div style="display: flex; align-items: center;">
+          @if (infoBar.costo != ".0000") {
+            <div class="col-2">
+              <div style="display: flex; align-items: center;">
 
-              <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
-                        style="color: rgb(74, 173, 70);" />
-              <span class="mat-h3" style="margin: 0px;">Costo</span> <br />
-            </div>
-            @if (infoBar.costo !== null) {
+                <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
+                          style="color: rgb(74, 173, 70);" />
+                <span class="mat-h3" style="margin: 0px;">Costo</span> <br />
+              </div>
               <span class="mat-h1">{{ infoBar.costo | dineromxn }}</span>
-            }
-          </div>
+            </div>
+            <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
+          }
 
-          <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
 
           <div class="col-2">
             <div style="display: flex; align-items: center;">
@@ -99,16 +99,18 @@
                     [tableHead]="headTable"
                     [checkList]="true"
                     [requiereIndex]="true" />
+
         <!--Fin panel informativo verde-->
           <!-- Botones -->
-
-      } @else {
-        <div class="alert alert-danger" role="alert">
-          No hay elementos para mostrar
-        </div>
       }
+      @if (showPanel() ?? false) {
+        <mat-spinner></mat-spinner>
+      } @else {
+      }
+
     </div>
   }
+
   <!-- Barra de progreso -->
   <!-- Tabla  -->
 

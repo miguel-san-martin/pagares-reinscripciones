@@ -14,10 +14,12 @@ import { TableIESTComponent } from '@shared/components/table-iest/table-iest.com
 import { PartidasPresupuestalesMainPageComponent } from '../modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component';
 import { ShrdSpinnerComponent } from '@shared/components/shrd-spinner/shrd-spinner.component';
 import { ToastIestComponent } from '@shared/components/toast-iest/toast-iest.component';
+import { NumberToMxnPipe } from '@shared/pipes/number-to-mxn.pipe';
 
 @NgModule({
   declarations: [
     DineromxnPipe,
+    NumberToMxnPipe,
     FormatoamdhhFormatodmaPipe,
     PagoVerdeDirective,
     TablaContraloriaComponent,
@@ -39,6 +41,7 @@ import { ToastIestComponent } from '@shared/components/toast-iest/toast-iest.com
     RouterLink,
   ],
   exports: [
+    NumberToMxnPipe,
     DineromxnPipe,
     FormatoamdhhFormatodmaPipe,
     FormsModule,

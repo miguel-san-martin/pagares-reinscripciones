@@ -192,9 +192,9 @@ export class ConfiguracionGeneracionComponent implements OnInit {
     }
 
     console.log(`Informacion que se mandara`, payload);
-    // this.Service.PostAltaPagares(payload).subscribe(() => {
-    //   this.showSnackBar();
-    // });
+    this.Service.PostAltaPagares(payload).subscribe(() => {
+      this.showSnackBar();
+    });
   }
 
   /** Muestra snackbar **/

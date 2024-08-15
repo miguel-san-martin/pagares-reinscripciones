@@ -80,6 +80,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
         (response: CostoPromesaResponse[]) => {
           if (response.length > 0) {
             const { costo, promesas } = response[0];
+            console.log(costo);
             this.infoBar.costo = costo;
             this.infoBar.promesas = promesas;
           } else {
@@ -125,14 +126,19 @@ export class GeneradorMasivoComponent implements OnDestroy {
       idOperacion: idOperacion ?? '',
       idGeneracion: idGeneracion ?? '',
     };
+    console.log(extra);
+    this.data = [];
     this.selectedCatalog = extra.idOperacion || '0';
 
     this.subscriptions.push(
       this.Service.GetAlumnosConsiderados(extra).subscribe(
         (response: AlumnoResponse[]) => {
+          this.showPanel.set(false);
           this.data = this.Maping.AlumnoResponseToAlumno(response); //Aqui mapeo la respuesta a la mia
           //console.log(this.data);
-          this.showPanel.set(true);
+        },
+        () => {
+          this.showPanel.set(false);
         },
         () => {
           this.showPanel.set(false);
@@ -148,10 +154,6 @@ export class GeneradorMasivoComponent implements OnDestroy {
       this.restablecerInfoBar();
       this.data = [];
     }
-  }
-
-  showTable() {
-    console.log('cambio detectado');
   }
 
   // Parte de place holder

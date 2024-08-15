@@ -1,22 +1,12 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  interval,
-  startWith,
-  tap,
-  map,
-  takeWhile,
-  take,
-  Observable,
-} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { interval, map, Observable, take, takeWhile, tap } from 'rxjs';
 import { ServicioBase } from '../../../services/servicio-base.service';
 import { Catalogo } from '../../../interfaces/catalogo';
-import { ResponseAlumnoService } from '../../../services/mappingServices/response-alumno.service';
 import { AlumnoResponse } from '../../../interfaces/responses/AlumnoResponse';
 import { GeneracionesResponse } from '../../../interfaces/generaciones-response';
 import { RequestAltaPagare } from '../../../interfaces/request/request-alta-pagare';
 import { CostoPromesaResponse } from '../../../interfaces/responses/costo-promesas.interface';
 import { ConsultaFecha } from '../../../interfaces/responses/consulta-fecha';
-import { SelectedPagareGeneracion } from '../../../interfaces/selected-pagare-generacion';
 import { RequestOperationGen } from '../../../interfaces/request/request-operation-gen';
 
 @Injectable({
@@ -65,6 +55,20 @@ export class PagareReinscripcionesService extends ServicioBase {
     const parametros = {
       servicio: 'pagaresMasivo',
       accion: 'CON_GeneracionPagares_Catalogos_Generaciones',
+      tipoRespuesta: 'json',
+    };
+    return this.consulta(
+      { ...parametros, ...extras },
+      '/api/contraloria/generaPagaresM.php',
+    );
+  }
+
+  public GetAlumnosAmbos(
+    extras: { indicador: string } = { indicador: '' },
+  ): Observable<any[]> {
+    const parametros = {
+      servicio: 'pagaresMasivo',
+      accion: 'CON_GeneracionPagares_Catalogos_Amboss',
       tipoRespuesta: 'json',
     };
     return this.consulta(

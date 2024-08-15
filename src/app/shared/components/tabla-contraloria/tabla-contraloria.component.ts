@@ -56,7 +56,7 @@ export class TablaContraloriaComponent<T> {
    */
   get displayedColums(): string[] {
     const sti: string[] = [];
-    this.tableHead.map((row) => {
+    this.tableHead.map((row: HeaderTable) => {
       sti.push(row.label);
     });
     if (this.requiereIndex) {

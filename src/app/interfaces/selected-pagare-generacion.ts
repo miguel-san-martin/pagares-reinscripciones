@@ -1,4 +1,4 @@
 export interface SelectedPagareGeneracion {
-  catalog: string | null,
-  generation: string | null
+  catalog: string;
+  generation: string;
 }

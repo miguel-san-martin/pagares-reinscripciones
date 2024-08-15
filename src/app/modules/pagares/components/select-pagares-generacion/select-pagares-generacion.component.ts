@@ -7,6 +7,7 @@ import {
   output,
   Output,
   OutputEmitterRef,
+  signal,
   ViewChild,
 } from '@angular/core';
 import { MaterialModule } from '../../../../shared-material-module/material.module';
@@ -18,11 +19,13 @@ import { SnackBarComponent } from '@shared/components/snack-bar/snack-bar.compon
 import { SharedModule } from '@shared/shared.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AsyncPipe } from '@angular/common';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-select-pagares',
   standalone: true,
-  imports: [MaterialModule, SharedModule],
+  imports: [MaterialModule, SharedModule, AsyncPipe],
   templateUrl: './select-pagares-generacion.component.html',
   styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
 })
@@ -43,10 +46,13 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   public map = new Map();
   public listaCatalogos!: Catalogo[]; //Lista de Catalogos
   public listaGeneraciones!: GeneracionesResponse[]; //Lista de Generaciones
+  public listaReinscripciones!: any[]; // Listad por generacion
+  public listaAmboss: any;
 
+  showGenerationTipe = signal('0');
   public selectedCataloge: SelectedPagareGeneracion = {
-    catalog: null,
-    generation: null,
+    catalog: '0',
+    generation: '0',
   };
 
   ngOnInit(): void {
@@ -69,17 +75,25 @@ export class SelectPagaresGeneracionComponent implements OnInit {
         this.listaGeneraciones = response;
       },
     );
+
+    this.Service.GetAlumnosAmbos().subscribe((response) => {
+      console.log(response);
+      this.listaAmboss = response;
+    });
   }
 
   public onSelectPagare() {
     if (
       Number(this.selectedCataloge.catalog) === 798 ||
-      Number(this.selectedCataloge.catalog) === 708
+      Number(this.selectedCataloge.catalog) === 708 ||
+      Number(this.selectedCataloge.catalog) === 963
     ) {
+      this.showGenerationTipe.set(this.selectedCataloge.catalog);
       this.showPanel.emit(false);
-      this.selectedCataloge.generation = null;
+      this.selectedCataloge.generation = '-1';
       this.seleccionGeneracion.nativeElement.style.display = 'contents';
     } else {
+      this.showGenerationTipe.set('0');
       this.selectedCataloge.generation = '0';
       this.seleccionGeneracion.nativeElement.style.display = 'none';
       this.emitSelectedOption.emit(this.selectedCataloge);
@@ -108,4 +122,5 @@ export class SelectPagaresGeneracionComponent implements OnInit {
   }
 
   // Si es un pagare tipo Impulsa - 798 o 708 Vertice se mostrara un select con #genereacion como referencia
+  protected readonly Number = Number;
 }
