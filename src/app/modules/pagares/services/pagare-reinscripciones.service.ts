@@ -227,4 +227,19 @@ export class PagareReinscripcionesService extends ServicioBase {
       '/api/contraloria/generaPagaresM.php',
     );
   }
+
+  GenerateReports(
+    extras: RequestOperationGen, // envia un carcacter numero o nombre
+    //PER_BuscadoresPersonas,
+  ): Observable<any[]> {
+    const parametros = {
+      servicio: 'pagaresMasivo',
+      accion: 'CON_GeneracionPagares_Acciones_Genera',
+      tipoRespuesta: 'json',
+    };
+    return this.consulta(
+      { ...parametros, ...extras },
+      '/api/contraloria/generaPagaresM.php',
+    );
+  }
 }

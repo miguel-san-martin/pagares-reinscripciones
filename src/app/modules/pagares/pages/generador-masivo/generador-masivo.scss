@@ -30,5 +30,12 @@
     flex-direction: row-reverse;
     text-align: center;
   }
+
+
+  .mat-button.mat-success,
+  .mat-stroked-button.mat-success {
+    color: #155724 !important;
+  }
+
 }
 

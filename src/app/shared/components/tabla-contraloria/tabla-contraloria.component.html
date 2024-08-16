@@ -47,6 +47,9 @@
     }
     <tr mat-header-row *matHeaderRowDef="displayedColums"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColums"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No hay coincidencias</td>
+    </tr>
   </table>
   <mat-paginator [pageSizeOptions]="[10, 500, 800]" />
 </div>
