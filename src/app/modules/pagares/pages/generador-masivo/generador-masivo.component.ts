@@ -21,7 +21,8 @@ import { ExcelService } from '../../services/excel.service';
 import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
 import { infoBar } from '../../interfaces/infoBar.interface';
 import { HeaderTable } from '@shared/interfaces/header-tables';
-import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
+
+type status = 'procesando' | 'error' | 'completado';
 
 @Component({
   templateUrl: './generador-masivo.component.html',
@@ -49,19 +50,20 @@ export class GeneradorMasivoComponent implements OnDestroy {
   public subscriptions: Subscription[] = [];
   public selectedCatalog!: string;
 
+  protected mensajeRetro: WritableSignal<{
+    estado: status;
+    mensaje: string;
+    mostrar: boolean;
+  }> = signal({
+    mensaje: 'Generando',
+    mostrar: false,
+    estado: 'error',
+  });
+
   readonly showPanel: WritableSignal<boolean> = signal<boolean>(false);
   showLoader: WritableSignal<boolean> = signal(false);
   generationOnProcess = signal<boolean | null>(false);
-  private extra: any;
-  //! TO DO::
-  private suscription!: Subscription;
-
-  public get porcentajeAvance() {
-    if (!this.data) return 0;
-    return (this.loaderBarProgress * 100) / this.data.length;
-  }
-
-  // Parte de place holder
+  private extra!: RequestOperationGen;
 
   /**
    *  Actualiza el cuadro recibe el idOperacion y idGeneracion
@@ -149,6 +151,11 @@ export class GeneradorMasivoComponent implements OnDestroy {
     );
     this.actualizarInfoBar({ catalog: idOperacion, generation: idGeneracion });
     this.loaderBarProgress = 0;
+    this.mensajeRetro.set({
+      mensaje: 'Proceso terminado',
+      mostrar: false,
+      estado: 'completado',
+    });
   }
 
   hiddenPanel(signal: boolean) {
@@ -156,17 +163,6 @@ export class GeneradorMasivoComponent implements OnDestroy {
       this.showPanel.set(false);
       this.restablecerInfoBar();
       this.data = [];
-    }
-  }
-
-  public simularBarra() {
-    this.suscription?.unsubscribe;
-    if (this.suscription?.closed !== false) {
-      this.suscription = this.Service.startTiemer(
-        this.data?.length || 0,
-      ).subscribe((value) => {
-        this.loaderBarProgress = value;
-      });
     }
   }
 
@@ -190,12 +186,45 @@ export class GeneradorMasivoComponent implements OnDestroy {
   }
 
   generarReporte() {
-    this.generationOnProcess.set(false);
-    this.Service.GenerateReports(this.extra).subscribe({
-      next: (value) => console.log(value),
-      error: (err) => console.error(err),
-      complete: () => this.generationOnProcess.set(true),
+    this.generationOnProcess.set(true);
+    this.mensajeRetro.set({
+      mensaje: 'Generando.....',
+      mostrar: true,
+      estado: 'procesando',
     });
+    this.Service.GenerateReports(this.extra).subscribe({
+      next: (value: any[]) => {
+        const { mensaje }: { mensaje: string; error: string } = { ...value }[0];
+        console.log(mensaje);
+        this.generationOnProcess.set(false);
+        this.mensajeRetro.set({
+          mensaje: 'Proceso terminado',
+          mostrar: true,
+          estado: 'completado',
+        });
+      },
+      error: (err) => {
+        console.error(err);
+        console.log('error');
+        this.mensajeRetro.set({
+          mensaje: 'Ha habido un error',
+          mostrar: true,
+          estado: 'error',
+        });
+        this.generationOnProcess.set(true);
+      },
+    });
+
+    // this.Service.TestAPI(this.extra).subscribe({
+    //   next: (value: any[]) => {
+    //     this.generationOnProcess.set(false);
+    //   },
+    //   error: (err) => {
+    //     console.error(err);
+    //     this.generationOnProcess.set(false);
+    //   },
+    //   complete: () => this.generationOnProcess.set(false),
+    // });
   }
 
   /**
