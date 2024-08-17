@@ -20,6 +20,10 @@ export class ExcelService {
       'costoInsumos',
       'nombreResponsable',
       'idGrado',
+      'ciudad',
+      'colonia',
+      'correo',
+      'cp',
     ];
     const nombresHeader = [
       'ID_PERSON',
@@ -27,6 +31,10 @@ export class ExcelService {
       'COSTO_INSUMO',
       'NOMBRE_RESPONSABLE',
       'ABR_CARRERA',
+      'CIUDAD',
+      'COLONIA',
+      'CORREO',
+      'CP',
     ];
     worksheet.addRow(nombresHeader);
     // Add data
@@ -44,12 +52,20 @@ export class ExcelService {
     worksheet.getCell('C1').font = { bold: true };
     worksheet.getCell('D1').font = { bold: true };
     worksheet.getCell('E1').font = { bold: true };
+    worksheet.getCell('F1').font = { bold: true };
+    worksheet.getCell('G1').font = { bold: true };
+    worksheet.getCell('H1').font = { bold: true };
+    worksheet.getCell('I1').font = { bold: true };
 
     worksheet.getColumn(1).width = 10;
     worksheet.getColumn(2).width = 40;
     worksheet.getColumn(3).width = 15;
     worksheet.getColumn(4).width = 40;
     worksheet.getColumn(5).width = 10;
+    worksheet.getColumn(6).width = 10;
+    worksheet.getColumn(7).width = 10;
+    worksheet.getColumn(8).width = 10;
+    worksheet.getColumn(9).width = 10;
 
     // Save the workbook to a blob
     workbook.xlsx.writeBuffer().then((buffer) => {

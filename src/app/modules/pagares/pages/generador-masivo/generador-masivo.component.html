@@ -16,8 +16,8 @@
   <h1 class="col-12">Generación masiva</h1>
 
   <!-- Select reutilizable -->
-  <app-select-pagares #selectPagare class="col-12" (emitSelectedOption)="actualizarTabla($event)"
-                      (showPanel)="hiddenPanel($event)" />
+  <app-select-pagares #selectPagare (emitSelectedOption)="actualizarTabla($event)" (showPanel)="hiddenPanel($event)"
+                      class="col-12" />
 
 
 
@@ -108,7 +108,7 @@
               <button class="col-1" mat-flat-button color="primary" matTooltip="Generar reportes"
                       style="margin: auto; width: 45%; height: 56px"
                       (click)="generarReporte()"
-                      [disabled]="generationOnProcess()">
+                      [disabled]="mensajeRetro().mostrar">
                 <!--                <span style="padding-left: 0.5rem"> </span>-->
                 <mat-icon class="tac" style="margin: 0;">
 
@@ -125,13 +125,18 @@
           </div>
         </div>
 
-        <!-- Barra de progreso -->
-        @if (generationOnProcess()) {
-          <span><b>
-          Generando Reportes ...
-
-        </b></span>
-          <mat-progress-bar mode="indeterminate" style="padding-bottom: 5px"></mat-progress-bar>
+        <!-- Barra de progreso procesando" | "error" | "completado -->
+        @if (mensajeRetro().mostrar) {
+          <div class="alert" [ngClass]="{
+              'alert-warning': mensajeRetro().estado === 'procesando',
+              'alert-success': mensajeRetro().estado === 'completado',
+              'alert-danger': mensajeRetro().estado === 'error'
+              }"
+               role="alert">
+            <span><b>{{ mensajeRetro().mensaje }}.</b></span>
+            <mat-progress-bar *ngIf="(mensajeRetro().estado === 'procesando')" mode="indeterminate"
+                              style="padding-bottom: 5px" />
+          </div>
         }
         <shrd-tabla #tabe class=" col-12 padding-off animate__animated animate__fadeIn"
                     [data2]="data"

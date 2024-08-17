@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { interval, map, Observable, take, takeWhile, tap } from 'rxjs';
 import { ServicioBase } from '../../../services/servicio-base.service';
 import { Catalogo } from '../../../interfaces/catalogo';
@@ -8,6 +8,7 @@ import { RequestAltaPagare } from '../../../interfaces/request/request-alta-paga
 import { CostoPromesaResponse } from '../../../interfaces/responses/costo-promesas.interface';
 import { ConsultaFecha } from '../../../interfaces/responses/consulta-fecha';
 import { RequestOperationGen } from '../../../interfaces/request/request-operation-gen';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,8 @@ export class PagareReinscripcionesService extends ServicioBase {
   constructor() {
     super();
   }
+
+  private httpClient2 = inject(HttpClient);
 
   startTiemer(lenght: number) {
     const observable = interval(1000).pipe(
@@ -241,5 +244,10 @@ export class PagareReinscripcionesService extends ServicioBase {
       { ...parametros, ...extras },
       '/api/contraloria/generaPagaresM.php',
     );
+  }
+
+  TestAPI(extra: any): Observable<any> {
+    const body = null;
+    return this.httpClient2.get('http://localhost:3002/especiality/');
   }
 }
