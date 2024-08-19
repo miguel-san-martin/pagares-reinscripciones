@@ -21,6 +21,7 @@ import { ExcelService } from '../../services/excel.service';
 import { SelectPagaresGeneracionComponent } from '../../components/select-pagares-generacion/select-pagares-generacion.component';
 import { infoBar } from '../../interfaces/infoBar.interface';
 import { HeaderTable } from '@shared/interfaces/header-tables';
+import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 
 @Component({
   templateUrl: './generador-masivo.component.html',
@@ -49,6 +50,18 @@ export class GeneradorMasivoComponent implements OnDestroy {
   public selectedCatalog!: string;
 
   readonly showPanel: WritableSignal<boolean> = signal<boolean>(false);
+  showLoader: WritableSignal<boolean> = signal(false);
+  generationOnProcess = signal<boolean | null>(false);
+  private extra: any;
+  //! TO DO::
+  private suscription!: Subscription;
+
+  public get porcentajeAvance() {
+    if (!this.data) return 0;
+    return (this.loaderBarProgress * 100) / this.data.length;
+  }
+
+  // Parte de place holder
 
   /**
    *  Actualiza el cuadro recibe el idOperacion y idGeneracion
@@ -64,7 +77,7 @@ export class GeneradorMasivoComponent implements OnDestroy {
       idOperacion: idOperacion ?? '',
       idGeneracion: idGeneracion ?? '',
     };
-
+    this.extra = extra;
     this.subscriptions.push(
       this.Service.ConsultarValidacionPromesas(extra).subscribe((response) => {
         this.infoBar.msj = response[0].msj;
@@ -106,24 +119,11 @@ export class GeneradorMasivoComponent implements OnDestroy {
     );
   }
 
-  /**
-   *  Limpia la infoBar a un estado por default
-   *
-   * @memberof GeneradorMasivoComponent
-   */
-  private restablecerInfoBar() {
-    this.infoBar = {
-      costo: '',
-      promesas: '',
-      fechas: [],
-      msj: 'Seleccione una generacion',
-    };
-  }
-
   public actualizarTabla({
     catalog: idOperacion,
     generation: idGeneracion,
   }: SelectedPagareGeneracion) {
+    this.extra;
     const extra: RequestOperationGen = {
       idOperacion: idOperacion ?? '',
       idGeneracion: idGeneracion ?? '',
@@ -159,16 +159,6 @@ export class GeneradorMasivoComponent implements OnDestroy {
     }
   }
 
-  // Parte de place holder
-  //! TO DO::
-  private suscription!: Subscription;
-  showLoader: WritableSignal<boolean> = signal(false);
-
-  public get porcentajeAvance() {
-    if (!this.data) return 0;
-    return (this.loaderBarProgress * 100) / this.data.length;
-  }
-
   public simularBarra() {
     this.suscription?.unsubscribe;
     if (this.suscription?.closed !== false) {
@@ -197,5 +187,28 @@ export class GeneradorMasivoComponent implements OnDestroy {
       this.data,
       `${this.pagare.map.get(this.selectedCatalog)}_${new Date().toISOString()}`,
     );
+  }
+
+  generarReporte() {
+    this.generationOnProcess.set(false);
+    this.Service.GenerateReports(this.extra).subscribe({
+      next: (value) => console.log(value),
+      error: (err) => console.error(err),
+      complete: () => this.generationOnProcess.set(true),
+    });
+  }
+
+  /**
+   *  Limpia la infoBar a un estado por default
+   *
+   * @memberof GeneradorMasivoComponent
+   */
+  private restablecerInfoBar() {
+    this.infoBar = {
+      costo: '',
+      promesas: '',
+      fechas: [],
+      msj: 'Seleccione una generacion',
+    };
   }
 }

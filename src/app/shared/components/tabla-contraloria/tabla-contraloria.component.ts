@@ -92,6 +92,11 @@ export class TablaContraloriaComponent<T> {
     return data;
   }
 
+  applyFilter($event: KeyboardEvent) {
+    const filterValue = (event?.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   // construirTabla() {
   //   this.dataSource = new MatTableDataSource(this.addIndex(this.data2()));
   //   this.dataSource.paginator = this.paginator;
