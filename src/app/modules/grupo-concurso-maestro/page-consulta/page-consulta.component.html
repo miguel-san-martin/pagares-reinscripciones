@@ -22,7 +22,7 @@
 
   <mat-form-field class="col-6">
     <mat-label>Tipos</mat-label>
-    <mat-select [(value)]="busqueda().tipo" [disabled]="selectedType().length === 1">
+    <mat-select [(value)]="busqueda().tipo" (selectionChange)="getTeams()">
       @for (concurso of selectedType(); track $index) {
         <mat-option [value]="concurso.tipo">{{ concurso.descripcion }}</mat-option>
       }
