@@ -1,1 +1,49 @@
-<p>page-consulta works!</p>
+<div class="grid animate__animated animate__fadeIn">
+  <h1 class="col-12"> SEGUIMIENTO DE ALUMNOS ASIGNADOS </h1>
+
+
+  <mat-form-field class="col-12">
+    <mat-label>Concurso</mat-label>
+    <mat-select [(value)]="busqueda().idConcurso" (selectionChange)="getTeams()">
+      @for (concurso of selectedContest(); track $index) {
+        <mat-option [value]="concurso.idConcurso">{{ concurso.descripcion }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="col-6">
+    <mat-label>Periodo</mat-label>
+    <mat-select (selectionChange)="getTeams()" [(value)]="busqueda().idPeriodo"
+                [disabled]="selectedPeriod().length === 1">
+      @for (concurso of selectedPeriod(); track $index) {
+        <mat-option [value]="concurso.idPeriodo">{{ concurso.Periodo }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="col-6">
+    <mat-label>Tipos</mat-label>
+    <mat-select [(value)]="busqueda().tipo" [disabled]="selectedType().length === 1">
+      @for (concurso of selectedType(); track $index) {
+        <mat-option [value]="concurso.tipo">{{ concurso.descripcion }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+</div>
+<div class="grid">
+  <div class="col">
+    <h3>Grupos:</h3>
+    <shared-table-iest [tableHead]="tableh" [data]="data" [isSelectionable]="true"
+                       (selectionableOutpu)="showTeamsTable($event)" />
+
+  </div>
+  <div class="col-4" [ngStyle]="{'display': selectedTeam() ? 'block' : 'none'}">
+    <h3>Integrantes</h3>
+    <shared-table-iest [tableHead]="tablem" [data]="dataEquipos" />
+    
+  </div>
+
+</div>
+
+

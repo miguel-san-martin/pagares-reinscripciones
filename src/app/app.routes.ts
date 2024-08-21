@@ -76,4 +76,12 @@ export const routes: Routes = [
         (c) => c.LoginScreenComponent,
       ),
   },
+  {
+    path: 'concurso',
+    // canActivate: [accesoEscolarConfGuard],
+    loadChildren: () =>
+      import(
+        './modules/grupo-concurso-maestro/grupo-concurso-maestro.module'
+      ).then((m) => m.GrupoConcursoMaestroModule),
+  },
 ];

@@ -4,7 +4,7 @@ import { PageConsultaComponent } from './page-consulta/page-consulta.component';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { MaterialModule } from '../../shared-material-module/material.module';
 import { SharedModule } from '@shared/shared.module';
-import { routes } from './concurso-maestro';
+import { routes } from './concurso-maestro.routes';
 
 @NgModule({
   declarations: [PageConsultaComponent],

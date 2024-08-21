@@ -93,5 +93,10 @@
     "name": "Partidas Prosupuestales",
     "img": "send_money",
     "path": "partidas-presupuestales"
+  },
+  {
+    "name": "Concursos de Maestros",
+    "img": "editor_choice",
+    "path": "concurso/concursos-maestro"
   }
 ]
