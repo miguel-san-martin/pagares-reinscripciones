@@ -17,6 +17,11 @@
         "name": "Configuración",
         "path": "./pagares/config",
         "img": "settings"
+      },
+      {
+        "name": "Consulta Toga",
+        "path": "./masiva",
+        "img": "search"
       }
     ]
   },
@@ -39,24 +44,13 @@
         "name": "Configuración Horarios",
         "img": "schedule",
         "path": "config-escolares"
-      }
-    ]
-  },
-  {
-    "name": "Toga",
-    "img": "school",
-    "sub_nodes": [
+      },
       {
-        "name": "Consulta Toga",
-        "path": "./masiva",
-        "img": "search"
+        "name": "Concursos de Maestros",
+        "img": "editor_choice",
+        "path": "concurso/concursos-maestro"
       }
     ]
-  },
-  {
-    "name": "Nu",
-    "path": "./nu",
-    "img": "school"
   },
   {
     "name": "Paginas Templates",
@@ -76,6 +70,16 @@
         "name": "Inicia Session",
         "img": "star_rate",
         "path": "login-screen"
+      },
+      {
+        "name": "Nu",
+        "path": "./nu",
+        "img": "school"
+      },
+      {
+        "name": "Partidas Prosupuestales",
+        "img": "send_money",
+        "path": "partidas-presupuestales"
       }
     ]
   },
@@ -88,15 +92,5 @@
     "name": "Especialidades",
     "img": "hotel_class",
     "path": "esp-bachiller"
-  },
-  {
-    "name": "Partidas Prosupuestales",
-    "img": "send_money",
-    "path": "partidas-presupuestales"
-  },
-  {
-    "name": "Concursos de Maestros",
-    "img": "editor_choice",
-    "path": "concurso/concursos-maestro"
   }
 ]
