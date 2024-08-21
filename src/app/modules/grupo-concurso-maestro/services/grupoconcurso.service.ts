@@ -51,11 +51,7 @@ export class GrupoconcursoService extends ServicioBase {
     );
   }
 
-  public GetListaEquipos(extras: {
-    idPeriodo: number;
-    idConcurso: number;
-    tipo: number;
-  }) {
+  public GetListaEquipos(extras: { idConcurso: number; tipo: number }) {
     const parametros = {
       servicio: 'concursoBachillerato',
       accion: 'ListaEquipos',

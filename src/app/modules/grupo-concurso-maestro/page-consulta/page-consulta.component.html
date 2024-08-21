@@ -1,8 +1,7 @@
 <div class="grid animate__animated animate__fadeIn">
-  <h1 class="col-12"> SEGUIMIENTO DE ALUMNOS ASIGNADOS </h1>
 
 
-  <mat-form-field class="col-12">
+  <mat-form-field class="col-6">
     <mat-label>Concurso</mat-label>
     <mat-select [(value)]="busqueda().idConcurso" (selectionChange)="getTeams()">
       @for (concurso of selectedContest(); track $index) {
@@ -11,15 +10,15 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="col-6">
-    <mat-label>Periodo</mat-label>
-    <mat-select (selectionChange)="getTeams()" [(value)]="busqueda().idPeriodo"
-                [disabled]="selectedPeriod().length === 1">
-      @for (concurso of selectedPeriod(); track $index) {
-        <mat-option [value]="concurso.idPeriodo">{{ concurso.Periodo }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+  <!--    <mat-form-field class="col-6">-->
+  <!--      <mat-label>Periodo</mat-label>-->
+  <!--      <mat-select (selectionChange)="getTeams()" [(value)]="busqueda().idPeriodo"-->
+  <!--                  [disabled]="true">-->
+  <!--        @for (concurso of selectedPeriod(); track $index) {-->
+  <!--          <mat-option [value]="concurso.idPeriodo">{{ concurso.Periodo }}</mat-option>-->
+  <!--        }-->
+  <!--      </mat-select>-->
+  <!--    </mat-form-field>-->
 
   <mat-form-field class="col-6">
     <mat-label>Tipos</mat-label>
@@ -39,9 +38,9 @@
 
   </div>
   <div class="col-4" [ngStyle]="{'display': selectedTeam() ? 'block' : 'none'}">
-    <h3>Integrantes</h3>
+    <h3>Integrantes:</h3>
     <shared-table-iest [tableHead]="tablem" [data]="dataEquipos" />
-    
+
   </div>
 
 </div>

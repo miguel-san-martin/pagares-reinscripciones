@@ -12,9 +12,10 @@ import {
 import { HEADTABLE, HEADTABLEMINI } from './headTable';
 import { GrupoconcursoService } from '../services/grupoconcurso.service';
 import {
+  ResoponseTeams,
   ResponseCatalogosConcurso,
   ResponsePeriods,
-  ResponseQuery,
+  ResponseTeamMembers,
   ResponseTipos,
 } from '../interfaces/grupoConcurso.interface';
 import { HeaderTable } from '@shared/interfaces/header-tables';
@@ -33,10 +34,9 @@ export class PageConsultaComponent implements OnInit {
   dataEquipos: any = [];
   @ViewChild('teams') team: ElementRef | undefined;
   protected busqueda: WritableSignal<{
-    idPeriodo: number;
     idConcurso: number;
     tipo: number;
-  }> = model({ idConcurso: 0, idPeriodo: 0, tipo: 0 });
+  }> = model({ idConcurso: 0, tipo: 0 });
   protected selectedContest: WritableSignal<ResponseCatalogosConcurso[]> =
     signal([{ idConcurso: 0, descripcion: 'NULL' }]);
   protected selectedPeriod: WritableSignal<ResponsePeriods[]> = signal([
@@ -47,13 +47,6 @@ export class PageConsultaComponent implements OnInit {
   ]);
   protected selectedTeam = signal(null);
 
-  // constructor() {
-  //   effect(() => {
-  //     this.busqueda();
-  //     console.log('cambio');
-  //   });
-  // }
-
   ngOnInit(): void {
     this.obtenerConcursos();
     this.obtenerPeriodos();
@@ -62,30 +55,31 @@ export class PageConsultaComponent implements OnInit {
   }
 
   protected getTeams() {
+    this.selectedTeam.set(null);
     this.Service.GetListaEquipos({ ...this.busqueda() }).subscribe({
-      next: (data: ResponseQuery[]) => {
+      next: (data: ResoponseTeams[]) => {
         this.data = data;
         console.log('Equipos', data);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       },
       complete: () => {},
     });
   }
 
-  protected getMembers(idEquipo: number = 0) {
-    this.Service.GetMembers(idEquipo).subscribe({
-      next: (data: ResponseQuery[]) => {
+  protected getMembers(idEquipo: number | null = 0) {
+    this.Service.GetMembers(idEquipo || 0).subscribe({
+      next: (data: ResponseTeamMembers[]) => {
         // this.data = data;
-        console.log('Miembros', data);
+        // console.log('Miembros', data);
+        console.log(data);
         this.dataEquipos = data;
         // this.selectedType.set(data);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       },
-      complete: () => {},
     });
   }
 
@@ -101,11 +95,11 @@ export class PageConsultaComponent implements OnInit {
   private obtenerConcursos() {
     this.Service.GetCatalogos().subscribe({
       next: (data: ResponseCatalogosConcurso[]) => {
-        console.log('Concursos: ', data);
+        // console.log('Concursos: ', data);
         this.selectedContest.set(data);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       },
     });
   }
@@ -113,11 +107,11 @@ export class PageConsultaComponent implements OnInit {
   private obtenerPeriodos() {
     this.Service.GetPeriodos().subscribe({
       next: (data: ResponsePeriods[]) => {
-        console.log('Periodos', data);
+        // console.log('Periodos', data);
         this.selectedPeriod.set(data);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       },
     });
   }
@@ -129,11 +123,11 @@ export class PageConsultaComponent implements OnInit {
   private obtenerTipos() {
     this.Service.GetTypes().subscribe({
       next: (data: ResponseTipos[]) => {
-        console.log('Tipos', data);
+        // console.log('Tipos', data);
         this.selectedType.set(data);
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       },
     });
   }
