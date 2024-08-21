@@ -13,7 +13,7 @@ export interface ResponseTipos {
   descripcion: string;
 }
 
-export interface ResponseQuery {
+export interface ResponseTeamMembers {
   tipo: number;
   descripcion: string;
 }
