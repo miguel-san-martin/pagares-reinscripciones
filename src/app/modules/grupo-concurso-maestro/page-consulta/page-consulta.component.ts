@@ -30,8 +30,8 @@ export class PageConsultaComponent implements OnInit {
   Service = inject(GrupoconcursoService);
   tableh: HeaderTable[] = HEADTABLE;
   tablem: HeaderTable[] = HEADTABLEMINI;
-  data: ResponseTeamMembers[] = [];
-  dataEquipos: ResponseTeamMembers[] = [];
+  data: any = [];
+  dataEquipos: any = [];
   @ViewChild('teams') team: ElementRef | undefined;
   protected busqueda: WritableSignal<{
     idConcurso: number;
@@ -57,7 +57,7 @@ export class PageConsultaComponent implements OnInit {
   protected getTeams() {
     this.selectedTeam.set(null);
     this.Service.GetListaEquipos({ ...this.busqueda() }).subscribe({
-      next: (data: any[]) => {
+      next: (data: ResoponseTeams[]) => {
         this.data = data;
         console.log('Equipos', data);
       },
@@ -84,7 +84,7 @@ export class PageConsultaComponent implements OnInit {
   }
 
   protected showTeamsTable({ idEquipo }: any) {
-    console.log(idEquipo);
+    // console.log(idEquipo);
     this.selectedTeam.update((old) =>
       old === null || old != idEquipo ? idEquipo : null,
     );
