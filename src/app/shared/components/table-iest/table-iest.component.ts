@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   effect,
   input,
@@ -36,19 +35,18 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
     }
   `,
 })
-export class TableIESTComponent<T> implements AfterViewInit {
+export class TableIESTComponent<T> {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly tableHead = input.required<HeaderTable[]>();
   readonly data = input.required<T[]>();
   readonly filtering = input<string>('');
-  protected dataSource!: MatTableDataSource<T>;
-
   //! SECCION PARA FUNCIONALIDAD DE SELECT ROW
   readonly selectionableOutpu = output();
   readonly isSelectionable = input<boolean>(false);
   selectingRow = signal(null);
+  protected dataSource!: MatTableDataSource<T>;
   readonly effectFilter = effect(() => {
     if (this.dataSource)
       this.dataSource.filter = this.filtering().trim().toLowerCase();
@@ -58,21 +56,17 @@ export class TableIESTComponent<T> implements AfterViewInit {
     this.dataSource = new MatTableDataSource(this.data());
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sortingDataAccessor = (item: T, property: string) => {
-      let indice = 0;
-      this.tableHead().forEach((head: HeaderTable, index: number) => {
-        if (head.namePropiedad.toLowerCase().includes(property.toLowerCase())) {
-          // console.log(index);
-          indice = index;
-        }
-      });
-
-      // console.log(item, property);
-      // console.log(this.tableHead());
-      // console.log(this.tableHead()[indice].namePropiedad);
-
-      return '0';
-      // return item[this.tableHead[indice] as keyof HeaderTable];
+    this.dataSource.sortingDataAccessor = (item: any, property: string) => {
+      const map = new Map(
+        this.tableHead().map((item: HeaderTable) => [
+          item.label,
+          item.namePropiedad,
+        ]),
+      );
+      // console.log('it', item, 'pro', property);
+      // console.log(map.get(property), item);
+      const head: string = map.get(property) || 'error';
+      return item[head];
     };
   });
   protected readonly event = event;
@@ -88,10 +82,6 @@ export class TableIESTComponent<T> implements AfterViewInit {
       sti.push(row.label);
     });
     return sti;
-  }
-
-  ngAfterViewInit(): void {
-    let a = 0;
   }
 
   emitSelected($event: any) {

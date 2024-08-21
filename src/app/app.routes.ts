@@ -3,6 +3,11 @@ import { accesoEscolarConfGuard } from './guard/acceso-escolar-conf.guard';
 
 export const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'concurso',
+  },
+  {
     path: 'module-closed',
     loadComponent: () =>
       import('./pages/modulo-cerrado/modulo-cerrado.component').then(
