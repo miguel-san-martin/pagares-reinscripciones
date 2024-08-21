@@ -3,11 +3,13 @@ import {
   Component,
   effect,
   input,
+  output,
+  signal,
   ViewChild,
 } from '@angular/core';
 import { HeaderTable } from '@shared/interfaces/header-tables';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
@@ -16,7 +18,23 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
   selector: 'shared-table-iest',
   standalone: false,
   templateUrl: './table-iest.component.html',
-  styles: ``,
+  styles: `
+    ::ng-deep .mat-sort-header-container {
+      color: white !important;
+    }
+
+    ::ng-deep .isSelectionable {
+      cursor: pointer;
+    }
+
+    ::ng-deep .selectedRow {
+      background-color: #bceeff !important;
+
+      &:hover {
+        background-color: #55c9ef !important;
+      }
+    }
+  `,
 })
 export class TableIESTComponent<T> implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -24,46 +42,42 @@ export class TableIESTComponent<T> implements AfterViewInit {
 
   readonly tableHead = input.required<HeaderTable[]>();
   readonly data = input.required<T[]>();
-  protected dataSource!: MatTableDataSource<T>;
   readonly filtering = input<string>('');
+  protected dataSource!: MatTableDataSource<T>;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
-
+  //! SECCION PARA FUNCIONALIDAD DE SELECT ROW
+  readonly selectionableOutpu = output();
+  readonly isSelectionable = input<boolean>(false);
+  selectingRow = signal(null);
+  readonly effectFilter = effect(() => {
+    if (this.dataSource)
+      this.dataSource.filter = this.filtering().trim().toLowerCase();
+    this.dataSource?.paginator?.firstPage();
+  });
   protected effectData = effect(() => {
-    console.log('Effect');
     this.dataSource = new MatTableDataSource(this.data());
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sortingDataAccessor = (item: T, property: string) => {
-
       let indice = 0;
       this.tableHead().forEach((head: HeaderTable, index: number) => {
         if (head.namePropiedad.toLowerCase().includes(property.toLowerCase())) {
-          console.log(index);
+          // console.log(index);
           indice = index;
         }
-      })
+      });
 
-      console.log(item, property);
-      console.log(this.tableHead());
-      console.log(this.tableHead()[indice].namePropiedad);
+      // console.log(item, property);
+      // console.log(this.tableHead());
+      // console.log(this.tableHead()[indice].namePropiedad);
 
       return '0';
       // return item[this.tableHead[indice] as keyof HeaderTable];
-
     };
   });
-  readonly effectFilter = effect(() => {
-    this.dataSource.filter = this.filtering().trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  });
+  protected readonly event = event;
 
-  ngAfterViewInit(): void {
-    console.log(this.data());
-    console.log(this.tableHead());
-  }
+  constructor(private _liveAnnouncer: LiveAnnouncer) {}
 
   get displayedColums(): string[] {
     const sti: string[] = [];
@@ -76,26 +90,14 @@ export class TableIESTComponent<T> implements AfterViewInit {
     return sti;
   }
 
-  // announceSortChange() {
-  //   this.dataSource.sortingDataAccessor = (item: T, property: string) => {
-  //
-  //     let indice = 0;
-  //     this.tableHead().forEach((head: HeaderTable, index: number) => {
-  //       if (head.label.toLowerCase().includes(property.toLowerCase())) {
-  //         console.log(index);
-  //         indice = index;
-  //       }
-  //     })
-  //
-  //     console.log(item, property);
-  //     console.log(this.tableHead());
-  //     console.log(this.tableHead()[indice].namePropiedad);
-  //
-  //     // return item[indice]
-  //     // return item[this.tableHead[indice] as keyof HeaderTable];
-  //
-  //   };
-  //
-  //
-  // }
+  ngAfterViewInit(): void {
+    let a = 0;
+  }
+
+  emitSelected($event: any) {
+    if (this.isSelectionable()) {
+      this.selectionableOutpu.emit($event);
+      this.selectingRow.set($event);
+    }
+  }
 }
