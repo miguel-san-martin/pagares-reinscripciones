@@ -1,0 +1,1294 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>pagares-reinscripciones documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">pagares-reinscripciones documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PageConsultaComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-page-consulta</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./page-consulta.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./page-consulta.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#busqueda" >busqueda</a>
+                            </li>
+                            <li>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                <a href="#dataEquipos" >dataEquipos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#selectedContest" >selectedContest</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#selectedPeriod" >selectedPeriod</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#selectedTeam" >selectedTeam</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#selectedType" >selectedType</a>
+                            </li>
+                            <li>
+                                <a href="#Service" >Service</a>
+                            </li>
+                            <li>
+                                <a href="#tableh" >tableh</a>
+                            </li>
+                            <li>
+                                <a href="#tablem" >tablem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#team" >team</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#getMembers" >getMembers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#getTeams" >getTeams</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#obtenerConcursos" >obtenerConcursos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#obtenerPeriodos" >obtenerPeriodos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#obtenerTipos" >obtenerTipos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#showTeamsTable" >showTeamsTable</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMembers"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>getMembers</b></span>
+                        <a href="#getMembers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMembers(idEquipo: number | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idEquipo</td>
+                                            <td>
+                                                        <code>number | null</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>0</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTeams"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>getTeams</b></span>
+                        <a href="#getTeams"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTeams()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="obtenerConcursos"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>obtenerConcursos</b></span>
+                        <a href="#obtenerConcursos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>obtenerConcursos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="obtenerPeriodos"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>obtenerPeriodos</b></span>
+                        <a href="#obtenerPeriodos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>obtenerPeriodos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="obtenerTipos"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>obtenerTipos</b></span>
+                        <a href="#obtenerTipos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>obtenerTipos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene los tipos entre ellos se encuentran Individual y por equipo</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showTeamsTable"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>showTeamsTable</b></span>
+                        <a href="#showTeamsTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>showTeamsTable(undefined: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="busqueda"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>busqueda</b></span>
+                        <a href="#busqueda"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>WritableSignal&lt;literal type&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>model({ idConcurso: 0, tipo: 0 })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="data"></a>
+                    <span class="name">
+                        <span ><b>data</b></span>
+                        <a href="#data"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataEquipos"></a>
+                    <span class="name">
+                        <span ><b>dataEquipos</b></span>
+                        <a href="#dataEquipos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedContest"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>selectedContest</b></span>
+                        <a href="#selectedContest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>WritableSignal&lt;ResponseCatalogosConcurso[]&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal([{ idConcurso: 0, descripcion: &#x27;NULL&#x27; }])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedPeriod"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>selectedPeriod</b></span>
+                        <a href="#selectedPeriod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ResponsePeriods.html" target="_self" >WritableSignal&lt;ResponsePeriods[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal([
+    { idPeriodo: 0, Periodo: &#x27;NULL&#x27; },
+  ])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedTeam"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>selectedTeam</b></span>
+                        <a href="#selectedTeam"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedType"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>selectedType</b></span>
+                        <a href="#selectedType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ResponseTipos.html" target="_self" >WritableSignal&lt;ResponseTipos[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal([
+    { tipo: 0, descripcion: &#x27;NULL&#x27; },
+  ])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Service"></a>
+                    <span class="name">
+                        <span ><b>Service</b></span>
+                        <a href="#Service"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(GrupoconcursoService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tableh"></a>
+                    <span class="name">
+                        <span ><b>tableh</b></span>
+                        <a href="#tableh"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/HeaderTable.html" target="_self" >HeaderTable[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>HEADTABLE</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tablem"></a>
+                    <span class="name">
+                        <span ><b>tablem</b></span>
+                        <a href="#tablem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/HeaderTable.html" target="_self" >HeaderTable[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>HEADTABLEMINI</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="team"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>team</b></span>
+                        <a href="#team"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef | undefined</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;teams&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/modules/grupo-concurso-maestro/page-consulta/page-consulta.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  model,
+  OnInit,
+  signal,
+  ViewChild,
+  WritableSignal,
+} from &#x27;@angular/core&#x27;;
+import { HEADTABLE, HEADTABLEMINI } from &#x27;./headTable&#x27;;
+import { GrupoconcursoService } from &#x27;../services/grupoconcurso.service&#x27;;
+import {
+  ResoponseTeams,
+  ResponseCatalogosConcurso,
+  ResponsePeriods,
+  ResponseTeamMembers,
+  ResponseTipos,
+} from &#x27;../interfaces/grupoConcurso.interface&#x27;;
+import { HeaderTable } from &#x27;@shared/interfaces/header-tables&#x27;;
+
+@Component({
+  selector: &#x27;app-page-consulta&#x27;,
+  standalone: false,
+  templateUrl: &#x27;./page-consulta.component.html&#x27;,
+  styleUrl: &#x27;./page-consulta.component.scss&#x27;,
+})
+export class PageConsultaComponent implements OnInit {
+  Service &#x3D; inject(GrupoconcursoService);
+  tableh: HeaderTable[] &#x3D; HEADTABLE;
+  tablem: HeaderTable[] &#x3D; HEADTABLEMINI;
+  data: any &#x3D; [];
+  dataEquipos: any &#x3D; [];
+  @ViewChild(&#x27;teams&#x27;) team: ElementRef | undefined;
+  protected busqueda: WritableSignal&lt;{
+    idConcurso: number;
+    tipo: number;
+  }&gt; &#x3D; model({ idConcurso: 0, tipo: 0 });
+  protected selectedContest: WritableSignal&lt;ResponseCatalogosConcurso[]&gt; &#x3D;
+    signal([{ idConcurso: 0, descripcion: &#x27;NULL&#x27; }]);
+  protected selectedPeriod: WritableSignal&lt;ResponsePeriods[]&gt; &#x3D; signal([
+    { idPeriodo: 0, Periodo: &#x27;NULL&#x27; },
+  ]);
+  protected selectedType: WritableSignal&lt;ResponseTipos[]&gt; &#x3D; signal([
+    { tipo: 0, descripcion: &#x27;NULL&#x27; },
+  ]);
+  protected selectedTeam &#x3D; signal(null);
+
+  ngOnInit(): void {
+    this.obtenerConcursos();
+    this.obtenerPeriodos();
+    this.obtenerTipos();
+    this.getTeams();
+  }
+
+  protected getTeams() {
+    this.selectedTeam.set(null);
+    this.Service.GetListaEquipos({ ...this.busqueda() }).subscribe({
+      next: (data: ResoponseTeams[]) &#x3D;&gt; {
+        this.data &#x3D; data;
+        console.log(&#x27;Equipos&#x27;, data);
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(err);
+      },
+      complete: () &#x3D;&gt; {},
+    });
+  }
+
+  protected getMembers(idEquipo: number | null &#x3D; 0) {
+    this.Service.GetMembers(idEquipo || 0).subscribe({
+      next: (data: ResponseTeamMembers[]) &#x3D;&gt; {
+        // this.data &#x3D; data;
+        // console.log(&#x27;Miembros&#x27;, data);
+        console.log(data);
+        this.dataEquipos &#x3D; data;
+        // this.selectedType.set(data);
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(err);
+      },
+    });
+  }
+
+  protected showTeamsTable({ idEquipo }: any) {
+    // console.log(idEquipo);
+    this.selectedTeam.update((old) &#x3D;&gt;
+      old &#x3D;&#x3D;&#x3D; null || old !&#x3D; idEquipo ? idEquipo : null,
+    );
+    // console.log(this.selectedTeam());
+    this.getMembers(idEquipo);
+  }
+
+  private obtenerConcursos() {
+    this.Service.GetCatalogos().subscribe({
+      next: (data: ResponseCatalogosConcurso[]) &#x3D;&gt; {
+        // console.log(&#x27;Concursos: &#x27;, data);
+        this.selectedContest.set(data);
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(err);
+      },
+    });
+  }
+
+  private obtenerPeriodos() {
+    this.Service.GetPeriodos().subscribe({
+      next: (data: ResponsePeriods[]) &#x3D;&gt; {
+        // console.log(&#x27;Periodos&#x27;, data);
+        this.selectedPeriod.set(data);
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(err);
+      },
+    });
+  }
+
+  /**
+   * Obtiene los tipos entre ellos se encuentran Individual y por equipo
+   * @private
+   */
+  private obtenerTipos() {
+    this.Service.GetTypes().subscribe({
+      next: (data: ResponseTipos[]) &#x3D;&gt; {
+        // console.log(&#x27;Tipos&#x27;, data);
+        this.selectedType.set(data);
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(err);
+      },
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;grid animate__animated animate__fadeIn&quot;&gt;
+
+
+  &lt;mat-form-field class&#x3D;&quot;col-6&quot;&gt;
+    &lt;mat-label&gt;Concurso&lt;/mat-label&gt;
+    &lt;mat-select [(value)]&#x3D;&quot;busqueda().idConcurso&quot; (selectionChange)&#x3D;&quot;getTeams()&quot;&gt;
+      @for (concurso of selectedContest(); track $index) {
+        &lt;mat-option [value]&#x3D;&quot;concurso.idConcurso&quot;&gt;{{ concurso.descripcion }}&lt;/mat-option&gt;
+      }
+    &lt;/mat-select&gt;
+  &lt;/mat-form-field&gt;
+
+  &lt;!--    &lt;mat-form-field class&#x3D;&quot;col-6&quot;&gt;--&gt;
+  &lt;!--      &lt;mat-label&gt;Periodo&lt;/mat-label&gt;--&gt;
+  &lt;!--      &lt;mat-select (selectionChange)&#x3D;&quot;getTeams()&quot; [(value)]&#x3D;&quot;busqueda().idPeriodo&quot;--&gt;
+  &lt;!--                  [disabled]&#x3D;&quot;true&quot;&gt;--&gt;
+  &lt;!--        @for (concurso of selectedPeriod(); track $index) {--&gt;
+  &lt;!--          &lt;mat-option [value]&#x3D;&quot;concurso.idPeriodo&quot;&gt;{{ concurso.Periodo }}&lt;/mat-option&gt;--&gt;
+  &lt;!--        }--&gt;
+  &lt;!--      &lt;/mat-select&gt;--&gt;
+  &lt;!--    &lt;/mat-form-field&gt;--&gt;
+
+  &lt;mat-form-field class&#x3D;&quot;col-6&quot;&gt;
+    &lt;mat-label&gt;Tipos&lt;/mat-label&gt;
+    &lt;mat-select [(value)]&#x3D;&quot;busqueda().tipo&quot; (selectionChange)&#x3D;&quot;getTeams()&quot;&gt;
+      @for (concurso of selectedType(); track $index) {
+        &lt;mat-option [value]&#x3D;&quot;concurso.tipo&quot;&gt;{{ concurso.descripcion }}&lt;/mat-option&gt;
+      }
+    &lt;/mat-select&gt;
+  &lt;/mat-form-field&gt;
+
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;grid&quot;&gt;
+  &lt;div class&#x3D;&quot;col&quot;&gt;
+    &lt;h3&gt;Grupos:&lt;/h3&gt;
+    &lt;shared-table-iest [tableHead]&#x3D;&quot;tableh&quot; [data]&#x3D;&quot;data&quot; [isSelectionable]&#x3D;&quot;true&quot;
+                       (selectionableOutpu)&#x3D;&quot;showTeamsTable($event)&quot; /&gt;
+
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;col-4&quot; [ngStyle]&#x3D;&quot;{&#x27;display&#x27;: selectedTeam() ? &#x27;block&#x27; : &#x27;none&#x27;}&quot;&gt;
+    &lt;h3&gt;Integrantes:&lt;/h3&gt;
+    &lt;shared-table-iest [tableHead]&#x3D;&quot;tablem&quot; [data]&#x3D;&quot;dataEquipos&quot; /&gt;
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="grid animate__animated animate__fadeIn">  <mat-form-field class="col-6">    <mat-label>Concurso</mat-label>    <mat-select [(value)]="busqueda().idConcurso" (selectionChange)="getTeams()">      @for (concurso of selectedContest(); track $index) {        <mat-option [value]="concurso.idConcurso">{{ concurso.descripcion }}</mat-option>      }    </mat-select>  </mat-form-field>  <!--    <mat-form-field class="col-6">-->  <!--      <mat-label>Periodo</mat-label>-->  <!--      <mat-select (selectionChange)="getTeams()" [(value)]="busqueda().idPeriodo"-->  <!--                  [disabled]="true">-->  <!--        @for (concurso of selectedPeriod(); track $index) {-->  <!--          <mat-option [value]="concurso.idPeriodo">{{ concurso.Periodo }}</mat-option>-->  <!--        }-->  <!--      </mat-select>-->  <!--    </mat-form-field>-->  <mat-form-field class="col-6">    <mat-label>Tipos</mat-label>    <mat-select [(value)]="busqueda().tipo" (selectionChange)="getTeams()">      @for (concurso of selectedType(); track $index) {        <mat-option [value]="concurso.tipo">{{ concurso.descripcion }}</mat-option>      }    </mat-select>  </mat-form-field></div><div class="grid">  <div class="col">    <h3>Grupos:</h3>    <shared-table-iest [tableHead]="tableh" [data]="data" [isSelectionable]="true"                       (selectionableOutpu)="showTeamsTable($event)" />  </div>  <div class="col-4" [ngStyle]="{\'display\': selectedTeam() ? \'block\' : \'none\'}">    <h3>Integrantes:</h3>    <shared-table-iest [tableHead]="tablem" [data]="dataEquipos" />  </div></div></div>'
+    var COMPONENTS = [{'name': 'AlertDialogComponent', 'selector': 'shrd-alert-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalculadoraNuComponent', 'selector': 'app-calculadora-nu'},{'name': 'ConfiguracionGeneracionComponent', 'selector': ''},{'name': 'DetailItemComponent', 'selector': 'app-detail-item'},{'name': 'DialogAnimationsExampleDialog', 'selector': ''},{'name': 'GeneradorEspecificoComponent', 'selector': ''},{'name': 'GeneradorMasivoComponent', 'selector': ''},{'name': 'LoginScreenComponent', 'selector': ''},{'name': 'MainPageComponent', 'selector': 'app-main-page'},{'name': 'MainPageComponent', 'selector': ''},{'name': 'ModuloCerradoComponent', 'selector': 'app-modulo-cerrado'},{'name': 'ModuloCerradoComponent', 'selector': 'app-modulo-cerrado'},{'name': 'NoPermisosComponent', 'selector': 'app-no-permisos'},{'name': 'PageConfigComponent', 'selector': 'app-page-config'},{'name': 'PageConsultaComponent', 'selector': 'app-page-consulta'},{'name': 'PartidasPresupuestalesMainPageComponent', 'selector': ''},{'name': 'PrecioDependienteComponent', 'selector': 'form-precio-dependiente'},{'name': 'PrecioExternoComponent', 'selector': 'form-precio-externo'},{'name': 'PreciosExtraComponent', 'selector': 'form-extra-fee'},{'name': 'SelectPagaresGeneracionComponent', 'selector': 'app-select-pagares'},{'name': 'ShrdSpinnerComponent', 'selector': 'app-shrd-spinner'},{'name': 'SideNavComponent', 'selector': 'shrd-side-nav'},{'name': 'SnackBarComponent', 'selector': 'app-snack-bar'},{'name': 'TablaContraloriaComponent', 'selector': 'shrd-tabla'},{'name': 'TableIESTComponent', 'selector': 'shared-table-iest'},{'name': 'ToastIestComponent', 'selector': 'app-toast-iest'},{'name': 'VeranoCampamentoComponent', 'selector': ''}];
+    var DIRECTIVES = [{'name': 'PagoVerdeDirective', 'selector': '[pagoVerde]'}];
+    var ACTUAL_COMPONENT = {'name': 'PageConsultaComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PageConsultaComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

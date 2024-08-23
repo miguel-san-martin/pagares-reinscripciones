@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { accesoEscolarConfGuard } from './guard/acceso-escolar-conf.guard';
+import { GuardAccesoCirsos } from './modules/grupo-concurso-maestro/guard/guard-acceso.cirsos';
 
 export const routes: Routes = [
   {
@@ -30,7 +31,7 @@ export const routes: Routes = [
   },
   {
     path: 'concurso',
-    // canActivate: [accesoEscolarConfGuard],
+    canActivate: [GuardAccesoCirsos],
     loadChildren: () =>
       import(
         './modules/grupo-concurso-maestro/grupo-concurso-maestro.module'
