@@ -1,0 +1,1684 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>pagares-reinscripciones documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">pagares-reinscripciones documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  VeranoCampamentoComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./verano-campamento.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>../../../../shared/scss/custom-template-miguel-v2.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#catalogesList" >catalogesList</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#childishPriceData" >childishPriceData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#dependientes" >dependientes</a>
+                            </li>
+                            <li>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#externalPriceData" >externalPriceData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#externo" >externo</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#extra" >extra</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#extraPriceData" >extraPriceData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#formIsNotGenerated" >formIsNotGenerated</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#formIsVisible" >formIsVisible</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#maternalPriceData" >maternalPriceData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#precioExternoIsCorrect" >precioExternoIsCorrect</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#priceIsEditable" >priceIsEditable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#selectedCatalog" >selectedCatalog</a>
+                            </li>
+                            <li>
+                                <a href="#Service" >Service</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#showDebugButton" >showDebugButton</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#$emitSelectedCatalog" >$emitSelectedCatalog</a>
+                            </li>
+                            <li>
+                                <a href="#$generateNewPeriod" >$generateNewPeriod</a>
+                            </li>
+                            <li>
+                                <a href="#$openDialog" >$openDialog</a>
+                            </li>
+                            <li>
+                                <a href="#$reloadPage" >$reloadPage</a>
+                            </li>
+                            <li>
+                                <a href="#borrarGeneradoDev" >borrarGeneradoDev</a>
+                            </li>
+                            <li>
+                                <a href="#closePeriods" >closePeriods</a>
+                            </li>
+                            <li>
+                                <a href="#externalIsCorrect" >externalIsCorrect</a>
+                            </li>
+                            <li>
+                                <a href="#externalIsIncorrect" >externalIsIncorrect</a>
+                            </li>
+                            <li>
+                                <a href="#getPrecios" >getPrecios</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="$emitSelectedCatalog"></a>
+                    <span class="name">
+                        <span ><b>$emitSelectedCatalog</b></span>
+                        <a href="#$emitSelectedCatalog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>$emitSelectedCatalog(idPeriodo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idPeriodo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="$generateNewPeriod"></a>
+                    <span class="name">
+                        <span ><b>$generateNewPeriod</b></span>
+                        <a href="#$generateNewPeriod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>$generateNewPeriod()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="$openDialog"></a>
+                    <span class="name">
+                        <span ><b>$openDialog</b></span>
+                        <a href="#$openDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>$openDialog(enterAnimationDuration: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, exitAnimationDuration: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>enterAnimationDuration</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>exitAnimationDuration</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="$reloadPage"></a>
+                    <span class="name">
+                        <span ><b>$reloadPage</b></span>
+                        <a href="#$reloadPage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>$reloadPage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="borrarGeneradoDev"></a>
+                    <span class="name">
+                        <span ><b>borrarGeneradoDev</b></span>
+                        <a href="#borrarGeneradoDev"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>borrarGeneradoDev()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:175</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closePeriods"></a>
+                    <span class="name">
+                        <span ><b>closePeriods</b></span>
+                        <a href="#closePeriods"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closePeriods()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="externalIsCorrect"></a>
+                    <span class="name">
+                        <span ><b>externalIsCorrect</b></span>
+                        <a href="#externalIsCorrect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>externalIsCorrect()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="169"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:169</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="externalIsIncorrect"></a>
+                    <span class="name">
+                        <span ><b>externalIsIncorrect</b></span>
+                        <a href="#externalIsIncorrect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>externalIsIncorrect()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPrecios"></a>
+                    <span class="name">
+                        <span ><b>getPrecios</b></span>
+                        <a href="#getPrecios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPrecios(idPrecio: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idPrecio</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="catalogesList"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>catalogesList</b></span>
+                        <a href="#catalogesList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Cataloge.html" target="_self" >Cataloge[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="childishPriceData"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>childishPriceData</b></span>
+                        <a href="#childishPriceData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ResponseIdDescont.html" target="_self" >ResponseIdDescont[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dependientes"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>dependientes</b></span>
+                        <a href="#dependientes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/PrecioDependienteComponent.html" target="_self" >QueryList&lt;PrecioDependienteComponent&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChildren(PrecioDependienteComponent)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="137" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatDialog)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="externalPriceData"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>externalPriceData</b></span>
+                        <a href="#externalPriceData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ResponseGetFee.html" target="_self" >ResponseGetFee[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="externo"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>externo</b></span>
+                        <a href="#externo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/PrecioExternoComponent.html" target="_self" >PrecioExternoComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(PrecioExternoComponent)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="134" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:134</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extra"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>extra</b></span>
+                        <a href="#extra"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/PreciosExtraComponent.html" target="_self" >PreciosExtraComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(PreciosExtraComponent)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="135" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extraPriceData"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>extraPriceData</b></span>
+                        <a href="#extraPriceData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ResponseExtraFee.html" target="_self" >ResponseExtraFee[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formIsNotGenerated"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>formIsNotGenerated</b></span>
+                        <a href="#formIsNotGenerated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ResponseEditabilityPeriode.html" target="_self" >ResponseEditabilityPeriode | null</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formIsVisible"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>formIsVisible</b></span>
+                        <a href="#formIsVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="maternalPriceData"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>maternalPriceData</b></span>
+                        <a href="#maternalPriceData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ResponseIdDescont.html" target="_self" >ResponseIdDescont[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="precioExternoIsCorrect"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>precioExternoIsCorrect</b></span>
+                        <a href="#precioExternoIsCorrect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="priceIsEditable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>priceIsEditable</b></span>
+                        <a href="#priceIsEditable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCatalog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>selectedCatalog</b></span>
+                        <a href="#selectedCatalog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Service"></a>
+                    <span class="name">
+                        <span ><b>Service</b></span>
+                        <a href="#Service"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CampamentoIestService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showDebugButton"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>showDebugButton</b></span>
+                        <a href="#showDebugButton"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/modules/camping/pages/verano-campamento/verano-campamento.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  inject,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from &#x27;@angular/core&#x27;;
+import { MatDialog, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
+import { environment } from &#x27;environments/environment&#x27;;
+import { forkJoin, map, tap } from &#x27;rxjs&#x27;;
+import { PrecioDependienteComponent } from &#x27;../../components/precio-dependiente/precio-dependiente.component&#x27;;
+import { PrecioExternoComponent } from &#x27;../../components/precio-externo/precio-externo.component&#x27;;
+import { PreciosExtraComponent } from &#x27;../../components/precios-extra/precios-extra.component&#x27;;
+import { Cataloge } from &#x27;../../interfaces/devnull/catalogo&#x27;;
+import { ResponseEditabilityPeriode } from &#x27;../../interfaces/responses/response-editability-periode&#x27;;
+import { ResponseExtraFee } from &#x27;../../interfaces/responses/response-extra-fee&#x27;;
+import { ResponseGetFee } from &#x27;../../interfaces/responses/response-get-fee&#x27;;
+import { ResponseIdDescont } from &#x27;../../interfaces/responses/response-mother-child-price&#x27;;
+import { SelectedCatalog } from &#x27;../../interfaces/selected-catalog&#x27;;
+import { CampamentoIestService } from &#x27;../../services/campamento-iest.service&#x27;;
+
+@Component({
+  templateUrl: &#x27;./verano-campamento.component.html&#x27;,
+  styleUrl: &#x27;../../../../shared/scss/custom-template-miguel-v2.scss&#x27;,
+})
+export class VeranoCampamentoComponent implements OnInit {
+  Service &#x3D; inject(CampamentoIestService);
+  dialog &#x3D; inject(MatDialog);
+
+  public formIsVisible: boolean &#x3D; false;
+  public formIsNotGenerated!: ResponseEditabilityPeriode | null;
+  public priceIsEditable: boolean &#x3D; true;
+
+  public externalPriceData!: ResponseGetFee[];
+  public childishPriceData!: ResponseIdDescont[];
+  public maternalPriceData!: ResponseIdDescont[];
+  public extraPriceData!: ResponseExtraFee[];
+  public catalogesList!: Cataloge[];
+  public selectedCatalog!: string;
+  public precioExternoIsCorrect: boolean &#x3D; false;
+  public showDebugButton: boolean &#x3D; false;
+
+  ngOnInit(): void {
+    if (!environment.production) {
+      this.showDebugButton &#x3D; true;
+    }
+    //Obtenemos los periodos
+    this.Service.GetPeriods().subscribe((value: SelectedCatalog[]) &#x3D;&gt; {
+      this.catalogesList &#x3D; value;
+    });
+  }
+
+  // Metodo disparado tras seleccionar un periodo
+  $emitSelectedCatalog(idPeriodo: string) {
+    const editableObservable &#x3D; this.Service.CheckIfIsEditable(idPeriodo);
+
+    editableObservable
+      .pipe(
+        //? Originalmente el store me llega en array, lo convierto
+        map((array) &#x3D;&gt; array[0]),
+        tap(console.log),
+      )
+      .subscribe(
+        ({ estatus, existe, msj, idRegistro }: ResponseEditabilityPeriode) &#x3D;&gt; {
+          //? INFO: Estatus: No Capturado, Cerrado y PermiteCambios.
+          //? Existe: 0 que no se ha generado y 1 que ya esta generado.
+          //? Id registro sirve para poder mandar a llamar el endpoint para cerrar el periodo.
+
+          const flags &#x3D; [&#x27;No Capturado&#x27;, &#x27;PermiteCambios&#x27;];
+          this.priceIsEditable &#x3D; flags.includes(estatus);
+
+          this.formIsNotGenerated &#x3D; {
+            estatus,
+            existe,
+            msj,
+            idRegistro,
+          };
+          this.Service.thePeriodIsClosed &#x3D; {
+            estatus,
+            existe,
+            idRegistro,
+            msj,
+            idPeriodo: idPeriodo,
+          };
+
+          //? Oculta el formulario si no se ha generado.
+          if (existe &#x3D;&#x3D;&#x3D; &#x27;0&#x27;) this.formIsVisible &#x3D; false;
+
+          this.getPrecios(idPeriodo);
+        },
+      );
+  }
+
+  getPrecios(idPrecio: string) {
+    const observables &#x3D; [
+      this.Service.GetBaseFee(idPrecio),
+      this.Service.GetChildishPrices(idPrecio),
+      this.Service.GetMaternalPrices(idPrecio),
+      this.Service.GetAdditionalCosts(idPrecio),
+    ];
+    forkJoin(observables).subscribe(
+      ([baseFee, childPrices, maternalPrices, additionalCosts]) &#x3D;&gt; {
+        this.externalPriceData &#x3D; baseFee as ResponseGetFee[];
+        this.childishPriceData &#x3D; childPrices as ResponseIdDescont[];
+        this.maternalPriceData &#x3D; maternalPrices as ResponseIdDescont[];
+        this.extraPriceData &#x3D; additionalCosts as ResponseExtraFee[];
+
+        this.formIsVisible &#x3D; this.formIsNotGenerated?.existe !&#x3D;&#x3D; &#x27;0&#x27;;
+      },
+    );
+  }
+
+  //? SI: Generar nuevo año
+  $generateNewPeriod() {
+    this.formIsVisible &#x3D; false;
+    this.Service.GenerateMigrationNewPeriod(this.selectedCatalog).subscribe({
+      next: (response: any) &#x3D;&gt; {
+        this.formIsVisible &#x3D; true;
+        this.$emitSelectedCatalog(this.selectedCatalog);
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(error);
+      },
+      complete: () &#x3D;&gt; {},
+    });
+  }
+
+  //? NO: Generar periodo volver a cargar la pagina.
+  $reloadPage() {
+    window.location.reload();
+  }
+
+  @ViewChild(PrecioExternoComponent) externo!: PrecioExternoComponent;
+  @ViewChild(PreciosExtraComponent) extra!: PreciosExtraComponent;
+  @ViewChildren(PrecioDependienteComponent)
+  dependientes!: QueryList&lt;PrecioDependienteComponent&gt;;
+
+  $openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+  ): void {
+    const dialogRef &#x3D; this.dialog.open(DialogAnimationsExampleDialog, {
+      data: {},
+      width: &#x27;40%&#x27;,
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+    dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+      console.log(result);
+      if (result &#x3D;&#x3D; &#x27;yes&#x27;) this.closePeriods();
+    });
+  }
+
+  //? Funcion llamada para cerrar de los formularios en la vista
+  closePeriods() {
+    this.externo.cerrarPeriodo();
+    this.extra.closePeriode();
+    this.dependientes.forEach((child) &#x3D;&gt; child.cerrarPeriodo());
+    this.priceIsEditable &#x3D; false;
+    this.getPrecios(this.selectedCatalog);
+  }
+
+  externalIsIncorrect() {
+    this.extra.closePeriode();
+    this.dependientes.forEach((child) &#x3D;&gt; child.cerrarPeriodo());
+  }
+
+  externalIsCorrect() {
+    this.extra.closePeriode();
+    this.dependientes.forEach((child) &#x3D;&gt; child.openPeriodo());
+  }
+
+  //! Solo dev, borra el periodo actual y pone Existe en 0
+  borrarGeneradoDev() {
+    console.log(&#x27;Borrado periodo&#x27;, this.selectedCatalog);
+
+    this.Service.deleteGeneration(this.selectedCatalog).subscribe((r) &#x3D;&gt; {
+      window.location.reload();
+    });
+  }
+}
+
+//? Pone
+@Component({
+  templateUrl: &#x27;dialog.html&#x27;,
+})
+export class DialogAnimationsExampleDialog {
+  Service &#x3D; inject(CampamentoIestService);
+
+  constructor(public dialogRef: MatDialogRef&lt;DialogAnimationsExampleDialog&gt;) {}
+
+  closePeriod() {
+    const idRegistro &#x3D; this.Service.thePeriodIsClosed?.idRegistro;
+    this.Service.closePeriod(idRegistro).subscribe((respose) &#x3D;&gt; {
+      console.warn(&#x27;El periodo se ha cerrado&#x27;);
+    });
+
+    this.dialogRef.close(&#x27;yes&#x27;);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">
+
+
+&lt;div class&#x3D;&quot;grid animate__animated animate__fadeIn&quot; style&#x3D;&quot;justify-content: center;&quot;&gt;
+  &lt;h1 class&#x3D;&quot;col-12&quot;&gt;Costos campamento&lt;/h1&gt;
+
+  &lt;!-- Select catalog section --&gt;
+  &lt;mat-form-field class&#x3D;&quot;col-12&quot; style&#x3D;&quot;padding: 0%;&quot;&gt;
+    &lt;mat-label&gt;Edición&lt;/mat-label&gt;
+    &lt;mat-select (selectionChange)&#x3D;&quot;$emitSelectedCatalog($event.value)&quot; [(value)]&#x3D;&quot;selectedCatalog&quot; name&#x3D;&quot;catalogo&quot;&gt;
+      @for (catalogue of catalogesList; track catalogue) {
+      &lt;mat-option [value]&#x3D;&quot;catalogue.id&quot;&gt;{{ catalogue.descripcion }}&lt;/mat-option&gt;
+      }
+    &lt;/mat-select&gt;
+  &lt;/mat-form-field&gt;
+
+  @if (formIsVisible) {
+  &lt;div class&#x3D;&quot;col-12&quot;&gt;
+    &lt;form class&#x3D;&quot;grid&quot;&gt;
+
+      &lt;!-- Precio Externo --&gt;
+      &lt;div class&#x3D;&quot;col-12&quot;&gt;
+        &lt;form-precio-externo [data]&#x3D;&quot;externalPriceData&quot; [priceIsEditable]&#x3D;&quot;priceIsEditable&quot;&gt;&lt;/form-precio-externo&gt;
+      &lt;/div&gt;
+@if (precioExternoIsCorrect) {
+
+        &lt;!-- Precio Infantil --&gt;
+        &lt;div class&#x3D;&quot;col-6&quot;&gt;
+          &lt;form-precio-dependiente [data]&#x3D;&quot;childishPriceData&quot;
+            [priceIsEditable]&#x3D;&quot;priceIsEditable&quot;&gt;&lt;/form-precio-dependiente&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Precio Maternal --&gt;
+        &lt;div class&#x3D;&quot;col-6&quot;&gt;
+          &lt;form-precio-dependiente [data]&#x3D;&quot;maternalPriceData&quot;
+            [priceIsEditable]&#x3D;&quot;priceIsEditable&quot;&gt;&lt;/form-precio-dependiente&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Precio Extra --&gt;
+        &lt;div class&#x3D;&quot;col-12&quot;&gt;
+          &lt;form-extra-fee [data]&#x3D;&quot;extraPriceData&quot; [priceIsEditable]&#x3D;&quot;priceIsEditable&quot;&gt;
+
+          &lt;/form-extra-fee&gt;
+        &lt;/div&gt;
+
+}
+
+    &lt;/form&gt;
+  &lt;/div&gt;
+  }
+
+  &lt;!-- New Period alert message --&gt;
+  @if(formIsNotGenerated?.existe &#x3D;&#x3D; &#x27;0&#x27;){
+  &lt;div class&#x3D;&quot;col-6&quot;&gt;
+    &lt;shrd-alert-dialog [msj]&#x3D;&quot;formIsNotGenerated?.msj&quot; (actionYes)&#x3D;&quot;$generateNewPeriod()&quot;
+      (actionNo)&#x3D;&quot;$reloadPage()&quot;&gt;&lt;/shrd-alert-dialog&gt;
+  &lt;/div&gt;
+
+  }
+&lt;/div&gt;
+
+@if (formIsVisible) {
+
+&lt;div class&#x3D;&quot;col-12 text-center&quot;&gt;
+
+  &lt;!-- LOCK BUTTON --&gt;
+  @if (priceIsEditable &amp;&amp; precioExternoIsCorrect) {
+  &lt;button style&#x3D;&quot;margin-top: 1rem;&quot; mat-raised-button (click)&#x3D;&quot;$openDialog(&#x27;0ms&#x27;, &#x27;0ms&#x27;)&quot; mat-flat-button color&#x3D;&quot;warn&quot;&gt;
+    &lt;mat-icon&gt;lock&lt;/mat-icon&gt;
+    Terminar captura de periodo
+  &lt;/button&gt;
+  }
+
+  &lt;br /&gt;
+
+  &lt;!--Only for Debbugin --&gt;
+  @if (showDebugButton) {
+    &lt;button style&#x3D;&quot;margin-top: 2rem;&quot; (click)&#x3D;&quot;borrarGeneradoDev()&quot; mat-flat-button color&#x3D;&quot;accent&quot;&gt;
+      &lt;mat-icon&gt;
+      &lt;/mat-icon&gt;
+      PELIGRO BORRAR GENERACION SOLO DEV &lt;/button&gt;
+  }
+&lt;/div&gt;
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="grid animate__animated animate__fadeIn" style="justify-content: center;">  <h1 class="col-12">Costos campamento</h1>  <!-- Select catalog section -->  <mat-form-field class="col-12" style="padding: 0%;">    <mat-label>Edición</mat-label>    <mat-select (selectionChange)="$emitSelectedCatalog($event.value)" [(value)]="selectedCatalog" name="catalogo">      @for (catalogue of catalogesList; track catalogue) {      <mat-option [value]="catalogue.id">{{ catalogue.descripcion }}</mat-option>      }    </mat-select>  </mat-form-field>  @if (formIsVisible) {  <div class="col-12">    <form class="grid">      <!-- Precio Externo -->      <div class="col-12">        <form-precio-externo [data]="externalPriceData" [priceIsEditable]="priceIsEditable"></form-precio-externo>      </div>@if (precioExternoIsCorrect) {        <!-- Precio Infantil -->        <div class="col-6">          <form-precio-dependiente [data]="childishPriceData"            [priceIsEditable]="priceIsEditable"></form-precio-dependiente>        </div>        <!-- Precio Maternal -->        <div class="col-6">          <form-precio-dependiente [data]="maternalPriceData"            [priceIsEditable]="priceIsEditable"></form-precio-dependiente>        </div>        <!-- Precio Extra -->        <div class="col-12">          <form-extra-fee [data]="extraPriceData" [priceIsEditable]="priceIsEditable">          </form-extra-fee>        </div>}    </form>  </div>  }  <!-- New Period alert message -->  @if(formIsNotGenerated?.existe == \'0\'){  <div class="col-6">    <shrd-alert-dialog [msj]="formIsNotGenerated?.msj" (actionYes)="$generateNewPeriod()"      (actionNo)="$reloadPage()"></shrd-alert-dialog>  </div>  }</div>@if (formIsVisible) {<div class="col-12 text-center">  <!-- LOCK BUTTON -->  @if (priceIsEditable && precioExternoIsCorrect) {  <button style="margin-top: 1rem;" mat-raised-button (click)="$openDialog(\'0ms\', \'0ms\')" mat-flat-button color="warn">    <mat-icon>lock</mat-icon>    Terminar captura de periodo  </button>  }  <br />  <!--Only for Debbugin -->  @if (showDebugButton) {    <button style="margin-top: 2rem;" (click)="borrarGeneradoDev()" mat-flat-button color="accent">      <mat-icon>      </mat-icon>      PELIGRO BORRAR GENERACION SOLO DEV </button>  }</div>}</div>'
+    var COMPONENTS = [{'name': 'AlertDialogComponent', 'selector': 'shrd-alert-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalculadoraNuComponent', 'selector': 'app-calculadora-nu'},{'name': 'ConfiguracionGeneracionComponent', 'selector': ''},{'name': 'DetailItemComponent', 'selector': 'app-detail-item'},{'name': 'DialogAnimationsExampleDialog', 'selector': ''},{'name': 'GeneradorEspecificoComponent', 'selector': ''},{'name': 'GeneradorMasivoComponent', 'selector': ''},{'name': 'LoginScreenComponent', 'selector': ''},{'name': 'MainPageComponent', 'selector': 'app-main-page'},{'name': 'MainPageComponent', 'selector': ''},{'name': 'ModuloCerradoComponent', 'selector': 'app-modulo-cerrado'},{'name': 'ModuloCerradoComponent', 'selector': 'app-modulo-cerrado'},{'name': 'NoPermisosComponent', 'selector': 'app-no-permisos'},{'name': 'PageConfigComponent', 'selector': 'app-page-config'},{'name': 'PageConsultaComponent', 'selector': 'app-page-consulta'},{'name': 'PartidasPresupuestalesMainPageComponent', 'selector': ''},{'name': 'PrecioDependienteComponent', 'selector': 'form-precio-dependiente'},{'name': 'PrecioExternoComponent', 'selector': 'form-precio-externo'},{'name': 'PreciosExtraComponent', 'selector': 'form-extra-fee'},{'name': 'SelectPagaresGeneracionComponent', 'selector': 'app-select-pagares'},{'name': 'ShrdSpinnerComponent', 'selector': 'app-shrd-spinner'},{'name': 'SideNavComponent', 'selector': 'shrd-side-nav'},{'name': 'SnackBarComponent', 'selector': 'app-snack-bar'},{'name': 'TablaContraloriaComponent', 'selector': 'shrd-tabla'},{'name': 'TableIESTComponent', 'selector': 'shared-table-iest'},{'name': 'ToastIestComponent', 'selector': 'app-toast-iest'},{'name': 'VeranoCampamentoComponent', 'selector': ''}];
+    var DIRECTIVES = [{'name': 'PagoVerdeDirective', 'selector': '[pagoVerde]'}];
+    var ACTUAL_COMPONENT = {'name': 'VeranoCampamentoComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VeranoCampamentoComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
