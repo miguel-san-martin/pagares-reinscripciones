@@ -1,12 +1,59 @@
 import { Routes } from '@angular/router';
 import { accesoEscolarConfGuard } from './guard/acceso-escolar-conf.guard';
-import { GuardAccesoCirsos } from './modules/grupo-concurso-maestro/guard/guard-acceso.cirsos';
 
 export const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'concurso',
+    path: 'pagares',
+    loadChildren: () =>
+      import('./modules/pagares/pagares.module').then((m) => m.PagaresModule),
+  },
+  {
+    path: 'camp',
+    loadChildren: () =>
+      import('./modules/camping/camping.module').then((m) => m.CampingModule),
+  },
+  {
+    path: 'shirt-sale',
+    loadChildren: () =>
+      import('./modules/shirt-sale/shirt-sale.module').then(
+        (m) => m.ShirtSaleModule,
+      ),
+  },
+  {
+    path: 'module-closed',
+    loadComponent: () =>
+      import('./pages/modulo-cerrado/modulo-cerrado.component').then(
+        (c) => c.ModuloCerradoComponent,
+      ),
+  },
+  {
+    path: 'partidas-presupuestales',
+    loadComponent: () =>
+      import(
+        './modules/partidas-presupuestales/pages/partidas-presupuestales-main-page/partidas-presupuestales-main-page.component'
+      ).then((c) => c.PartidasPresupuestalesMainPageComponent),
+  },
+  {
+    path: 'config-escolares',
+    loadComponent: () =>
+      import(
+        './modules/admin-config-configuracion/page-config/page-config.component'
+      ).then((c) => c.PageConfigComponent),
+    canActivate: [accesoEscolarConfGuard],
+  },
+  {
+    path: 'esp-bachiller',
+    loadComponent: () =>
+      import(
+        './modules/especialidad-bachiller/main-page/main-page.component'
+      ).then((c) => c.MainPageComponent),
+  },
+  {
+    path: 'nu',
+    loadComponent: () =>
+      import('./modules/calculadora-nu/calculadora-nu.component').then(
+        (c) => c.CalculadoraNuComponent,
+      ),
   },
   {
     path: 'module-closed',
@@ -31,7 +78,7 @@ export const routes: Routes = [
   },
   {
     path: 'concurso',
-    canActivate: [GuardAccesoCirsos],
+    // canActivate: [accesoEscolarConfGuard],
     loadChildren: () =>
       import(
         './modules/grupo-concurso-maestro/grupo-concurso-maestro.module'
