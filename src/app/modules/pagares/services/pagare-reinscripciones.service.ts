@@ -1,23 +1,14 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  interval,
-  startWith,
-  tap,
-  map,
-  takeWhile,
-  take,
-  Observable,
-} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { interval, map, Observable, take, takeWhile, tap } from 'rxjs';
 import { ServicioBase } from '../../../services/servicio-base.service';
 import { Catalogo } from '../../../interfaces/catalogo';
-import { ResponseAlumnoService } from '../../../services/mappingServices/response-alumno.service';
 import { AlumnoResponse } from '../../../interfaces/responses/AlumnoResponse';
 import { GeneracionesResponse } from '../../../interfaces/generaciones-response';
 import { RequestAltaPagare } from '../../../interfaces/request/request-alta-pagare';
 import { CostoPromesaResponse } from '../../../interfaces/responses/costo-promesas.interface';
 import { ConsultaFecha } from '../../../interfaces/responses/consulta-fecha';
-import { SelectedPagareGeneracion } from '../../../interfaces/selected-pagare-generacion';
 import { RequestOperationGen } from '../../../interfaces/request/request-operation-gen';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +17,8 @@ export class PagareReinscripcionesService extends ServicioBase {
   constructor() {
     super();
   }
+
+  private httpClient2 = inject(HttpClient);
 
   startTiemer(lenght: number) {
     const observable = interval(1000).pipe(
@@ -65,6 +58,20 @@ export class PagareReinscripcionesService extends ServicioBase {
     const parametros = {
       servicio: 'pagaresMasivo',
       accion: 'CON_GeneracionPagares_Catalogos_Generaciones',
+      tipoRespuesta: 'json',
+    };
+    return this.consulta(
+      { ...parametros, ...extras },
+      '/api/contraloria/generaPagaresM.php',
+    );
+  }
+
+  public GetAlumnosAmbos(
+    extras: { indicador: string } = { indicador: '' },
+  ): Observable<any[]> {
+    const parametros = {
+      servicio: 'pagaresMasivo',
+      accion: 'CON_GeneracionPagares_Catalogos_Amboss',
       tipoRespuesta: 'json',
     };
     return this.consulta(
@@ -143,20 +150,29 @@ export class PagareReinscripcionesService extends ServicioBase {
     return `${dia}-${mes}-${año}`;
   }
 
-
-  public formatearStringAFecha(fechas:string[]){
-
-  }
+  public formatearStringAFecha(fechas: string[]) {}
 
   public PostAltaPagares(
     extras: RequestAltaPagare, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
   ): Observable<any> {
-    const parametros = {
-      servicio: 'pagaresMasivo',
-      accion: 'CON_GeneracionPagares_Administracion_Alta',
-      tipoRespuesta: 'json',
-    };
+    let parametros;
+    console.log('log', extras.idRegistro);
+
+    if (extras.idRegistro === undefined) {
+      parametros = {
+        servicio: 'pagaresMasivo',
+        accion: 'CON_GeneracionPagares_Administracion_Alta',
+        tipoRespuesta: 'json',
+      };
+    } else {
+      parametros = {
+        servicio: 'pagaresMasivo',
+        accion: 'CON_GeneracionPagares_ActualizaCostos_Fechas',
+        tipoRespuesta: 'json',
+      };
+    }
+
     return this.consulta(
       { ...parametros, ...extras },
       '/api/contraloria/generaPagaresM.php',
@@ -164,7 +180,7 @@ export class PagareReinscripcionesService extends ServicioBase {
   }
 
   public ConsultarCostoPromesas(
-    extras: {idOperacion:string, idGeneracion: string}, // envia un carcacter numero o nombre
+    extras: { idOperacion: string; idGeneracion: string }, // envia un carcacter numero o nombre
     //PER_BuscadoresPersonas,
   ): Observable<CostoPromesaResponse[]> {
     const parametros = {
@@ -213,5 +229,25 @@ export class PagareReinscripcionesService extends ServicioBase {
       { ...parametros, ...extras },
       '/api/contraloria/generaPagaresM.php',
     );
+  }
+
+  GenerateReports(
+    extras: RequestOperationGen, // envia un carcacter numero o nombre
+    //PER_BuscadoresPersonas,
+  ): Observable<any[]> {
+    const parametros = {
+      servicio: 'pagaresMasivo',
+      accion: 'CON_GeneracionPagares_Acciones_Genera',
+      tipoRespuesta: 'json',
+    };
+    return this.consulta(
+      { ...parametros, ...extras },
+      '/api/contraloria/generaPagaresM.php',
+    );
+  }
+
+  TestAPI(extra: any): Observable<any> {
+    const body = null;
+    return this.httpClient2.get('http://localhost:3002/especiality/');
   }
 }

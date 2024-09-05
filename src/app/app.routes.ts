@@ -1,22 +1,12 @@
 import { Routes } from '@angular/router';
+import { accesoEscolarConfGuard } from './guard/acceso-escolar-conf.guard';
+import { GuardAccesoCirsos } from './modules/grupo-concurso-maestro/guard/guard-acceso.cirsos';
 
 export const routes: Routes = [
   {
-    path: 'pagares',
-    loadChildren: () =>
-      import('./modules/pagares/pagares.module').then((m) => m.PagaresModule),
-  },
-  {
-    path: 'camp',
-    loadChildren: () =>
-      import('./modules/camping/camping.module').then((m) => m.CampingModule),
-  },
-  {
-    path: 'shirt-sale',
-    loadChildren: () =>
-      import('./modules/shirt-sale/shirt-sale.module').then(
-        (m) => m.ShirtSaleModule,
-      ),
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'concurso',
   },
   {
     path: 'module-closed',
@@ -24,5 +14,27 @@ export const routes: Routes = [
       import('./pages/modulo-cerrado/modulo-cerrado.component').then(
         (c) => c.ModuloCerradoComponent,
       ),
+  },
+  {
+    path: 'no-permits',
+    loadComponent: () =>
+      import('./pages/no-permisos/no-permisos.component').then(
+        (c) => c.NoPermisosComponent,
+      ),
+  },
+  {
+    path: 'login-screen',
+    loadComponent: () =>
+      import('./pages/login-screen/login-screen.component').then(
+        (c) => c.LoginScreenComponent,
+      ),
+  },
+  {
+    path: 'concurso',
+    canActivate: [GuardAccesoCirsos],
+    loadChildren: () =>
+      import(
+        './modules/grupo-concurso-maestro/grupo-concurso-maestro.module'
+      ).then((m) => m.GrupoConcursoMaestroModule),
   },
 ];

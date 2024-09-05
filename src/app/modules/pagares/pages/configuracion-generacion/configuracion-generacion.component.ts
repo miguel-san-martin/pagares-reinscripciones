@@ -1,41 +1,148 @@
-import { Component, OnInit, inject } from "@angular/core";
-import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
-import { RequestOperationGen } from "../../../../interfaces/request/request-operation-gen";
-import { ConsultaFecha } from "../../../../interfaces/responses/consulta-fecha";
-import { CostoPromesaResponse } from "../../../../interfaces/responses/costo-promesas.interface";
-import { SelectedPagareGeneracion } from "../../../../interfaces/selected-pagare-generacion";
-import { PagareReinscripcionesService } from "../../services/pagare-reinscripciones.service";
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  inject,
+  signal,
+  OnInit,
+} from '@angular/core';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
+import { RequestOperationGen } from '../../../../interfaces/request/request-operation-gen';
+import { ConsultaFecha } from '../../../../interfaces/responses/consulta-fecha';
+import { CostoPromesaResponse } from '../../../../interfaces/responses/costo-promesas.interface';
+import { SelectedPagareGeneracion } from '../../../../interfaces/selected-pagare-generacion';
+import { PagareReinscripcionesService } from '../../services/pagare-reinscripciones.service';
+import { RequestAltaPagare } from 'app/interfaces/request/request-alta-pagare';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarComponent } from '@shared/components/snack-bar/snack-bar.component';
+import { map } from 'rxjs';
 
+export interface dati {
+  date: any;
+}
 
 @Component({
   templateUrl: './configuracion-generacion.component.html',
   styleUrl: '../../../../shared/scss/custom-template-miguel-v2.scss',
 })
 export class ConfiguracionGeneracionComponent implements OnInit {
-  FB = inject(FormBuilder);
-  Service = inject(PagareReinscripcionesService);
+  readonly FB = inject(FormBuilder);
+  readonly Service = inject(PagareReinscripcionesService);
+  readonly SnackBar = inject(MatSnackBar);
 
-  formIsVisible = false;
-  sliderValue = 8;
-  public myForm!: FormGroup;
-  public get getFormControlArray() {
+  @ViewChild('montoInput') montoInput!: ElementRef; //View de generación el segundo select oculto.
+
+  readonly formIsVisible = signal<boolean>(false);
+  readonly hasMadeARequest = signal<boolean>(false);
+
+  showMontoField: boolean = true;
+  sliderValue: number = 1;
+
+  idOperacion!: string | null;
+  idGeneracion!: string | null;
+  idRegistro: string | undefined;
+
+  protected myForm = this.FB.group({
+    monto: [0, Validators.required],
+    cantidadPromesas: [1],
+    fechasPromesas: this.FB.array([]),
+  });
+
+  ngOnInit(): void {
+    this.myForm.reset();
+    this.addDate();
+  }
+
+  protected get getFormControlArray() {
     return this.myForm.get('fechasPromesas') as FormArray;
   }
 
-  ngOnInit(): void {
-    this.resetForm();
-    if (this.sliderValue == 1) this.addDate();
+  //Metodo que se ejecuta cuando detecta un detectSliderChange en la barra
+  protected detectSliderChange() {
+    while (this.getFormControlArray.length < this.sliderValue) {
+      this.addDate();
+    }
+    while (this.getFormControlArray.length > this.sliderValue) {
+      this.getFormControlArray.removeAt(this.sliderValue);
+    }
   }
 
-  public resetForm() {
-    this.myForm = this.FB.group({
-      monto: [0, Validators.required],
-      cantidadPromesas: [1],
-      fechasPromesas: this.FB.array([]),
+  /** Solicita llamada a back para poner en los "input" **/
+  protected loadDataOnForm({
+    catalog: idOperacion,
+    generation: idGeneracion,
+  }: SelectedPagareGeneracion) {
+    this.idOperacion = idOperacion;
+    this.idGeneracion = idGeneracion;
+    this.idRegistro = undefined;
+
+    // Limpiar formulario
+    this.myForm.reset();
+
+    // Bandera que se activa cuando el usuario hace su primer consulta
+    this.hasMadeARequest.set(true);
+
+    //Info que se mandara para consulta
+    const extra: RequestOperationGen = {
+      idOperacion: idOperacion ?? '',
+      idGeneracion: idGeneracion ?? '',
+    };
+
+    // Get
+    this.Service.ConsultarCostoPromesas(extra)
+      .pipe(map((value) => value[0]))
+      .subscribe(
+        (response: CostoPromesaResponse) => {
+          const { promesas, costo, idOperacion, id } = response;
+          this.idOperacion = idOperacion;
+          this.sliderValue = Number(promesas);
+          this.idRegistro = id;
+
+          this.myForm.patchValue({
+            monto: Number(costo),
+            cantidadPromesas: Number(promesas),
+          });
+
+          if (extra.idOperacion == '572') {
+            this.myForm.get('monto')?.patchValue(0);
+            this.showMontoField = false;
+          } else {
+            this.showMontoField = true;
+          }
+        },
+        // Si hay algun error
+        () => {
+          this.showSnackBar(true);
+        },
+      );
+
+    //Set Fechas
+    this.Service.ConsultarFechasPromesas(extra).subscribe(
+      (response: ConsultaFecha[]) => {
+        const fechasDate: Date[] = [];
+        response.forEach(({ FechaVencimiento }) => {
+          console.log(fechasDate.length + 1);
+          console.log(response);
+
+          //Regla de negocio, si el back menda que son 2 deben ser 2
+          if (fechasDate.length < this.sliderValue)
+            fechasDate.push(new Date(FechaVencimiento));
+        });
+        this.populateDateInputs(fechasDate);
+        // this.formIsVisible.set(true);
+      },
+    );
+  }
+
+  /** Llena los inputs **/
+  private populateDateInputs(arrayDates: Date[]) {
+    this.getFormControlArray.clear();
+    arrayDates.forEach((row: Date) => {
+      this.addDate(row);
     });
   }
 
-  //Añade campos al formulario de fechas
+  /** Añade fechas al Form **/
   private addDate(date: Date | null = null) {
     const grupo = this.FB.group({
       date: [date, Validators.required],
@@ -43,89 +150,72 @@ export class ConfiguracionGeneracionComponent implements OnInit {
     this.getFormControlArray.push(grupo);
   }
 
-  // Borra el control de fechas, recibe arrayDates, los va añadiendo uno a uno.
-  private setDateOnInputs(arrayDates: Date[]) {
-    this.getFormControlArray.setValue([]);
-    arrayDates.forEach((row: Date) => {
-      this.addDate(row);
-    });
-  }
+  /** Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24 **/
+  private formatDates(): string {
+    // @ts-expect-error Esto es correcto solo hay que confiar
+    const formDates: dati[] = this.myForm.get('fechasPromesas').value;
+    const numDates = (formDates?.length || 0) - 1;
 
-  //Metodo que se ejecuta cuando detecta un detectSliderChange en la barra
-  public detectSliderChange() {
+    if (formDates === undefined) return 'Error';
 
-    const size = this.getFormControlArray.length;
-    if (size < this.sliderValue) {
-      while (this.getFormControlArray.length < this.sliderValue) {
-        this.addDate();
-      }
-    } else {
-      while (this.getFormControlArray.length > this.sliderValue) {
-        this.getFormControlArray.removeAt(this.sliderValue);
-      }
-    }
-  }
-
-  /**
-   * Al seleccionar un select se manda a llamar para solicitar al back la informacion que poner en los input
-   *
-   * @param {SelectedPagareGeneracion} {catalog: idOperacion, generation: idGeneracion}
-   * @memberof ConfiguracionGeneracionComponent
-   */
-  public loadDataOnForm({catalog: idOperacion, generation: idGeneracion}: SelectedPagareGeneracion) {
-    // Limpiar formulario
-    this.resetForm();
-    this.formIsVisible = true;
-
-    //Info que se mandara para consulta
-    const extra: RequestOperationGen = {
-      idOperacion: idOperacion,
-      idGeneracion: idGeneracion,
-    };
-
-    //Set Monto
-    this.Service.ConsultarCostoPromesas(extra).subscribe(
-      (response: CostoPromesaResponse[]) => {
-        const { promesas, costo } = response[0];
-        this.sliderValue = Number(promesas);
-        this.myForm.patchValue({
-          monto: Number(costo),
-          cantidadPromesas: Number(promesas),
-        });
-      },
-    );
-
-    //Set Fechas
-    this.Service.ConsultarFechasPromesas(extra).subscribe(
-      (response: ConsultaFecha[]) => {
-        const fechasDate: Date[] = [];
-        response.forEach(({ FechaVencimiento }) => {
-          fechasDate.push(new Date(FechaVencimiento));
-        });
-        this.setDateOnInputs(fechasDate);
-      },
-    );
-  }
-
-  // Metodo que se ejecuta con el onsumit
-  onSave() {
-    // Tomar las fechas y las pone en formato 04-abr-24|04-abr-24|06-abr-24|26-abr-24|27-abr-24|26-abr-24|30-abr-24
-    let fechasConcat: string = '';
-    let fechas = this.myForm.get('fechasPromesas')?.value;
-    fechas = fechas.map((row: any) => {
-      fechasConcat = fechasConcat + this.Service.formatearFecha(row.date) + '|';
-      return this.Service.formatearFecha(row.date);
+    let dateResult: string = '';
+    formDates.forEach((row: dati, index: number) => {
+      dateResult = dateResult + this.Service.formatearFecha(row.date);
+      if (index != numDates) dateResult += '|';
     });
 
-    fechasConcat = fechasConcat.slice(0, fechasConcat.length - 1);
+    //Extracción del | del final.
+    //dateResult = dateResult.slice(0, dateResult.length - 1);
+    return dateResult;
+  }
 
-    console.log(fechasConcat);
+  // Metodo que se ejecuta con el on summit
+  protected onSave() {
+    if (this.idGeneracion === null || this.idOperacion === null)
+      return console.error('problema');
+    if (this.myForm.invalid) return this.showSnackBar(true);
 
     this.myForm.patchValue({
       cantidadPromesas: this.sliderValue,
     });
 
-    const monto = this.myForm.get('monto')?.value;
+    const monto: string = (this.myForm.get('monto')?.value ?? 0) + '';
 
+    let payload: RequestAltaPagare = {
+      idOperacion: this.idOperacion,
+      idGeneracion: this.idGeneracion,
+      monto: monto,
+      cantidadPromesas: this.sliderValue,
+      fechasPromesas: this.formatDates(),
+    };
+
+    if (this.idRegistro) {
+      payload = {
+        ...payload,
+        idRegistro: this.idRegistro,
+      };
+    }
+
+    console.log(`Informacion que se mandara`, payload);
+    this.Service.PostAltaPagares(payload).subscribe(() => {
+      this.showSnackBar();
+    });
+  }
+
+  /** Muestra snackbar **/
+  private showSnackBar(error: boolean = false) {
+    const config: {
+      duration: number;
+      data: { message: string; error: boolean };
+    } = {
+      data: {
+        message: !error
+          ? 'Información guardada con éxito'
+          : 'Error: Información no guardada',
+        error,
+      },
+      duration: 1800,
+    };
+    this.SnackBar.openFromComponent(SnackBarComponent, config);
   }
 }

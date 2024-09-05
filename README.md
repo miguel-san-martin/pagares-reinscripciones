@@ -34,7 +34,7 @@ Se pueden hacer tiles expansibles o no expansibles quitando la propiedad sub_nod
 ![image](https://github.com/miguel-san-martin/pagares-reinscripciones/assets/160758616/27156eca-0c56-487c-a0f8-f23452b5f89e)
 
 
-### Tabla contraloria
+### Tabla contraloria (DEPRECIADO)
 ```
   selector: 'shrd-tabla',
 

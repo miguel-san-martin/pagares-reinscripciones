@@ -1,0 +1,684 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>pagares-reinscripciones documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">pagares-reinscripciones documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#accesoEscolarConfGuard" title="src/app/guard/acceso-escolar-conf.guard.ts" ><b>accesoEscolarConfGuard</b>&nbsp;&nbsp;&nbsp;(src/.../acceso-escolar-conf.guard.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#appConfig" title="src/app/app.config.ts" ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../app.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.development.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.development.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GuardAccesoCirsos" title="src/app/modules/grupo-concurso-maestro/guard/guard-acceso.cirsos.ts" ><b>GuardAccesoCirsos</b>&nbsp;&nbsp;&nbsp;(src/.../guard-acceso.cirsos.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#HEADTABLE" title="src/app/modules/grupo-concurso-maestro/page-consulta/headTable.ts" ><b>HEADTABLE</b>&nbsp;&nbsp;&nbsp;(src/.../headTable.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#HEADTABLE" title="src/app/modules/pagares/pages/generador-masivo/headTable.ts" ><b>HEADTABLE</b>&nbsp;&nbsp;&nbsp;(src/.../headTable.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#HEADTABLEMINI" title="src/app/modules/grupo-concurso-maestro/page-consulta/headTable.ts" ><b>HEADTABLEMINI</b>&nbsp;&nbsp;&nbsp;(src/.../headTable.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LIST_OF_ICONS" title="src/app/shared/services/custom/icons-list.ts" ><b>LIST_OF_ICONS</b>&nbsp;&nbsp;&nbsp;(src/.../icons-list.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/app/guard/acceso-escolar-conf.guard.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="accesoEscolarConfGuard"></a>
+                    <span class="name">
+                        <span ><b>accesoEscolarConfGuard</b></span>
+                        <a href="#accesoEscolarConfGuard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanActivateFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(route, state) &#x3D;&gt; {
+  const router &#x3D; inject(Router);
+  const myService &#x3D; inject(AdministraConfiguracionService);
+
+  return myService.getListHorarios().pipe(
+    tap((response: any) &#x3D;&gt; {
+      if (response?.sucess &#x3D;&#x3D;&#x3D; &#x27;2&#x27;) {
+        console.log(&#x27;!!&#x27;);
+        return router.navigate([&#x27;/login-screen&#x27;]);
+      }
+      if (response.parametros[0].error &#x3D;&#x3D;&#x3D; &#x27;2&#x27;) {
+        console.error(
+          &#x27;                           ,---.\n&#x27; +
+            &#x27;                          /    |\n&#x27; +
+            &#x27;                         /     |\n&#x27; +
+            &#x27; ¡N O  P A S A R Á S !  /      |\n&#x27; +
+            &#x27;                       /       |\n&#x27; +
+            &quot;                 ___,&#x27;        |\n&quot; +
+            &quot;                &lt;  -&#x27;          :\n&quot; +
+            &quot;                 &#x60;-.__..--&#x27;&#x60;&#x60;-,__\n&quot; +
+            &#x27;                    |o/  o &#x60; :,.)_&#x60;&gt;\n&#x27; +
+            &#x27;                    :/ &#x60;     ||/)\n&#x27; +
+            &#x27;                    (_.).__,-&#x60; |\\\n&#x27; +
+            &#x27;                    /( &#x60;.&#x60;&#x60;   &#x60;| :\n&#x27; +
+            &quot;                    &#x27;&#x60;-.)  &#x60;  ; ;\n&quot; +
+            &#x27;                    | &#x60;       /-&lt;\n&#x27; +
+            &#x27;                    |     &#x60;  /   &#x60;.\n&#x27; +
+            &quot;    ,-_-..____     /|  &#x60;    :__..-&#x27;\\\n&quot; +
+            &quot;   /,&#x27;-.__\\  &#x60;&#x60;-./ :&#x60;      ;       \\\n&quot; +
+            &#x27;   &#x60; &#x60;  &#x60;\\   :  (   &#x60;  /  ,   &#x60;. \\\n&#x27; +
+            &#x27;     &#x60;    \\   |  | &#x60;   :  :     . \\\n&#x27; +
+            &#x27;       &#x60;_  ))  :  ;     |  |      ): :\n&#x27; +
+            &quot;     (&#x60;-.-&#x27; ||  |    &#x60; ;  ;       | |\n&quot; +
+            &#x27;      -_   &#x60;;;._   ( &#x60;  /  /_       | |\n&#x27; +
+            &quot;       &#x60;-.-.// ,&#x27;&#x60;-.___/_,&#x27;         ; |\n&quot; +
+            &#x27;          :: :     /     &#x60;     ,   /  |\n&#x27; +
+            &quot;           || |    (        ,&#x27; /   /   |\n&quot; +
+            &quot;           ||                ,&#x27;   /    |\n&quot;,
+        );
+        router.navigate([&#x27;/module-closed&#x27;]);
+      }
+      else if (response.parametros[0].error &#x3D;&#x3D;&#x3D; &#x27;1&#x27;) {
+        router.navigate([&#x27;/no-permits&#x27;]);
+      }
+      return true;
+    }),
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/app.config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="appConfig"></a>
+                    <span class="name">
+                        <span ><b>appConfig</b></span>
+                        <a href="#appConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ApplicationConfig</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  providers: [
+    provideRouter(routes,
+      withViewTransitions({ skipInitialTransition: true})),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    { provide: MAT_DATE_LOCALE, useValue: &#x27;es-MX&#x27; },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: &#x27;outline&#x27;} },
+  ],
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.development.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  /**
+   * Bandera para indicar si el entorno es un ambiente de producción o no.
+   */
+  production: false,
+  /**
+   * URL del servidor donde se está ejecutando el proyecto.
+   */
+  server: &#x27;http://localhost&#x27;,
+  /**
+   * URL absoluta del proyecto incluyendo subdirectorios.
+   */
+  url: &#x27;http://localhost:4200&#x27;,
+  /**
+   * Nombre del proyecto.
+   */
+  project: &#x27;registro-logistica&#x27;,
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Los valores especificados aquí serán reemplazados al momento de la
+construcción del proyecto por los contenidos en el archivo
+<code>enviroment.prod.ts</code> u otro a elección.</p>
+<p>La lista completa de archivos que siguen este comportamiento puede ser
+encontrada en <code>angular.json</code>.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  /**
+   * Bandera para indicar si el entorno es un ambiente de producción o no.
+   */
+  production: true,
+  /**
+   * URL del servidor donde se está ejecutando el proyecto.
+   */
+  server: &#x27;https://sie.iest.edu.mx&#x27;,
+  /**
+   * URL absoluta del proyecto incluyendo subdirectorios.
+   */
+  url: &#x27;https://sie.iest.edu.mx/app/alumnos/concursoBachilleratoProfesores/&#x27;,
+  /**
+   * Nombre del proyecto.
+   */
+  project: &#x27;recibos-caja&#x27;,
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Si no se especifica otro, los valores especificados aquí se usarán en
+al momento de la construcción.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/modules/grupo-concurso-maestro/guard/guard-acceso.cirsos.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GuardAccesoCirsos"></a>
+                    <span class="name">
+                        <span ><b>GuardAccesoCirsos</b></span>
+                        <a href="#GuardAccesoCirsos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanActivateFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(route, state) &#x3D;&gt; {
+  const router &#x3D; inject(Router);
+  const myService &#x3D; inject(GrupoconcursoService);
+
+  return myService.GetCatalogos().pipe(
+    tap((response: any) &#x3D;&gt; {
+      if (response.success &#x3D;&#x3D;&#x3D; 2) {
+        console.error(
+          &#x27;                           ,---.\n&#x27; +
+            &#x27;                          /    |\n&#x27; +
+            &#x27;                         /     |\n&#x27; +
+            &#x27; ¡N O  P A S A R Á S !  /      |\n&#x27; +
+            &#x27;                       /       |\n&#x27; +
+            &quot;                 ___,&#x27;        |\n&quot; +
+            &quot;                &lt;  -&#x27;          :\n&quot; +
+            &quot;                 &#x60;-.__..--&#x27;&#x60;&#x60;-,__\n&quot; +
+            &#x27;                    |o/  o &#x60; :,.)_&#x60;&gt;\n&#x27; +
+            &#x27;                    :/ &#x60;     ||/)\n&#x27; +
+            &#x27;                    (_.).__,-&#x60; |\\\n&#x27; +
+            &#x27;                    /( &#x60;.&#x60;&#x60;   &#x60;| :\n&#x27; +
+            &quot;                    &#x27;&#x60;-.)  &#x60;  ; ;\n&quot; +
+            &#x27;                    | &#x60;       /-&lt;\n&#x27; +
+            &#x27;                    |     &#x60;  /   &#x60;.\n&#x27; +
+            &quot;    ,-_-..____     /|  &#x60;    :__..-&#x27;\\\n&quot; +
+            &quot;   /,&#x27;-.__\\  &#x60;&#x60;-./ :&#x60;      ;       \\\n&quot; +
+            &#x27;   &#x60; &#x60;  &#x60;\\   :  (   &#x60;  /  ,   &#x60;. \\\n&#x27; +
+            &#x27;     &#x60;    \\   |  | &#x60;   :  :     . \\\n&#x27; +
+            &#x27;       &#x60;_  ))  :  ;     |  |      ): :\n&#x27; +
+            &quot;     (&#x60;-.-&#x27; ||  |    &#x60; ;  ;       | |\n&quot; +
+            &#x27;      -_   &#x60;;;._   ( &#x60;  /  /_       | |\n&#x27; +
+            &quot;       &#x60;-.-.// ,&#x27;&#x60;-.___/_,&#x27;         ; |\n&quot; +
+            &#x27;          :: :     /     &#x60;     ,   /  |\n&#x27; +
+            &quot;           || |    (        ,&#x27; /   /   |\n&quot; +
+            &quot;           ||                ,&#x27;   /    |\n&quot;,
+        );
+
+        return router.navigate([&#x27;/login-screen&#x27;]);
+      }
+      // if (response.parametros[0].error &#x3D;&#x3D;&#x3D; &#x27;2&#x27;) {
+      //   console.error(
+      //     &#x27;                           ,---.\n&#x27; +
+      //       &#x27;                          /    |\n&#x27; +
+      //       &#x27;                         /     |\n&#x27; +
+      //       &#x27; ¡N O  P A S A R Á S !  /      |\n&#x27; +
+      //       &#x27;                       /       |\n&#x27; +
+      //       &quot;                 ___,&#x27;        |\n&quot; +
+      //       &quot;                &lt;  -&#x27;          :\n&quot; +
+      //       &quot;                 &#x60;-.__..--&#x27;&#x60;&#x60;-,__\n&quot; +
+      //       &#x27;                    |o/  o &#x60; :,.)_&#x60;&gt;\n&#x27; +
+      //       &#x27;                    :/ &#x60;     ||/)\n&#x27; +
+      //       &#x27;                    (_.).__,-&#x60; |\\\n&#x27; +
+      //       &#x27;                    /( &#x60;.&#x60;&#x60;   &#x60;| :\n&#x27; +
+      //       &quot;                    &#x27;&#x60;-.)  &#x60;  ; ;\n&quot; +
+      //       &#x27;                    | &#x60;       /-&lt;\n&#x27; +
+      //       &#x27;                    |     &#x60;  /   &#x60;.\n&#x27; +
+      //       &quot;    ,-_-..____     /|  &#x60;    :__..-&#x27;\\\n&quot; +
+      //       &quot;   /,&#x27;-.__\\  &#x60;&#x60;-./ :&#x60;      ;       \\\n&quot; +
+      //       &#x27;   &#x60; &#x60;  &#x60;\\   :  (   &#x60;  /  ,   &#x60;. \\\n&#x27; +
+      //       &#x27;     &#x60;    \\   |  | &#x60;   :  :     . \\\n&#x27; +
+      //       &#x27;       &#x60;_  ))  :  ;     |  |      ): :\n&#x27; +
+      //       &quot;     (&#x60;-.-&#x27; ||  |    &#x60; ;  ;       | |\n&quot; +
+      //       &#x27;      -_   &#x60;;;._   ( &#x60;  /  /_       | |\n&#x27; +
+      //       &quot;       &#x60;-.-.// ,&#x27;&#x60;-.___/_,&#x27;         ; |\n&quot; +
+      //       &#x27;          :: :     /     &#x60;     ,   /  |\n&#x27; +
+      //       &quot;           || |    (        ,&#x27; /   /   |\n&quot; +
+      //       &quot;           ||                ,&#x27;   /    |\n&quot;,
+      //   );
+      //   router.navigate([&#x27;/module-closed&#x27;]);
+      // } else if (response.parametros[0].error &#x3D;&#x3D;&#x3D; &#x27;1&#x27;) {
+      //   router.navigate([&#x27;/no-permits&#x27;]);
+      // }
+      return true;
+    }),
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/modules/grupo-concurso-maestro/page-consulta/headTable.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="HEADTABLE"></a>
+                    <span class="name">
+                        <span ><b>HEADTABLE</b></span>
+                        <a href="#HEADTABLE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/HeaderTable.html" target="_self" >HeaderTable[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  { label: &#x27;Equipo&#x27;, namePropiedad: &#x27;idEquipo&#x27; },
+  { label: &#x27;Nombre Lider&#x27;, namePropiedad: &#x27;nombreLider&#x27; },
+  { label: &#x27;Fecha Alta&#x27;, namePropiedad: &#x27;fechaAlta&#x27; },
+  { label: &#x27;Descripcion&#x27;, namePropiedad: &#x27;descripcion&#x27; },
+  { label: &#x27;Tipo&#x27;, namePropiedad: &#x27;tipo&#x27; },
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="HEADTABLEMINI"></a>
+                    <span class="name">
+                        <span ><b>HEADTABLEMINI</b></span>
+                        <a href="#HEADTABLEMINI"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/HeaderTable.html" target="_self" >HeaderTable[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  { label: &#x27;ID IEST&#x27;, namePropiedad: &#x27;IDPERSON&#x27; },
+  { label: &#x27;Nombre&#x27;, namePropiedad: &#x27;nombre&#x27; },
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/modules/pagares/pages/generador-masivo/headTable.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="HEADTABLE"></a>
+                    <span class="name">
+                        <span ><b>HEADTABLE</b></span>
+                        <a href="#HEADTABLE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/HeaderTable.html" target="_self" >HeaderTable[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  { label: &#x27;ID&#x27;, namePropiedad: &#x27;idPerson&#x27; },
+  { label: &#x27;Nombre&#x27;, namePropiedad: &#x27;nombre&#x27; },
+  { label: &#x27;Carrera&#x27;, namePropiedad: &#x27;idGrado&#x27; },
+  { label: &#x27;Costo&#x27;, namePropiedad: &#x27;costoInsumos&#x27;, currency: &#x27;true&#x27; },
+  { label: &#x27;Correo&#x27;, namePropiedad: &#x27;correo&#x27; },
+  { label: &#x27;Responsable&#x27;, namePropiedad: &#x27;nombreResponsable&#x27; },
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/shared/services/custom/icons-list.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LIST_OF_ICONS"></a>
+                    <span class="name">
+                        <span ><b>LIST_OF_ICONS</b></span>
+                        <a href="#LIST_OF_ICONS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  {  &#x27;my-custom-icon&#x27; : &#x27;assets/icons/my-custom-icon.svg&#x27;},
+  {  &#x27;my-custom-icon2&#x27; : &#x27;assets/icons/my-custom-icon.svg&#x27;},
+  {  &#x27;my-custom-icon3&#x27; : &#x27;assets/icons/my-custom-icon.svg&#x27;},
+  {  &#x27;my-custom-icon4&#x27; : &#x27;assets/icons/my-custom-icon.svg&#x27;},
+  {  &#x27;my-custom-icon5&#x27; : &#x27;assets/icons/my-custom-icon.svg&#x27;},
+  {  &#x27;my-custom-icon6&#x27; : &#x27;assets/icons/my-custom-icon.svg&#x27;},
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

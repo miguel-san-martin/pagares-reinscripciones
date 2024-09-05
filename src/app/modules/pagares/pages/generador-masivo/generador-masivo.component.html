@@ -1,114 +1,158 @@
-<!-- -----------
-<mat-icon fontSet="material-symbols-outlined">poker_chip</mat-icon>
+<style>
+  @media (max-width: 1100px) {
+    .movil {
+      font-size: 14px;
+      flex-direction: column
+    }
 
-<mat-icon fontSet="material-symbols-outlined">
-  account_child_invert
-</mat-icon>
-<span class="material-symbols-outlined">
-  account_child_invert
-</span> -->
+    .movil-icon {
+      display: none;
+    }
+  }
+
+</style>
 
 <div class="grid  animate__animated animate__fadeIn">
-  <h1 class="col-11">Generación masiva</h1>
+  <h1 class="col-12">Generación masiva</h1>
 
   <!-- Select reutilizable -->
-  <app-select-pagares class="col-11" (selectedCatalog)="actualizarTabla($event)" />
+  <app-select-pagares #selectPagare (emitSelectedOption)="actualizarTabla($event)" (showPanel)="hiddenPanel($event)"
+                      class="col-12" />
 
-  <div class="col-11"
-    style="justify-content: space-evenly;align-items: center;align-content: center;flex-direction: row-reverse; text-align: center;">
 
-    <mat-card>
-      <mat-card-content class="grid" style="text-align: left;">
 
-        <div class="col-2">
-          <div style="display: flex; align-items: center;">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
-              style="color: rgb(74, 173, 70);" />
-            <span class="mat-h3" style="margin: 0px;">Costo</span> <br />
-          </div>
-          @if (infoBar.promesas !== '') {<span class="mat-h1">{{infoBar.costo | dineromxn }}</span>}
-        </div>
+  @if (showPanel()) {
+    <!--Panel-->
+    <div class="col-12 panel"
+         style="justify-content: space-evenly;align-items: center;align-content: center;flex-direction: row-reverse; text-align: center;">
 
-        <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
 
-        <div class="col-2">
-          <div style="display: flex; align-items: center;">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="autorenew"
-              style="color: rgb(197, 76, 191)" />
-            <span class="mat-h3" style="margin: 0px;">Promesas</span><br />
-          </div>
-          @if (infoBar.promesas !== '') {<span class="mat-h1">{{infoBar.promesas}} Meses</span>}
+      <mat-card style="margin-bottom: .75rem">
+        <mat-card-content class="grid movil" style="text-align: left; display: flex;">
 
-        </div>
+          @if (infoBar.costo != ".0000") {
+            <div class="col-2">
+              <div style="display: flex; align-items: center;">
 
-        <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0%;" />
-        <div class="col">
+                <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="attach_money"
+                          style="color: rgb(74, 173, 70);" />
+                <span class="mat-h3" style="margin: 0;">Costo</span> <br />
+              </div>
+              <span class="mat-h1">{{ infoBar.costo | DineroToCurrency }}</span>
+            </div>
+            <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0;" />
+          }
 
-          <div style="display: flex; align-items: center;">
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"
-              style="color: rgb(255, 56, 21)" />
-            <span class="mat-h3" style="margin: 0px;">Fechas</span>
-          </div>
 
-          <ul>
-            @for (fecha of infoBar.fechas; track $index) {
-            <li>{{fecha.FechaVencimiento | AMDtoDMA}}</li>
+          <div class="col-2">
+            <div style="display: flex; align-items: center;">
+              <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="autorenew"
+                        style="color: rgb(197, 76, 191)" />
+              <span class="mat-h3" style="margin: 0;">Promesas</span><br />
+            </div>
+            @if (infoBar.promesas) {
+              <span class="mat-h1">{{ infoBar.promesas }} Meses</span>
             }
-          </ul>
+
+          </div>
+
+          <mat-divider class="col-1" [vertical]="true" style="max-height: fit-content; padding: 0;" />
+          <div class="col">
+
+            <div style="display: flex; align-items: center;">
+              <mat-icon class="movil-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"
+                        style="color: rgb(255, 56, 21)" />
+              <span class="mat-h3" style="margin: 0;">Fechas</span>
+            </div>
+
+            <ul>
+              @for (fecha of infoBar.fechas; track $index) {
+                <li class="pointer-1">{{ fecha.FechaVencimiento | AMDtoDMA }}</li>
+              }
+            </ul>
+
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+
+      @if (data!) {
+
+        <div class="grid">
+          <mat-form-field class="col-10" style="font-size: 12px">
+            <mat-label>Filtrar tabla</mat-label>
+            <input matInput (keyup)="tabe.applyFilter($event)" placeholder="" #input>
+          </mat-form-field>
+
+          <!-- Botones -->
+          <div class="col" style="text-align:center">
+
+            <div class="grid" style="flex-direction: row">
+              <!--              <span class="mat-h3" style="margin: 3px;">Descargar:</span>-->
+              <button class="col-1" mat-flat-button color="primary" matTooltip="Descargar Excel"
+                      style="margin: auto; width: 45%; height: 56px; background-color: #348538; color: white"
+                      (click)="generateExcel()"
+                      [disabled]="disableGenerateButton">
+                <!--                <span style="padding-left: 0.5rem"> </span>-->
+                <mat-icon class="tac" style="margin: 0;">
+                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="1rem" height="1rem"
+                       viewBox="0 0 50 50">
+                    <path
+                      d="M 28.8125 0.03125 L 0.8125 5.34375 C 0.339844 5.433594 0 5.863281 0 6.34375 L 0 43.65625 C 0 44.136719 0.339844 44.566406 0.8125 44.65625 L 28.8125 49.96875 C 28.875 49.980469 28.9375 50 29 50 C 29.230469 50 29.445313 49.929688 29.625 49.78125 C 29.855469 49.589844 30 49.296875 30 49 L 30 1 C 30 0.703125 29.855469 0.410156 29.625 0.21875 C 29.394531 0.0273438 29.105469 -0.0234375 28.8125 0.03125 Z M 32 6 L 32 13 L 34 13 L 34 15 L 32 15 L 32 20 L 34 20 L 34 22 L 32 22 L 32 27 L 34 27 L 34 29 L 32 29 L 32 35 L 34 35 L 34 37 L 32 37 L 32 44 L 47 44 C 48.101563 44 49 43.101563 49 42 L 49 8 C 49 6.898438 48.101563 6 47 6 Z M 36 13 L 44 13 L 44 15 L 36 15 Z M 6.6875 15.6875 L 11.8125 15.6875 L 14.5 21.28125 C 14.710938 21.722656 14.898438 22.265625 15.0625 22.875 L 15.09375 22.875 C 15.199219 22.511719 15.402344 21.941406 15.6875 21.21875 L 18.65625 15.6875 L 23.34375 15.6875 L 17.75 24.9375 L 23.5 34.375 L 18.53125 34.375 L 15.28125 28.28125 C 15.160156 28.054688 15.035156 27.636719 14.90625 27.03125 L 14.875 27.03125 C 14.8125 27.316406 14.664063 27.761719 14.4375 28.34375 L 11.1875 34.375 L 6.1875 34.375 L 12.15625 25.03125 Z M 36 20 L 44 20 L 44 22 L 36 22 Z M 36 27 L 44 27 L 44 29 L 36 29 Z M 36 35 L 44 35 L 44 37 L 36 37 Z">
+                    </path>
+                  </svg>
+                </mat-icon>
+              </button>
+
+              <button class="col-1" mat-flat-button color="primary" matTooltip="Generar reportes"
+                      style="margin: auto; width: 45%; height: 56px"
+                      (click)="generarReporte()"
+                      [disabled]="mensajeRetro().mostrar">
+                <!--                <span style="padding-left: 0.5rem"> </span>-->
+                <mat-icon class="tac" style="margin: 0;">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                      d="M105.1 202.6c7.7-21.8 20.2-42.3 37.8-59.8c62.5-62.5 163.8-62.5 226.3 0L386.3 160 352 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l111.5 0c0 0 0 0 0 0l.4 0c17.7 0 32-14.3 32-32l0-112c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 35.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5zM39 289.3c-5 1.5-9.8 4.2-13.7 8.2c-4 4-6.7 8.8-8.1 14c-.3 1.2-.6 2.5-.8 3.8c-.3 1.7-.4 3.4-.4 5.1L16 432c0 17.7 14.3 32 32 32s32-14.3 32-32l0-35.1 17.6 17.5c0 0 0 0 0 0c87.5 87.4 229.3 87.4 316.7 0c24.4-24.4 42.1-53.1 52.9-83.8c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.5 62.5-163.8 62.5-226.3 0l-.1-.1L125.6 352l34.4 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L48.4 288c-1.6 0-3.2 .1-4.8 .3s-3.1 .5-4.6 1z" />
+                  </svg>
+                </mat-icon>
+              </button>
+
+
+            </div>
+          </div>
         </div>
-      </mat-card-content>
-    </mat-card>
 
-    <!--Inicio panel informativo verde-->
-    <!--     <div class="alert alert-success" role="alert">
-      <span><b>{{infoBar.msj}}</b> </span> <br />
-
-      <span><b>Costo:</b> {{infoBar.costo}} $</span> <br />
-
-      <span> <b>Promesas:</b> {{infoBar.promesas}} Meses</span> <br />
-
-      <span> <b>Fechas:</b> </span>
-      <ul>
-        @for (fecha of infoBar.fechas; track $index) {
-        <li>{{fecha.FechaVencimiento}}</li>
+        <!-- Barra de progreso procesando" | "error" | "completado -->
+        @if (mensajeRetro().mostrar) {
+          <div class="alert" [ngClass]="{
+              'alert-warning': mensajeRetro().estado === 'procesando',
+              'alert-success': mensajeRetro().estado === 'completado',
+              'alert-danger': mensajeRetro().estado === 'error'
+              }"
+               role="alert">
+            <span><b>{{ mensajeRetro().mensaje }}.</b></span>
+            <mat-progress-bar *ngIf="(mensajeRetro().estado === 'procesando')" mode="indeterminate"
+                              style="padding-bottom: 5px" />
+          </div>
         }
-      </ul>
+        <shrd-tabla #tabe class=" col-12 padding-off animate__animated animate__fadeIn"
+                    [data2]="data"
+                    [tableHead]="headTable"
+                    [checkList]="true"
+                    [requiereIndex]="true" />
+
+        <!--Fin panel informativo verde-->
+          <!-- Botones -->
+      }
 
 
-    </div> -->
-
-    <!-- Barra de progreso -->
-
-
-    @if (data!) {
-    <mat-progress-bar class="padding-off" mode="determinate" [value]="porcentajeAvance" style="margin: .7rem 0;" />
-    <span class="col-12 tac" style="margin-left: 0.5rem">{{ loaderBarProgress }} / de {{ data.length }}</span>
-
-    <shrd-tabla class="animate__animated animate__fadeIn" [data]="data" [tableHead]="headTable" [checkList]="true"
-      [requiereIndex]="true" class="col-12 padding-off" />
-
-
-    <!--Fin panel informativo verde-->
-    <!-- Botones -->
-    <div class="col" style="margin-top: 1rem;text-align:end ;padding: 0%;">
-      <button mat-flat-button color="primary" (click)="simularBarra()">
-        Generar
-      </button>
-      <button mat-flat-button color="primary" style="margin-left: 1rem">
-        <mat-icon class="tac" style="margin: 0">
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 50 50">
-            <path
-              d="M 28.8125 0.03125 L 0.8125 5.34375 C 0.339844 5.433594 0 5.863281 0 6.34375 L 0 43.65625 C 0 44.136719 0.339844 44.566406 0.8125 44.65625 L 28.8125 49.96875 C 28.875 49.980469 28.9375 50 29 50 C 29.230469 50 29.445313 49.929688 29.625 49.78125 C 29.855469 49.589844 30 49.296875 30 49 L 30 1 C 30 0.703125 29.855469 0.410156 29.625 0.21875 C 29.394531 0.0273438 29.105469 -0.0234375 28.8125 0.03125 Z M 32 6 L 32 13 L 34 13 L 34 15 L 32 15 L 32 20 L 34 20 L 34 22 L 32 22 L 32 27 L 34 27 L 34 29 L 32 29 L 32 35 L 34 35 L 34 37 L 32 37 L 32 44 L 47 44 C 48.101563 44 49 43.101563 49 42 L 49 8 C 49 6.898438 48.101563 6 47 6 Z M 36 13 L 44 13 L 44 15 L 36 15 Z M 6.6875 15.6875 L 11.8125 15.6875 L 14.5 21.28125 C 14.710938 21.722656 14.898438 22.265625 15.0625 22.875 L 15.09375 22.875 C 15.199219 22.511719 15.402344 21.941406 15.6875 21.21875 L 18.65625 15.6875 L 23.34375 15.6875 L 17.75 24.9375 L 23.5 34.375 L 18.53125 34.375 L 15.28125 28.28125 C 15.160156 28.054688 15.035156 27.636719 14.90625 27.03125 L 14.875 27.03125 C 14.8125 27.316406 14.664063 27.761719 14.4375 28.34375 L 11.1875 34.375 L 6.1875 34.375 L 12.15625 25.03125 Z M 36 20 L 44 20 L 44 22 L 36 22 Z M 36 27 L 44 27 L 44 29 L 36 29 Z M 36 35 L 44 35 L 44 37 L 36 37 Z">
-            </path>
-          </svg>
-        </mat-icon>
-      </button>
-      <!-- Botones -->
     </div>
-    }
-  </div>
-  <!-- Barra de progreso -->
+  }
+  @if (showLoader()) {
+    <mat-spinner style="margin: auto" />
+  }
 
-
-  <!-- Tabla  -->
 </div>

@@ -1,0 +1,32 @@
+<div style="justify-content: center;">
+  <mat-toolbar color="primary">
+    <span>Panel de Configuracion de Parametros</span>
+  </mat-toolbar>
+
+  <div class=" animate__animated animate__fadeIn tilesContainer grid">
+
+    @for (cat of map.keys(); track cat) {
+      <div class="sm:col-12 md:col-6 lg:col-3">
+        <h2>{{ cat | titlecase }}</h2>
+        <hr />
+        @for (m of map.get(cat); track m) {
+          <div class="tile" [matTooltip]="m.descripcion">
+
+          <span style="font-weight: 500">
+              {{ m.concepto }}
+          </span>
+
+          <mat-slide-toggle style="position: relative"
+          [checked]="!!m.parametroInt"
+          (change)="onChange(+m.idParametro)"/>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
+
+
+<div #loadingScreen id="loading-screen" class="loading-screen">
+  <mat-spinner></mat-spinner>
+</div>

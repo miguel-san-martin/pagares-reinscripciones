@@ -17,8 +17,12 @@
         "name": "Configuración",
         "path": "./pagares/config",
         "img": "settings"
+      },
+      {
+        "name": "Consulta Toga",
+        "path": "./masiva",
+        "img": "search"
       }
-
     ]
   },
   {
@@ -33,24 +37,60 @@
     ]
   },
   {
-    "name": "Toga",
-    "img": "school",
+    "name": "Escolares",
+    "img": "square_foot",
     "sub_nodes": [
       {
-        "name": "Consulta Toga",
-        "path": "./masiva",
-        "img": "search"
+        "name": "Configuración Horarios",
+        "img": "schedule",
+        "path": "config-escolares"
+      },
+      {
+        "name": "Concursos de Maestros",
+        "img": "editor_choice",
+        "path": "concurso/concursos-maestro"
       }
     ]
   },
   {
-    "name": "Modulo Cerrado",
-    "img": "star_rate",
-    "path": "module-closed"
+    "name": "Paginas Templates",
+    "img": "grid_guides",
+    "sub_nodes": [
+      {
+        "name": "Modulo Cerrado",
+        "img": "star_rate",
+        "path": "module-closed"
+      },
+      {
+        "name": "Sin Permisos",
+        "img": "star_rate",
+        "path": "no-permits"
+      },
+      {
+        "name": "Inicia Session",
+        "img": "star_rate",
+        "path": "login-screen"
+      },
+      {
+        "name": "Nu",
+        "path": "./nu",
+        "img": "school"
+      },
+      {
+        "name": "Partidas Prosupuestales",
+        "img": "send_money",
+        "path": "partidas-presupuestales"
+      }
+    ]
   },
   {
-    "name": "Playeras",
+    "name": "Modulo Playeras",
     "img": "apparel",
     "path": "shirt-sale"
+  },
+  {
+    "name": "Especialidades",
+    "img": "hotel_class",
+    "path": "esp-bachiller"
   }
 ]

@@ -3,38 +3,49 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+export interface params {
+  servicio: string;
+  accion: string;
+  tipoRespuesta: string;
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ServicioBase {
   /**
    * Inyección de dependencias.
    */
   private httpClient = inject(HttpClient);
+  public nombre: string = 'null';
   /**
    * URL del endpoint que usará la aplicación para conectarse a la API.
    */
   private static readonly API_URL = '/api/administrativo/Modulo_Logistica.php';
 
-  constructor() { }
+  constructor() {}
 
   protected consulta(
     params: any,
-    apiUrl: string = ServicioBase.API_URL
+    apiUrl: string = ServicioBase.API_URL,
   ): Observable<any> {
     const formData: FormData = new FormData();
 
-    Object.keys(params).forEach((key) => {
+    Object.keys(params).forEach((key: string) => {
       formData.append(key, params[key]);
     });
 
     return this.httpClient
-      .post<any>(environment.server + apiUrl, formData)
+      .post<any>(
+        environment.server + apiUrl + `?accion=${params.accion}`,
+        formData,
+      )
       .pipe(map((res) => (res.info ? res.info : res)));
   }
+
   protected consultaDetallada(
     params: any,
-    apiUrl: string = ServicioBase.API_URL
+    apiUrl: string = ServicioBase.API_URL,
   ): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
@@ -49,10 +60,9 @@ export class ServicioBase {
       {
         reportProgress: true,
         responseType: 'json',
-      }
+      },
     );
 
     return this.httpClient.request(peticion);
   }
-
 }

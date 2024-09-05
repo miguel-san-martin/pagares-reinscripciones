@@ -18,6 +18,7 @@ export class ServicioBase {
 
   constructor() { }
 
+
   protected consulta(
     params: any,
     apiUrl: string = ServicioBase.API_URL

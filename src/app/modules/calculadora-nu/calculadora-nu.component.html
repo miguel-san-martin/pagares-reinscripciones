@@ -1,0 +1,23 @@
+<mat-form-field class="form-fiel">
+  <mat-label> Dinero en NU</mat-label>
+  <input matInput type="text" [(ngModel)]="value">
+</mat-form-field>
+<span>Tasa de rendimiento:</span>
+<span class="label purple">
+  {{ rendimiento }} %
+</span>
+
+<span>Al dia ganarias:</span>
+<span class="label">
+  {{ dia() | number }}
+</span>
+
+<span>Al Mes ganarias:</span>
+<span class="label">
+  {{ mes() | number }}
+</span>
+
+<span>Al Año ganarias:</span>
+<span class="label">
+  {{ year() | number }}
+</span>

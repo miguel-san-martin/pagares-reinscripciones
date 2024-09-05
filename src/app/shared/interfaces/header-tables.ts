@@ -1,5 +1,6 @@
 export interface HeaderTable {
-  label: string,
-  namePropiedad: string,
-  checklist?: string
+  label: string;
+  namePropiedad: string;
+  checklist?: string;
+  currency?: string;
 }

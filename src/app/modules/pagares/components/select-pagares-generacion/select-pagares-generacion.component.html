@@ -1,9 +1,10 @@
 <!-- Iniciar Select Tipos de Pagare -->
-<div class="grid" >
-  <mat-form-field class="col " style="padding: 0%;">
+<div class="grid">
+  <mat-form-field class="col " style="padding: 0;">
     <mat-label>Pagares</mat-label>
-    <mat-select (selectionChange)="emitSelectedCatalog($event.value)" [(value)]="selectedCataloge.catalog" name="catalogo">
-      @for (pagare of listaPagare; track pagare) {
+    <mat-select (selectionChange)="onSelectPagare()" [(value)]="selectedCataloge.catalog" name="catalogo"
+                (selectionchange)="dirty.emit($event)">
+      @for (pagare of listaCatalogos; track pagare) {
         <mat-option [value]="pagare.id">{{ pagare.descripcion }}</mat-option>
       }
     </mat-select>
@@ -12,15 +13,26 @@
 
   <!-- Select de generacion que solo aplica en 2 casos-->
   <div #generacion style="display: none">
-    <mat-form-field class="col-6" style="padding: 0%; margin-left: 1rem">
-      <mat-label>Generacion</mat-label>
-      <mat-select (selectionChange)="emitSelectedCatalog($event.value)" [(value)]="selectedCataloge.generation" name="catalogo">
-        @for (generacion of listaGeneraciones; track generacion) {
-          <mat-option [value]="generacion.id">{{ generacion.nombre }}</mat-option>
+    <mat-form-field class="col-6" style="padding: 0; margin-left: 1rem">
+      <mat-label>{{ Number(showGenerationTipe()) === 963 ? "Tipo" : "Generacion" }}</mat-label>
+      <mat-select (selectionChange)="onSelectGeneration()" [(value)]="selectedCataloge.generation" name="catalogo">
+        @if (Number(showGenerationTipe()) !== 963) {
+          @for (generacion of listaGeneraciones; track generacion) {
+            <mat-option [value]="generacion.id">{{ generacion.nombre }}</mat-option>
+          }
+        } @else {
+          @for (values of listaAmboss; track values) {
+            <mat-option [value]="values.id">{{ values.nombre }}</mat-option>
+          }
         }
+
+
       </mat-select>
     </mat-form-field>
   </div>
+
+
 </div>
-  <!-- Select de generacion que solo aplica en 2 casos-->
+<!-- Select de generacion que solo aplica en 2 casos-->
+
 

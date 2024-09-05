@@ -1,0 +1,51 @@
+@if (activo()) {
+  <app-toast-iest [hidden]="barra()" #toast></app-toast-iest>
+}
+
+@if (students().data) {
+  <h1> Modulo de Cambio de Especialidad de Alumnos</h1>
+
+  <mat-form-field>
+    <mat-label>Búsqueda por nombre o #IDIEST</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+
+  <section tabindex="0">
+    <table mat-table [dataSource]="students()">
+
+      <ng-container matColumnDef="alumno" sticky>
+        <th mat-header-cell *matHeaderCellDef="let element"> Nombre</th>
+        <td mat-cell *matCellDef="let element"> {{ element.alumno }}</td>
+      </ng-container>
+
+      <!--    Especialidades dinamicas -->
+      @for (esp of especialidades(); track $index) {
+        <ng-container [matColumnDef]="esp.abreviatura">
+          <th mat-header-cell *matHeaderCellDef
+              style="cursor: pointer"
+              [matTooltip]="esp.nombre">
+            {{ esp.abreviatura }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-radio-button (change)="modifySpeciality($event,esp.id)" [name]="element.IDIEST"
+                              [value]="element.IDIEST"
+                              [checked]="element.especialidad === esp.id" />
+          </td>
+        </ng-container>
+      } @empty {
+        <h1>No hay resultados</h1>
+      }
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row
+          *matRowDef="let row;let even = even; columns: displayedColumns;"
+          [ngClass]="{grayrow: even}"></tr>
+    </table>
+  </section>
+} @else {
+  Si no carga es porque lauro no ha hecho los API's
+  <app-shrd-spinner></app-shrd-spinner>
+}
+
+
+

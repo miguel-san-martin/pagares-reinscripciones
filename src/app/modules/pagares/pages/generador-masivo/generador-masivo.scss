@@ -1,0 +1,41 @@
+@import "../../../../shared/scss/custom-template-miguel-v2.scss";
+
+:host ::ng-deep {
+  .mat-h3 {
+    font-family: 'Inter', sans-serif;
+    color: rgb(107, 114, 128);
+    font-size: 14px;
+    font-weight: 500;
+
+  }
+
+  .mat-h1 {
+    font-family: 'Inter', sans-serif;
+    color: rgb(51, 51, 51);
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .pointer-1 {
+    font-family: 'Inter', sans-serif;
+    color: rgb(9, 9, 11);
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .panel {
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    flex-direction: row-reverse;
+    text-align: center;
+  }
+
+
+  .mat-button.mat-success,
+  .mat-stroked-button.mat-success {
+    color: #155724 !important;
+  }
+
+}
+
