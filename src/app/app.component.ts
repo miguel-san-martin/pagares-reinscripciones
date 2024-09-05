@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngAfterViewInit(): void {
-    this.drawer.close();
+    // this.drawer.close();
   }
 
   title = 'Contraloría';

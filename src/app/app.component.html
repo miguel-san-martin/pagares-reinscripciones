@@ -10,12 +10,12 @@
 <mat-toolbar color="primary">
   <mat-icon class="material-symbols-outlined" style="padding: .5rem ; cursor: pointer" (click)="closemap()">menu
   </mat-icon>
-  <span>{{ title }}</span>
+  <span>{{ title }}s</span>
   <!--Nombre del módulo que aparece al inicio, en la barra naranja-->
 </mat-toolbar>
 
 <mat-drawer-container>
-  <mat-drawer class="movil-size" #drawer mode="side" [opened]="false">
+  <mat-drawer class="movil-size" #drawer mode="side" [opened]="true">
 
     <shrd-side-nav></shrd-side-nav>
   </mat-drawer>
