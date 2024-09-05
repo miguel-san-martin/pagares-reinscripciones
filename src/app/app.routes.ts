@@ -83,5 +83,12 @@ export const routes: Routes = [
       import(
         './modules/grupo-concurso-maestro/grupo-concurso-maestro.module'
       ).then((m) => m.GrupoConcursoMaestroModule),
+    },
+    {
+    path: 'busqueda-pagares',
+    loadComponent: () =>
+      import(
+        './modules/busqueda-pagares/components/layout/layout.component'
+      ).then((c) => c.LayoutComponent),
   },
 ];

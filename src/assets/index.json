@@ -49,6 +49,11 @@
         "name": "Concursos de Maestros",
         "img": "editor_choice",
         "path": "concurso/concursos-maestro"
+        },
+        {
+        "name": "Consulta Toga",
+        "path": "./busqueda-pagares",
+        "img": "search"
       }
     ]
   },

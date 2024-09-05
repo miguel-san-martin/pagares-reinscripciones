@@ -1,0 +1,39 @@
+<h1 style="padding-left: 0.5rem;"> Buscar pagares por caja física </h1>
+<div class="flex-container">
+  <div class="flex-6">
+    <mat-form-field style="width: 100%;">
+      <mat-label>Nombre</mat-label>
+      <input
+        type="text"
+        (input)="searchAlumnos()"
+        matInput
+        [formControl]="nameCtrl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+        @for (alumno of alumnos; track alumno.idalumno) {
+          <mat-option [value]="alumno">
+            <small><strong>ID IEST</strong>: {{ alumno.idperson }}</small>
+            <br />
+            <span>{{ alumno.nombre | titlecase }}</span>
+          </mat-option>
+        }
+
+      </mat-autocomplete>
+    </mat-form-field>
+    @if(mostrarMensaje) {
+      <mat-error pagoVerde>{{ getErrorMessage }}</mat-error>
+    }
+  </div>
+  <div class="flex-5 ">
+    <button mat-raised-button
+    (click)="abrirNavegador()"
+    [disabled]="!buttonState"
+    style="height: 56px;"
+    color="warn">
+      Descargar Recibo
+    </button>
+  </div>
+</div>
+<mat-divider></mat-divider>
+
