@@ -67,7 +67,7 @@ export class CajaElectronicaComponent implements OnInit, AfterViewInit {
       idgrado: grado as string, // Aqui le dije tu confia no va a ser null ni undefined
       fechaInicio: this.cc.formatearFecha(fechasInicio),
       fechaFin: this.cc.formatearFecha(fechaFin),
-      idcaja: '0',
+      idcaja: '14',
     };
 
     this.cc
